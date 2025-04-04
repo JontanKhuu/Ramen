@@ -15,9 +15,18 @@ run/main_scene="uid://b7j3lm2yhyfp8"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/borderless=true
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/utility_ai/plugin.cfg")
+
+[global_group]
+
+TILEMAP=""
 
 [rendering]
 
