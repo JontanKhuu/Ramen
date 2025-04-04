@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=10 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://World/UI Assets/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://World/UI Assets/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
 [ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://World/UI Assets/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
 [ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://World/UI Assets/Calendar/Calendar.tscn" id="4_3f78f"]
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/tile_map.tscn" id="5_k8do8"]
+[ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/npc.tscn" id="6_bkhv4"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_k8do8")
@@ -43,6 +44,7 @@ metadata/_custom_type_script = "uid://cc7l2f6hcr6ka"
 [node name="Calendar" parent="CanvasLayer" instance=ExtResource("4_3f78f")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
+visible = false
 position = Vector2(576, 281)
 color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
@@ -54,6 +56,9 @@ night_start = SubResource("Resource_k8do8")
 time_system = NodePath("../TimeSystem")
 
 [node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
+
+[node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
+position = Vector2(47, 31)
 
 [connection signal="updated" from="TimeSystem" to="CanvasLayer/Calendar" method="_on_time_system_updated"]
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
