@@ -10,12 +10,8 @@ extends CharacterBody2D
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 
 enum LOOKING_FOR{
-	NONE,
-	WOOD
+	NONE, WOOD
 }
-
-var looking_for_wood : bool = false
-
 var is_moving : bool = false
 var _target
 
@@ -25,7 +21,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	print(_target)
 	_handle_target(delta)
-
 
 func _handle_target(delta: float):
 	if !_target:

@@ -60,5 +60,9 @@ time_system = NodePath("../TimeSystem")
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
 position = Vector2(47, 31)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(381, 220)
+zoom = Vector2(1.5, 1.5)
+
 [connection signal="updated" from="TimeSystem" to="CanvasLayer/Calendar" method="_on_time_system_updated"]
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
