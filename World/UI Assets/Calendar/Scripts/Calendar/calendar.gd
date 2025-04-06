@@ -27,11 +27,15 @@ func Calendar_Pressed() -> void:
 	if !is_instance_valid(instance):
 		instance = calendar_sprite.instantiate()
 		add_child(instance)
-		var pos_x = get_viewport().size.x - instance.size.x 
-		var pos_y = get_viewport().size.y - instance.size.y
+		var pos_x = size.x - instance.size.x 
+		var pos_y = size.y - instance.size.y
 		instance.position = Vector2(pos_x,pos_y)/2
 	else:
 		print("Calendar is already visible")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("ui_cancel"):
+		close_calendar()
 
 func close_calendar() -> void:
 	if Input.is_key_pressed(KEY_ESCAPE) and is_instance_valid(instance):

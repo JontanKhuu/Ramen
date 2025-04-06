@@ -23,7 +23,6 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	print(_target)
 	_handle_target(delta)
 
 

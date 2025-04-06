@@ -1,13 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=10 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://World/UI Assets/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://World/UI Assets/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
+[ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://World/UI Assets/MainUI/mainUI.tscn" id="3_bkhv4"]
 [ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://World/UI Assets/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
-[ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://World/UI Assets/Calendar/Calendar.tscn" id="4_3f78f"]
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/tile_map.tscn" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
-[ext_resource type="Script" uid="uid://cls7seatrex6l" path="res://World/UI Assets/ResourceTrack/Scripts/resource_tracka.gd" id="6_yf0ba"]
-[ext_resource type="Texture2D" uid="uid://cctvi8owi317h" path="res://World/UI Assets/ResourceTrack/Assets/tempgold.png" id="7_eidgh"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_k8do8")
@@ -41,9 +39,7 @@ date_time = SubResource("Resource_bkhv4")
 ticks_per_second = 10000
 metadata/_custom_type_script = "uid://cc7l2f6hcr6ka"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Calendar" parent="CanvasLayer" instance=ExtResource("4_3f78f")]
+[node name="MainUI" parent="." instance=ExtResource("3_bkhv4")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
 visible = false
@@ -60,63 +56,10 @@ time_system = NodePath("../TimeSystem")
 [node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
 position = Vector2(81, -116)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="GUI" type="Control" parent="CanvasLayer2"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer2/GUI"]
-layout_mode = 2
-offset_left = 560.0
-offset_right = 600.0
-offset_bottom = 67.0
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 0
-
-[node name="ResourceTracka" type="VBoxContainer" parent="CanvasLayer2/GUI/MarginContainer"]
-layout_mode = 2
-script = ExtResource("6_yf0ba")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer2/GUI/MarginContainer/ResourceTracka"]
-layout_mode = 2
-expand_mode = 4
-
-[node name="Label" type="Label" parent="CanvasLayer2/GUI/MarginContainer/ResourceTracka"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer2/GUI"]
-layout_mode = 0
-offset_left = 560.0
-offset_right = 600.0
-offset_bottom = 67.0
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 0
-
-[node name="ResourceTracka" type="VBoxContainer" parent="CanvasLayer2/GUI/MarginContainer2"]
-layout_mode = 2
-script = ExtResource("6_yf0ba")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer2/GUI/MarginContainer2/ResourceTracka"]
-layout_mode = 2
-texture = ExtResource("7_eidgh")
-expand_mode = 4
-
-[node name="Label" type="Label" parent="CanvasLayer2/GUI/MarginContainer2/ResourceTracka"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
 position = Vector2(47, 31)
 
-[connection signal="updated" from="TimeSystem" to="CanvasLayer/Calendar" method="_on_time_system_updated"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(571, 332)
+
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
