@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8y487xspadw6"
-path="res://.godot/imported/Gravestone Timer.png-5a452732e563efcd5da82a93030f9fb5.ctex"
+uid="uid://caucuct4wh8m2"
+path="res://.godot/imported/buildingIcons.png-e3b4555f5f5ad6e61ec5434d4fa7f3fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/UI Assets/Calendar/Assets/Gravestone Timer.png"
-dest_files=["res://.godot/imported/Gravestone Timer.png-5a452732e563efcd5da82a93030f9fb5.ctex"]
+source_file="res://UI/ResourceTrack/Assets/buildingIcons.png"
+dest_files=["res://.godot/imported/buildingIcons.png-e3b4555f5f5ad6e61ec5434d4fa7f3fb.ctex"]
 
 [params]
 

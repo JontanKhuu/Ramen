@@ -4,7 +4,7 @@ extends Control
 @onready var hours_label: Label = $ClockControl/hours 
 @onready var minutes_label: Label = $ClockControl/minutes
 
-var calendar_sprite = preload("res://World/UI Assets/Calendar/Calendar_Menu.tscn")
+var calendar_sprite = preload("res://UI/Calendar/Calendar_Menu.tscn")
 @onready var instance
 
 # Updates the labels on the canvas to show time in game.

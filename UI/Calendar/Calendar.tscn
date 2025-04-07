@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://x0fj4b75fxgn"]
 
-[ext_resource type="Script" uid="uid://c1oidv5xtkwap" path="res://World/UI Assets/Calendar/Scripts/Calendar/calendar.gd" id="1_hrbdr"]
-[ext_resource type="Texture2D" uid="uid://8y487xspadw6" path="res://World/UI Assets/Calendar/Assets/Gravestone Timer.png" id="1_t1okh"]
+[ext_resource type="Script" uid="uid://c1oidv5xtkwap" path="res://UI/Calendar/Scripts/Calendar/calendar.gd" id="1_hrbdr"]
+[ext_resource type="Texture2D" uid="uid://8y487xspadw6" path="res://UI/Calendar/Assets/Gravestone Timer.png" id="1_t1okh"]
 
 [node name="Calendar" type="Control"]
 z_index = 1
