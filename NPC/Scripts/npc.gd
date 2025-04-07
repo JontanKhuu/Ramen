@@ -75,6 +75,7 @@ func cut_wood() -> void:
 	if global_position.distance_to(_target) < 10:
 		var tree_map_pos = treeTiles.local_to_map(_target)
 		treeTiles.set_cell(tree_map_pos,0)
+		Global.wood += 2
 		
 		_target = null
 		pass

@@ -25,6 +25,7 @@ vframes = 4
 frame = 5
 
 [node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_lr4aq")
