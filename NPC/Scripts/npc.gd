@@ -5,17 +5,14 @@ extends CharacterBody2D
 @export var target : LOOKING_FOR
 @export_enum("NONE","LABORER") var job : String
 
+@onready var wander_timer: Timer = %WanderTimer
 @onready var tiles : Node2D = get_node("/root/World/TileMap")
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 
 enum LOOKING_FOR{
-	NONE,
-	WOOD
+	NONE, WOOD
 }
-
-var looking_for_wood : bool = false
-
 var is_moving : bool = false
 var _target
 
@@ -25,11 +22,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_handle_target(delta)
 
-
 func _handle_target(delta: float):
 	if !_target:
 		_target = null
-		# if it's still looking for food, try to find a new target
+		# if it's still looking for wood, try to find a new target
 		if target == LOOKING_FOR.WOOD:
 			find_wood()
 		return
@@ -37,7 +33,10 @@ func _handle_target(delta: float):
 	var to_target = self.global_position.distance_to(_target)
 	match target:
 		LOOKING_FOR.NONE:
-			return
+			if to_target < 5:
+				wander_timer.start()
+				_target = null
+				return
 		LOOKING_FOR.WOOD:
 			if to_target < 10:
 				cut_wood()
@@ -49,15 +48,27 @@ func move_to(direction, delta):
 	is_moving = true
 	#if direction.x > 0:
 		#$Flip.scale.x = 1
-		##turn right
+		#turn right
 	#else:
-		## turn left
+		# turn left
 		#$Flip.scale.x = -1
 	# warning-ignore:return_value_discarded
 	var new_velocity = direction * speed
 	velocity = new_velocity
 	move_and_slide()
+	
+# Idling
+func wander():
+	var WAN_DIS = 60
+	var start_pos = global_position
+	var des_pos = start_pos + Vector2(randf_range(-WAN_DIS,WAN_DIS),randf_range(-WAN_DIS,WAN_DIS))
+	_target = des_pos
 
+func _on_wander_timer_timeout() -> void:
+	print("ok")
+	wander()
+
+# Cutting woooooooooood
 func find_wood() -> void:
 	var treesPos = treeTiles.get_used_cells().map(treeTiles.map_to_local)
 	# find closest tree
@@ -83,6 +94,7 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id):
 	print("Action changed: %s" % top_action_id)
 	match top_action_id:
 		"idle":
-			pass
+			target = LOOKING_FOR.NONE
+			wander()
 		"cut_wood":
 			target = LOOKING_FOR.WOOD

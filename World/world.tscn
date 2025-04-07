@@ -57,7 +57,11 @@ time_system = NodePath("../TimeSystem")
 position = Vector2(81, -116)
 
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
-position = Vector2(47, 31)
+position = Vector2(390, 253)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(381, 220)
+zoom = Vector2(1.5, 1.5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(571, 332)
