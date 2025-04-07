@@ -1,4 +1,5 @@
 extends Node2D
+class_name BuildMap
 
 const HOUSE = preload("res://Buildings/house.tscn")
 
@@ -15,7 +16,12 @@ func _process(delta: float) -> void:
 	if is_building:
 		_handle_hover()
 	pass
-	
+
+func set_build_settings(xd : int, yd : int):
+	xdim = xd
+	ydim = yd
+	is_building = true
+
 func _handle_hover() -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)
@@ -27,4 +33,5 @@ func _handle_hover() -> void:
 		var house = HOUSE.instantiate()
 		house.global_position = hover.map_to_local(tile + Vector2i(1,1))
 		get_parent().add_child(house)
+		is_building = false
 	pass

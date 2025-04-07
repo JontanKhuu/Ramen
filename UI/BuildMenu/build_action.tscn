@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://qxaw4x1rnktp"]
+[gd_scene load_steps=5 format=3 uid="uid://qxaw4x1rnktp"]
 
 [ext_resource type="Texture2D" uid="uid://dp8su7u866owb" path="res://UI/BuildMenu/Assets/HotkeyBox_34x34.png" id="1_rj5g0"]
 [ext_resource type="Script" uid="uid://ha5ff0qcxchd" path="res://UI/BuildMenu/Script/build_action.gd" id="1_t1kum"]
 [ext_resource type="Texture2D" uid="uid://kdshdbkr7m1u" path="res://UI/BuildMenu/Assets/IconHouseBuild.png" id="2_t1kum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t1kum"]
 
 [node name="BuildAction" type="Control"]
 custom_minimum_size = Vector2(34, 34)
@@ -15,21 +17,25 @@ texture = ExtResource("1_rj5g0")
 offset = Vector2(17, 17)
 
 [node name="Button" type="Button" parent="."]
-z_index = 1
+z_index = 3
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.0
-offset_top = -14.0
-offset_right = 14.0
-offset_bottom = 14.0
+anchors_preset = -1
+anchor_left = 0.088
+anchor_top = 0.088
+anchor_right = 0.912
+anchor_bottom = 0.912
+offset_left = 0.00799966
+offset_top = 0.00799966
+offset_right = -0.00800133
+offset_bottom = -0.00800133
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t1kum")
 icon = ExtResource("2_t1kum")
 flat = true
 icon_alignment = 1
-vertical_icon_alignment = 0
+vertical_icon_alignment = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
