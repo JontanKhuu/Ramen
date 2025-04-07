@@ -54,7 +54,6 @@ night_start = SubResource("Resource_k8do8")
 time_system = NodePath("../TimeSystem")
 
 [node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
-position = Vector2(81, -116)
 
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
 position = Vector2(390, 253)
