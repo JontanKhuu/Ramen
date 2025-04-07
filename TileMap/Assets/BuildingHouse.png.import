@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp8su7u866owb"
-path="res://.godot/imported/HotkeyBox_34x34.png-67736bc8a3774791b672bf88eb8a1134.ctex"
+uid="uid://cg3khy23je2bt"
+path="res://.godot/imported/BuildingHouse.png-fb878dd271f90ee6554a23609737e099.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ResourceTrack/Assets/HotkeyBox_34x34.png"
-dest_files=["res://.godot/imported/HotkeyBox_34x34.png-67736bc8a3774791b672bf88eb8a1134.ctex"]
+source_file="res://TileMap/Assets/BuildingHouse.png"
+dest_files=["res://.godot/imported/BuildingHouse.png-fb878dd271f90ee6554a23609737e099.ctex"]
 
 [params]
 

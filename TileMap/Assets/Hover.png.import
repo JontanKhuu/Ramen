@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caucuct4wh8m2"
-path="res://.godot/imported/buildingIcons.png-e3b4555f5f5ad6e61ec5434d4fa7f3fb.ctex"
+uid="uid://iou72nbgk7rl"
+path="res://.godot/imported/Hover.png-2aa01d6a0ce2e72efdf0f019944211f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ResourceTrack/Assets/buildingIcons.png"
-dest_files=["res://.godot/imported/buildingIcons.png-e3b4555f5f5ad6e61ec5434d4fa7f3fb.ctex"]
+source_file="res://TileMap/Assets/Hover.png"
+dest_files=["res://.godot/imported/Hover.png-2aa01d6a0ce2e72efdf0f019944211f4.ctex"]
 
 [params]
 

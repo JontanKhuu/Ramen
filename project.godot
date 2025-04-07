@@ -24,6 +24,10 @@ Global="*res://World/Scripts/Global.gd"
 window/size/borderless=true
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Public/Videos/movie1.avi"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/utility_ai/plugin.cfg")

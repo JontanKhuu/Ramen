@@ -25,7 +25,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_handle_target(delta)
 
-
 func _handle_target(delta: float):
 	if !_target:
 		_target = null
@@ -68,7 +67,6 @@ func find_wood() -> void:
 		
 		if dis_to_curTree < dis_to_close:
 			closest = tree
-	
 	_target = closest
 
 func cut_wood() -> void:
