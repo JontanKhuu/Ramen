@@ -63,7 +63,4 @@ position = Vector2(390, 253)
 position = Vector2(381, 220)
 zoom = Vector2(1.5, 1.5)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(571, 332)
-
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
