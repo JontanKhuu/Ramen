@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6hdcinxtjwh5"]
 
-[ext_resource type="Script" uid="uid://cdv5n6epgpvmh" path="res://World/UI Assets/Calendar/Scripts/Calendar/calendar_menu.gd" id="1_okdvj"]
-[ext_resource type="Texture2D" uid="uid://b681kap2v3mwh" path="res://World/UI Assets/Calendar/Assets/Calendar Placeholder.png" id="1_stmws"]
+[ext_resource type="Script" uid="uid://cdv5n6epgpvmh" path="res://UI/Calendar/Scripts/Calendar/calendar_menu.gd" id="1_okdvj"]
+[ext_resource type="Texture2D" uid="uid://b681kap2v3mwh" path="res://UI/Calendar/Assets/Calendar Placeholder.png" id="1_stmws"]
 
 [node name="Calendar_Menu" type="Control"]
 layout_mode = 3

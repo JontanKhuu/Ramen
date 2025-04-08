@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b681kap2v3mwh"
-path="res://.godot/imported/Calendar Placeholder.png-33e18f6882b0698ccd4da00bef3acda9.ctex"
+uid="uid://iou72nbgk7rl"
+path="res://.godot/imported/Hover.png-2aa01d6a0ce2e72efdf0f019944211f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/UI Assets/Calendar/Assets/Calendar Placeholder.png"
-dest_files=["res://.godot/imported/Calendar Placeholder.png-33e18f6882b0698ccd4da00bef3acda9.ctex"]
+source_file="res://TileMap/Assets/Hover.png"
+dest_files=["res://.godot/imported/Hover.png-2aa01d6a0ce2e72efdf0f019944211f4.ctex"]
 
 [params]
 

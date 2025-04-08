@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://b7j3lm2yhyfp8"]
 
-[ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://World/UI Assets/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
-[ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://World/UI Assets/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
-[ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://World/UI Assets/MainUI/mainUI.tscn" id="3_bkhv4"]
-[ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://World/UI Assets/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
+[ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
+[ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
+[ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://UI/MainUI/mainUI.tscn" id="3_bkhv4"]
+[ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/tile_map.tscn" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
 
@@ -32,6 +32,7 @@ days = 0
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_3f78f")

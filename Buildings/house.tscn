@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5p4b4qodr5vq"]
+
+[ext_resource type="Script" uid="uid://cpe1scflq0fo3" path="res://Buildings/house.gd" id="1_2kccs"]
+[ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://TileMap/Assets/BuildingHouse.png" id="1_ojg3m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
+
+[node name="House" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_2kccs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ojg3m")
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_2kccs")
+
+[node name="bed" type="Node2D" parent="."]
+position = Vector2(17, 14)

@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw0nf8qpq5dkg"]
+
+[ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
+[ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
+[ext_resource type="PackedScene" uid="uid://dy750xbw85hp1" path="res://UI/MainUI/resource_tracka.tscn" id="4_lvtto"]
+
+[node name="MainUI" type="CanvasLayer"]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Resources" type="HBoxContainer" parent="GUI"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="WoodBox" type="MarginContainer" parent="GUI/Resources"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 0
+
+[node name="Wood" parent="GUI/Resources/WoodBox" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 0
+
+[node name="BuildingOptions" type="HBoxContainer" parent="GUI"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -34.0
+offset_right = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BuildAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+
+[node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 2

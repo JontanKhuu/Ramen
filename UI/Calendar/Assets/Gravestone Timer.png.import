@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8y487xspadw6"
-path="res://.godot/imported/Gravestone Timer.png-5a452732e563efcd5da82a93030f9fb5.ctex"
+path="res://.godot/imported/Gravestone Timer.png-ee47ea7fc753ad0965b3e2ad220641fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/UI Assets/Calendar/Assets/Gravestone Timer.png"
-dest_files=["res://.godot/imported/Gravestone Timer.png-5a452732e563efcd5da82a93030f9fb5.ctex"]
+source_file="res://UI/Calendar/Assets/Gravestone Timer.png"
+dest_files=["res://.godot/imported/Gravestone Timer.png-ee47ea7fc753ad0965b3e2ad220641fe.ctex"]
 
 [params]
 

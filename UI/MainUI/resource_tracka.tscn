@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy750xbw85hp1"]
+
+[ext_resource type="Script" uid="uid://cls7seatrex6l" path="res://UI/ResourceTrack/Scripts/resource_tracka.gd" id="1_uw0g8"]
+[ext_resource type="Texture2D" uid="uid://n13eu6x3e1ov" path="res://UI/ResourceTrack/Assets/ui.png" id="2_u8e87"]
+[ext_resource type="FontFile" uid="uid://y2wfxqrg8ieg" path="res://NPC/Debug/PressStart2P.ttf" id="3_lr4aq"]
+
+[node name="ResourceTracka" type="HBoxContainer"]
+custom_minimum_size = Vector2(40, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+scale = Vector2(2, 2)
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_uw0g8")
+
+[node name="Sprite" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="TextureRect" type="Sprite2D" parent="Sprite"]
+texture = ExtResource("2_u8e87")
+offset = Vector2(10, 10)
+hframes = 5
+vframes = 4
+frame = 5
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lr4aq")
+text = "0"
+horizontal_alignment = 1
