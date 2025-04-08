@@ -13,5 +13,4 @@ enum BUILDINGS{
 @onready var tileMap : BuildMap = get_node("/root/World/TileMap")
 
 func _on_button_pressed() -> void:
-	print("wow")
-	#tileMap.set_build_settings(xDimension, yDimension)
+	tileMap.set_build_settings(xDimension, yDimension)
