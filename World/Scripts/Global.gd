@@ -1,7 +1,12 @@
 extends Node
 
+
 enum RESOURCES_TRACKED{
-	WOOD, FOOD
+	WOOD, FOOD,
+}
+
+enum BUILDINGS{
+	NONE = 0, HOUSE = 1, STORAGE = 2
 }
 
 const WOOD = 0

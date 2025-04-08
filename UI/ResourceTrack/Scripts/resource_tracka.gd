@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@export var trackedResource : Global.RESOURCES_TRACKED
+@export var trackedResource : Resources.RESOURCES_TRACKED
 @onready var label: Label = %Label
 
 func _process(delta: float) -> void:

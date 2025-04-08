@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
 [ext_resource type="Script" uid="uid://bhrmalgrewc21" path="res://NPC/Scripts/check_job.gd" id="5_txa0v"]
 [ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="6_8wx6m"]
-[ext_resource type="Script" uid="uid://do32rqclkbg3h" path="res://NPC/Scenes/is_jobless.gd" id="6_83rtv"]
+[ext_resource type="Script" path="res://NPC/Scenes/is_jobless.gd" id="6_83rtv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
 

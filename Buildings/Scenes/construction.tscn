@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://brjjrn1jq0pfo"]
+
+[ext_resource type="Script" uid="uid://b7sg2bn8endu0" path="res://Buildings/Scripts/construction.gd" id="1_6j6br"]
+[ext_resource type="Texture2D" uid="uid://37af7vhssqiw" path="res://TileMap/Assets/BuildingConstruction.png" id="2_1k4if"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
+
+[node name="construction" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_6j6br")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1k4if")
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_2kccs")
+
+[node name="bed" type="Node2D" parent="."]
+position = Vector2(17, 14)
