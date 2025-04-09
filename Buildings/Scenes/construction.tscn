@@ -8,10 +8,25 @@
 [node name="construction" type="StaticBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_6j6br")
+building = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1k4if")
 offset = Vector2(0, -8)
+
+[node name="Points" type="Node" parent="Sprite2D"]
+
+[node name="North" type="Node2D" parent="Sprite2D/Points"]
+position = Vector2(0, -19)
+
+[node name="South" type="Node2D" parent="Sprite2D/Points"]
+position = Vector2(0, 26)
+
+[node name="West" type="Node2D" parent="Sprite2D/Points"]
+position = Vector2(-33, 6)
+
+[node name="East" type="Node2D" parent="Sprite2D/Points"]
+position = Vector2(33, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)

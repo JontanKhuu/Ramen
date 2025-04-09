@@ -3,6 +3,7 @@ class_name BuildMap
 
 const HOUSE = preload("res://Buildings/Scenes/house.tscn")
 const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
+const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
 
 @onready var grass: TileMapLayer = $Grass
 @onready var tree: TileMapLayer = $Tree
@@ -19,6 +20,7 @@ func _process(delta: float) -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)
 	#print(is_building)
+	
 	if is_building:
 		_handle_hover()
 	pass
@@ -40,7 +42,11 @@ func _handle_hover() -> void:
 			is_building = false
 			return
 		
-		_build_chosen_building(tile)
+		var building = BUILDING.instantiate()
+		building.global_position = hover.map_to_local(tile + Vector2i(1,1))
+		building.building = type
+		get_parent().add_child(building)
+		
 		is_building = false
 		Global.wood -= cost
 		
@@ -49,9 +55,10 @@ func _handle_hover() -> void:
 func _build_chosen_building(tile):
 	match type: # type of building
 		1: # House
-			var house = HOUSE.instantiate()
-			house.global_position = hover.map_to_local(tile + Vector2i(1,1))
-			get_parent().add_child(house)
+			var building = BUILDING.instantiate()
+			building.global_position = hover.map_to_local(tile + Vector2i(1,1))
+			building.building = type
+			get_parent().add_child(building)
 		2: # Storage
 			var storage = STORAGE.instantiate()
 			storage.global_position = hover.map_to_local(tile + Vector2i(1,1))
