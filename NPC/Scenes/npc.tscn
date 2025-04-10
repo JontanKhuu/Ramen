@@ -5,23 +5,26 @@
 [ext_resource type="Script" uid="uid://bxew2mys8y8u8" path="res://addons/utility_ai/agent/agent.gd" id="3_7mkhf"]
 [ext_resource type="Script" uid="uid://bpvkdlp8jw4sj" path="res://addons/utility_ai/actions/action.gd" id="4_8wx6m"]
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
-[ext_resource type="Script" uid="uid://bhrmalgrewc21" path="res://NPC/Scripts/check_job.gd" id="5_txa0v"]
 [ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="6_8wx6m"]
-[ext_resource type="Script" uid="uid://do32rqclkbg3h" path="res://NPC/Scenes/is_jobless.gd" id="6_83rtv"]
+[ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
 
 [sub_resource type="Curve" id="Curve_83rtv"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.98, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_7mkhf"]
-_data = [Vector2(0.005, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Villager" type="CharacterBody2D"]
+[sub_resource type="Curve" id="Curve_rydlk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_txa0v"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
 script = ExtResource("1_056qb")
-job = "LABORER"
+job = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_asys0")
@@ -57,8 +60,24 @@ script = ExtResource("5_83rtv")
 metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 
 [node name="is_laborer" type="Node" parent="UtilityAiAgent/CutWood/UtilityAiAggregation"]
-script = ExtResource("5_txa0v")
-curve = SubResource("Curve_7mkhf")
+script = ExtResource("6_83rtv")
+job = 1
+curve = SubResource("Curve_rydlk")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Build" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "build"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Build"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_builder" type="Node" parent="UtilityAiAgent/Build/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 2
+curve = SubResource("Curve_txa0v")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
@@ -69,5 +88,11 @@ unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
 
+[node name="debugCam" type="Camera2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

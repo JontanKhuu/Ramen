@@ -14,12 +14,13 @@ building = 1
 texture = ExtResource("2_1k4if")
 offset = Vector2(0, -8)
 
-[node name="Points" type="Node" parent="Sprite2D"]
+[node name="Points" type="Node2D" parent="Sprite2D"]
 
 [node name="North" type="Node2D" parent="Sprite2D/Points"]
 position = Vector2(0, -19)
 
 [node name="South" type="Node2D" parent="Sprite2D/Points"]
+unique_name_in_owner = true
 position = Vector2(0, 26)
 
 [node name="West" type="Node2D" parent="Sprite2D/Points"]
@@ -32,5 +33,7 @@ position = Vector2(33, 6)
 position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_2kccs")
 
-[node name="bed" type="Node2D" parent="."]
-position = Vector2(17, 14)
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 30.0
+vertices = PackedVector2Array(-1, -16, -32, 6, 0, 23, 31, 5)
+affect_navigation_mesh = true

@@ -1,18 +1,21 @@
 extends CharacterBody2D
 
+enum LOOKING_FOR{
+	NONE, WOOD, BUILDING, BED
+}
+
 @export var speed := 100
 
-@export var target : LOOKING_FOR
-@export_enum("NONE","LABORER") var job : String
+@export var task : LOOKING_FOR
+@export var job : Global.JOB
+@export var bed : Node2D
 
 @onready var wander_timer: Timer = %WanderTimer
 @onready var tiles : Node2D = get_node("/root/World/TileMap")
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
+@onready var nav: NavigationAgent2D = %NavigationAgent2D
 
-enum LOOKING_FOR{
-	NONE, WOOD
-}
 var is_moving : bool = false
 var _target
 
@@ -26,12 +29,17 @@ func _handle_target(delta: float):
 	if !_target:
 		_target = null
 		# if it's still looking for wood, try to find a new target
-		if target == LOOKING_FOR.WOOD:
-			find_wood()
+		match task:
+			LOOKING_FOR.WOOD:
+				find_wood()
+			LOOKING_FOR.BUILDING:
+				find_building()
 		return
 	
+	nav.target_position = _target
+	
 	var to_target = self.global_position.distance_to(_target)
-	match target:
+	match task:
 		LOOKING_FOR.NONE:
 			if to_target < 5:
 				wander_timer.start()
@@ -41,8 +49,13 @@ func _handle_target(delta: float):
 			if to_target < 10:
 				cut_wood()
 				return
+		LOOKING_FOR.BUILDING:
+			if to_target < 10:
+				return
 	
-	move_to(self.global_position.direction_to(_target), delta)
+	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
+
+# Movement 
 
 func move_to(direction, delta):
 	is_moving = true
@@ -53,10 +66,21 @@ func move_to(direction, delta):
 		# turn left
 		#$Flip.scale.x = -1
 	# warning-ignore:return_value_discarded
+		
 	var new_velocity = direction * speed
 	velocity = new_velocity
+	
+	if nav.avoidance_enabled:
+		nav.set_velocity(new_velocity)
+	else:
+		_on_navigation_agent_2d_velocity_computed(new_velocity)
+		
 	move_and_slide()
 	
+# weird navigation pathfinding against other npcs stuff
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+	velocity = safe_velocity
+
 # Idling
 func wander():
 	var WAN_DIS = 60
@@ -90,11 +114,20 @@ func cut_wood() -> void:
 		_target = null
 		pass
 
+# Building stooooooof
+func find_building() -> void:
+	if Global.build_queue.size() <= 0:
+		return
+	var building = Global.build_queue[0]
+	_target = building.south.global_position
+
 func _on_utility_ai_agent_top_score_action_changed(top_action_id):
 	print("Action changed: %s" % top_action_id)
 	match top_action_id:
 		"idle":
-			target = LOOKING_FOR.NONE
+			task = LOOKING_FOR.NONE
 			wander()
 		"cut_wood":
-			target = LOOKING_FOR.WOOD
+			task = LOOKING_FOR.WOOD
+		"build":
+			task = LOOKING_FOR.BUILDING

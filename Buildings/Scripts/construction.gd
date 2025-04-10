@@ -6,11 +6,14 @@ const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
 @export var building : Buildings.BUILDINGS
 @export var timeToBuild : float = 5.0
 
+@onready var south: Node2D = %South
+
+
+func _ready() -> void:
+	Global.build_queue.append(self)
 
 func _process(delta: float) -> void:
 	_handle_building_time(delta,building)
-	
-	print(timeToBuild)
 	
 func _handle_building_time(delta : float, building):
 	if timeToBuild <= 0.0:
