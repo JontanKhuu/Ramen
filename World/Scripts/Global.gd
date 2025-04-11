@@ -2,7 +2,7 @@ extends Node
 
 
 enum RESOURCES_TRACKED{
-	WOOD, FOOD,
+	WOOD = 0, FOOD = 1,
 }
 
 enum BUILDINGS{
@@ -13,9 +13,7 @@ enum JOB{
 	NONE = 0, LABORER= 1, BUILDER = 2,
 }
 
-const WOOD = 0
-const FOOD = 1
-
 @export var wood := 5
+@export var coins := 0
 
 var build_queue = []
