@@ -30,6 +30,8 @@ func _process(delta: float) -> void:
 	
 func _handle_building_time(delta : float, building):
 	if timeToBuild <= 0.0:
+		builder._target = null
+		Global.build_queue.remove_at(Global.build_queue.find(self))
 		_build_chosen_building()
 		return
 	timeToBuild -= delta

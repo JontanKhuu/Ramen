@@ -51,7 +51,7 @@ func _handle_target(delta: float):
 				cut_wood()
 				return
 		LOOKING_FOR.BUILDING:
-			if to_target < 10:
+			if to_target < 20:
 				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
