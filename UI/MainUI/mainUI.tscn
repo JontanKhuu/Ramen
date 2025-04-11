@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=6 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
+[ext_resource type="Texture2D" uid="uid://kdshdbkr7m1u" path="res://UI/BuildMenu/Assets/IconHouseBuild.png" id="3_wec40"]
 [ext_resource type="PackedScene" uid="uid://dy750xbw85hp1" path="res://UI/MainUI/resource_tracka.tscn" id="4_lvtto"]
+[ext_resource type="Texture2D" uid="uid://det8icwdmvnuh" path="res://UI/BuildMenu/Assets/IconStorageBuild.png" id="4_q5o53"]
 
 [node name="MainUI" type="CanvasLayer"]
 
@@ -60,8 +62,20 @@ offset_right = 17.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="BuildAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+[node name="HouseAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
+xDimension = 2
+yDimension = 2
+woodCost = 5
+icon = ExtResource("3_wec40")
+
+[node name="StorageAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+xDimension = 2
+yDimension = 2
+woodCost = 5
+building = 2
+icon = ExtResource("4_q5o53")
 
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
 offset_left = 0.0

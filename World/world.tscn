@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=11 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/tile_map.tscn" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
+[ext_resource type="PackedScene" uid="uid://brjjrn1jq0pfo" path="res://Buildings/Scenes/construction.tscn" id="7_yf0ba"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_k8do8")
@@ -60,7 +61,12 @@ time_system = NodePath("../TimeSystem")
 position = Vector2(390, 253)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(381, 220)
+position = Vector2(413, 312)
+enabled = false
 zoom = Vector2(1.5, 1.5)
 
+[node name="construction" parent="." instance=ExtResource("7_yf0ba")]
+
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
+
+[editable path="construction"]

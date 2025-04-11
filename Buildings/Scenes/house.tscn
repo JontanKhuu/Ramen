@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5p4b4qodr5vq"]
 
-[ext_resource type="Script" uid="uid://cpe1scflq0fo3" path="res://Buildings/house.gd" id="1_2kccs"]
-[ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://TileMap/Assets/BuildingHouse.png" id="1_ojg3m"]
+[ext_resource type="Script" uid="uid://cpe1scflq0fo3" path="res://Buildings/Scripts/house.gd" id="1_h65h6"]
+[ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://TileMap/Assets/BuildingHouse.png" id="2_fcaw0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
 
-[node name="House" type="StaticBody2D"]
+[node name="House" type="StaticBody2D" groups=["HOUSE"]]
 y_sort_enabled = true
-script = ExtResource("1_2kccs")
+script = ExtResource("1_h65h6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ojg3m")
+texture = ExtResource("2_fcaw0")
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://brjjrn1jq0pfo"]
+
+[ext_resource type="Script" uid="uid://b7sg2bn8endu0" path="res://Buildings/Scripts/construction.gd" id="1_6j6br"]
+[ext_resource type="Texture2D" uid="uid://37af7vhssqiw" path="res://TileMap/Assets/BuildingConstruction.png" id="2_1k4if"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6j6br"]
+radius = 36.0
+height = 82.0
+
+[node name="construction" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_6j6br")
+building = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1k4if")
+offset = Vector2(0, -8)
+
+[node name="Points" type="Node2D" parent="Sprite2D"]
+unique_name_in_owner = true
+
+[node name="North" type="Node2D" parent="Sprite2D/Points"]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+
+[node name="South" type="Node2D" parent="Sprite2D/Points"]
+unique_name_in_owner = true
+position = Vector2(0, 12)
+
+[node name="West" type="Node2D" parent="Sprite2D/Points"]
+unique_name_in_owner = true
+position = Vector2(-20, 4)
+
+[node name="East" type="Node2D" parent="Sprite2D/Points"]
+unique_name_in_owner = true
+position = Vector2(22, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_2kccs")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6j6br")
