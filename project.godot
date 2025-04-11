@@ -46,6 +46,10 @@ confirm={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_8="buildings look for builders"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Villager
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED

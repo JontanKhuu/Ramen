@@ -23,6 +23,8 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
+collision_layer = 129
+collision_mask = 129
 script = ExtResource("1_056qb")
 job = 2
 
@@ -92,6 +94,7 @@ one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
+debug_enabled = true
 
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
