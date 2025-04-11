@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwyk2c760n12i"]
+
+[ext_resource type="Script" uid="uid://bhrlicibpik8f" path="res://UI/Trading/trade_ui.gd" id="1_215ll"]
+
+[node name="TradeUI" type="Control"]
+custom_minimum_size = Vector2(700, 450)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_215ll")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(700, 450)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 450.0
+color = Color(1, 0.746619, 0.511689, 1)
+
+[node name="Title" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Trading"
+
+[node name="Sell" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -165.0
+offset_right = 350.0
+offset_bottom = -125.0
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Resource" type="Label" parent="Sell"]
+layout_mode = 2
+text = "Resource           "
+
+[node name="Inv" type="Label" parent="Sell"]
+layout_mode = 2
+text = "Inv"
+
+[node name="Price" type="Label" parent="Sell"]
+layout_mode = 2
+text = "Price   "
+
+[node name="Sell" type="Label" parent="Sell"]
+layout_mode = 2
+text = "Sell"
+
+[node name="SellComplete" type="Label" parent="Sell"]
+layout_mode = 2
+text = ">>"
+
+[node name="Buy" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -165.0
+offset_right = 725.0
+offset_bottom = -125.0
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="BuyComplete" type="Label" parent="Buy"]
+layout_mode = 2
+text = "<<"
+
+[node name="Buy" type="Label" parent="Buy"]
+layout_mode = 2
+text = "Buy"
+
+[node name="Price" type="Label" parent="Buy"]
+layout_mode = 2
+text = "Price   "
+
+[node name="Inv" type="Label" parent="Buy"]
+layout_mode = 2
+text = "Inv"
+
+[node name="Resource" type="Label" parent="Buy"]
+layout_mode = 2
+text = "           Resource"
