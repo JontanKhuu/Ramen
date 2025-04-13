@@ -1,6 +1,5 @@
 extends Node
 
-
 enum RESOURCES_TRACKED{
 	WOOD = 0, FOOD = 1,
 }

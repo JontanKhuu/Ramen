@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b7j3lm2yhyfp8"]
 
-[ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
+[ext_resource type="Script" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
 [ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://UI/MainUI/mainUI.tscn" id="3_bkhv4"]
 [ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
@@ -20,16 +20,16 @@ metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 script = ExtResource("3_k8do8")
 seconds = 0
 minutes = 0
-hours = 0
-days = 0
+hours = 8
+days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [sub_resource type="Resource" id="Resource_k8do8"]
 script = ExtResource("3_k8do8")
 seconds = 0
 minutes = 0
-hours = 0
-days = 0
+hours = 16
+days = 2
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [node name="World" type="Node2D"]
@@ -38,13 +38,11 @@ y_sort_enabled = true
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_3f78f")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 10000
-metadata/_custom_type_script = "uid://cc7l2f6hcr6ka"
+ticks_per_second = 5000
 
 [node name="MainUI" parent="." instance=ExtResource("3_bkhv4")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
-visible = false
 position = Vector2(576, 281)
 color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
