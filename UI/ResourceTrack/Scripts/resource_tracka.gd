@@ -6,5 +6,5 @@ extends HBoxContainer
 func _process(delta: float) -> void:
 	match trackedResource:
 		0:
-			label.text = str(Global.wood)
+			label.text = str(Global.inventory_dict[trackedResource])
 			
