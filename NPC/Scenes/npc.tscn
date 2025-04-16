@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dj3y6vnh3v28l"]
+[gd_scene load_steps=15 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
 [ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_asys0"]
@@ -7,11 +7,17 @@
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
 [ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="6_8wx6m"]
 [ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
+[ext_resource type="Script" uid="uid://cppxnrqckdwf6" path="res://NPC/Scripts/state_check.gd" id="8_jsb76"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
 
 [sub_resource type="Curve" id="Curve_83rtv"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jsb76"]
+_limits = [0.0, 1.2, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_rydlk"]
@@ -20,6 +26,11 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_txa0v"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fl4u6"]
+_limits = [0.0, 1.2, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
@@ -34,6 +45,17 @@ texture = ExtResource("1_asys0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_056qb")
 
+[node name="WanderTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+debug_enabled = true
+
+[node name="debugCam" type="Camera2D" parent="."]
+
 [node name="UtilityAiAgent" type="Node" parent="."]
 script = ExtResource("3_7mkhf")
 metadata/_custom_type_script = "uid://bxew2mys8y8u8"
@@ -45,11 +67,18 @@ metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
 
 [node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Idle"]
 script = ExtResource("5_83rtv")
+aggregation_type = 3
 metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 
 [node name="is_jobless" type="Node" parent="UtilityAiAgent/Idle/UtilityAiAggregation"]
 script = ExtResource("6_83rtv")
 curve = SubResource("Curve_83rtv")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="is_resting" type="Node" parent="UtilityAiAgent/Idle/UtilityAiAggregation"]
+script = ExtResource("8_jsb76")
+state = 1
+curve = SubResource("Curve_jsb76")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="CutWood" type="Node" parent="UtilityAiAgent"]
@@ -82,20 +111,24 @@ job = 2
 curve = SubResource("Curve_txa0v")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
+[node name="Sleep" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "sleep"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Sleep"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_sleeping" type="Node" parent="UtilityAiAgent/Sleep/UtilityAiAggregation"]
+script = ExtResource("8_jsb76")
+state = 2
+curve = SubResource("Curve_fl4u6")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
 utility_agent = NodePath("../UtilityAiAgent")
 
-[node name="WanderTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.0
-one_shot = true
-
-[node name="debugCam" type="Camera2D" parent="."]
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-unique_name_in_owner = true
-debug_enabled = true
-
-[connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
