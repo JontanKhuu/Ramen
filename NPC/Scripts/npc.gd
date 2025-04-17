@@ -9,7 +9,6 @@ enum LOOKING_FOR{
 
 @export var task : LOOKING_FOR
 @export var job : Global.JOB
-@export var state : Global.VILLAGER_STATE
 @export var bed : Node2D
 
 @onready var wander_timer: Timer = %WanderTimer
@@ -28,7 +27,6 @@ func _process(delta: float) -> void:
 	_handle_target(delta)
 
 func _handle_target(delta: float):
-	visible = true
 	if !_target:
 		_target = null
 		# if it's still looking for wood, try to find a new target
@@ -37,9 +35,6 @@ func _handle_target(delta: float):
 				find_wood()
 			LOOKING_FOR.BUILDING:
 				find_building()
-			LOOKING_FOR.BED:
-				find_bed()
-			
 		return
 	
 	nav.target_position = _target
@@ -58,9 +53,6 @@ func _handle_target(delta: float):
 		LOOKING_FOR.BUILDING:
 			if to_target < 20:
 				return
-		LOOKING_FOR.BED:
-			if to_target < 10:
-				visible = false
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -130,15 +122,7 @@ func find_building() -> void:
 	var building = Global.build_queue[0]
 	_target = building.south.global_position
 
-# Sleep
-func find_bed() -> void:
-	if !bed:
-		_target = null
-	_target = bed.global_position
-
 func _on_utility_ai_agent_top_score_action_changed(top_action_id):
-	_target = null
-	wander_timer.stop()
 	print("Action changed: %s" % top_action_id)
 	match top_action_id:
 		"idle":
@@ -148,5 +132,3 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id):
 			task = LOOKING_FOR.WOOD
 		"build":
 			task = LOOKING_FOR.BUILDING
-		"sleep":
-			task = LOOKING_FOR.BED

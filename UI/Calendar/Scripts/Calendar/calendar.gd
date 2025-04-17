@@ -1,16 +1,11 @@
 extends Control
 
-@onready var time_system : TimeSystem = get_node("/root/World/TimeSystem")
 @onready var days_label: Label = $DayControl/days
 @onready var hours_label: Label = $ClockControl/hours 
 @onready var minutes_label: Label = $ClockControl/minutes
 
 var calendar_sprite = preload("res://UI/Calendar/Calendar_Menu.tscn")
 @onready var instance
-
-func _ready() -> void:
-	time_system.updated.connect(_on_time_system_updated)
-	pass
 
 # Updates the labels on the canvas to show time in game.
 func _on_time_system_updated(date_time:DateTime) -> void:
