@@ -86,4 +86,3 @@ offset_bottom = 0.0
 mouse_filter = 2
 
 [node name="TradeUI" parent="." instance=ExtResource("6_6j1t5")]
-visible = false
