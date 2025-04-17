@@ -28,7 +28,9 @@ func _process(delta: float) -> void:
 	
 
 func _on_visibility_changed() -> void:
-	await get_tree().create_timer(.5).timeout
+	await ready
+	for child in vbox.get_children():
+		vbox.remove_child(child)
 	initCoins = Global.inventory_dict[Global.RESOURCES_TRACKED.COINS]
 	for i in Global.RESOURCES_TRACKED.size():
 		if i == Global.RESOURCES_TRACKED.COINS:
