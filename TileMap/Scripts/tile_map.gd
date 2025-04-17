@@ -8,6 +8,7 @@ const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
 @onready var grass: TileMapLayer = $Grass
 @onready var tree: TileMapLayer = $Tree
 @onready var hover: TileMapLayer = $Hover
+@onready var drawingNode: Node2D = %DrawingNode
 
 var is_building : bool = false
 
@@ -26,7 +27,7 @@ func _process(delta: float) -> void:
 		_handle_hover()
 	pass
 
-func set_build_settings(xd : int, yd : int, c : int, t : int, r : Global.RESOURCES_TRACKED):
+func set_build_settings(xd : int, yd : int, c : int, t : Global.BUILDINGS, r : Global.RESOURCES_TRACKED):
 	xdim = xd
 	ydim = yd
 	cost = c
@@ -36,6 +37,11 @@ func set_build_settings(xd : int, yd : int, c : int, t : int, r : Global.RESOURC
 	is_building = true
 
 func _handle_hover() -> void:
+	if type == Global.BUILDINGS.FARM:
+		drawingNode.is_farm_building = true
+		is_building = false
+		return
+	
 	var tile : Vector2i = hover.local_to_map(get_global_mouse_position() - Vector2(0,8))
 	hover.set_cell(tile,type,Vector2i(0,0))
 	

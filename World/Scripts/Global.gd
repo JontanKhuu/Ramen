@@ -5,7 +5,7 @@ enum RESOURCES_TRACKED{
 }
 
 enum BUILDINGS{
-	NONE = 0, HOUSE = 1, STORAGE = 2
+	NONE = 0, HOUSE = 1, STORAGE = 2, FARM = 3
 }
 
 enum JOB{
