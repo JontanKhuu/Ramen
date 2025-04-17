@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs1bfyx675et6"]
+
+[ext_resource type="Script" uid="uid://cckb5diikwagu" path="res://UI/Trading/traderow.gd" id="1_geuv1"]
+[ext_resource type="Texture2D" uid="uid://n13eu6x3e1ov" path="res://UI/ResourceTrack/Assets/ui.png" id="1_jdyek"]
+[ext_resource type="FontFile" uid="uid://y2wfxqrg8ieg" path="res://NPC/Debug/PressStart2P.ttf" id="2_mbqxr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mbqxr"]
+
+[sub_resource type="Theme" id="Theme_mbqxr"]
+default_base_scale = 0.35
+default_font = ExtResource("2_mbqxr")
+default_font_size = 16
+
+[node name="TradeRow" type="HBoxContainer"]
+scale = Vector2(0.8, 1)
+script = ExtResource("1_geuv1")
+
+[node name="Resource" type="Label" parent="."]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mbqxr")
+theme_override_font_sizes/font_size = 16
+text = "WOOD   "
+label_settings = SubResource("LabelSettings_mbqxr")
+
+[node name="ResourceIcon" type="Sprite2D" parent="Resource"]
+texture = ExtResource("1_jdyek")
+offset = Vector2(84, 8)
+hframes = 5
+vframes = 4
+frame = 5
+
+[node name="Inv" type="Label" parent="."]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mbqxr")
+theme_override_font_sizes/font_size = 16
+text = "Inv"
+
+[node name="Price" type="Label" parent="."]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mbqxr")
+theme_override_font_sizes/font_size = 16
+text = "Price"
+
+[node name="Sell" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_mbqxr")
+
+[node name="SellComplete" type="Button" parent="."]
+layout_mode = 2
+text = ">"
+
+[connection signal="pressed" from="SellComplete" to="." method="_on_sell_complete_pressed"]

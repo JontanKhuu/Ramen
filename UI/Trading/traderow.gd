@@ -1,0 +1,23 @@
+extends HBoxContainer
+
+@export var resource : Global.RESOURCES_TRACKED
+@export var resource_icon : Texture2D
+@export var price : int
+@export var inv : int
+
+@onready var sell: SpinBox = $Sell
+
+func _process(delta: float) -> void:
+	print(Global.inventory_dict[Global.RESOURCES_TRACKED.COINS])
+	
+	price = Global.value_dict[resource]
+	inv = Global.inventory_dict[resource]
+	
+	$Price.text = str(price)
+	$Inv.text = str(inv)
+
+func _on_sell_complete_pressed() -> void:
+	if sell.value > Global.inventory_dict[resource]:
+		return
+	Global.inventory_dict[resource] -= sell.value
+	Global.inventory_dict[Global.RESOURCES_TRACKED.COINS] += sell.value * price

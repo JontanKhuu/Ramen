@@ -24,3 +24,12 @@ func set_villagers_state(state : VILLAGER_STATE):
 	print("Ok")
 	for villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
+var value_dict : Dictionary = {
+	RESOURCES_TRACKED.WOOD : 1,
+	RESOURCES_TRACKED.FOOD : 2
+}
+var inventory_dict : Dictionary = {
+	RESOURCES_TRACKED.WOOD : 5,
+	RESOURCES_TRACKED.FOOD : 0,
+	RESOURCES_TRACKED.COINS : 0
+}
