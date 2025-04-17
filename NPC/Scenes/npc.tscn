@@ -7,9 +7,11 @@
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
 [ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="6_8wx6m"]
 [ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
-[ext_resource type="Script" uid="uid://cppxnrqckdwf6" path="res://NPC/Scripts/state_check.gd" id="8_jsb76"]
+[ext_resource type="Script" path="res://NPC/Scripts/state_check.gd" id="8_jsb76"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
+radius = 4.0
+height = 20.0
 
 [sub_resource type="Curve" id="Curve_83rtv"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
