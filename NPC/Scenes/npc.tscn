@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
-[ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_asys0"]
+[ext_resource type="Texture2D" uid="uid://bdctaquth3tsr" path="res://NPC/Assets/VillagerMale.png" id="2_txa0v"]
 [ext_resource type="Script" uid="uid://bxew2mys8y8u8" path="res://addons/utility_ai/agent/agent.gd" id="3_7mkhf"]
 [ext_resource type="Script" uid="uid://bpvkdlp8jw4sj" path="res://addons/utility_ai/actions/action.gd" id="4_8wx6m"]
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
+radius = 4.0
+height = 20.0
 
 [sub_resource type="Curve" id="Curve_83rtv"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -29,9 +31,10 @@ script = ExtResource("1_056qb")
 job = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_asys0")
+texture = ExtResource("2_txa0v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_056qb")
 
 [node name="UtilityAiAgent" type="Node" parent="."]
@@ -83,6 +86,7 @@ curve = SubResource("Curve_txa0v")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
+visible = false
 utility_agent = NodePath("../UtilityAiAgent")
 
 [node name="WanderTimer" type="Timer" parent="."]
@@ -91,10 +95,10 @@ wait_time = 2.0
 one_shot = true
 
 [node name="debugCam" type="Camera2D" parent="."]
+enabled = false
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
-debug_enabled = true
 
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
