@@ -26,7 +26,6 @@ func increase_by_sec(delta_seconds:float) -> void:
 	hours = hours % 24
 # 	Debugging print statement for time	
 #	print_debug(str(days) + ":" + str(hours) + ":" + str(minutes) + ":" + str(seconds))
-
 func diff_without_days(other_time:DateTime) -> int:
 	var diff_hours = hours - other_time.hours
 	var diff_minutes = minutes - other_time.minutes + diff_hours * 60 
