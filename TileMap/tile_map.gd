@@ -53,15 +53,3 @@ func _handle_hover() -> void:
 		Global.inventory_dict[resource] -= cost
 		
 	pass
-
-func _build_chosen_building(tile):
-	match type: # type of building
-		1: # House
-			var building = BUILDING.instantiate()
-			building.global_position = hover.map_to_local(tile + Vector2i(1,1))
-			building.building = type
-			get_parent().add_child(building)
-		2: # Storage
-			var storage = STORAGE.instantiate()
-			storage.global_position = hover.map_to_local(tile + Vector2i(1,1))
-			get_parent().add_child(storage)
