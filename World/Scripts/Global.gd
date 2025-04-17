@@ -10,7 +10,7 @@ enum BUILDINGS{
 }
 
 enum JOB{
-	NONE = 0, LABORER= 1, BUILDER = 2,
+	NONE = 0, LABORER= 1, BUILDER = 2, FARMER = 3,
 }
 
 var build_queue = []
