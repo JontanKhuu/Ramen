@@ -24,6 +24,9 @@ func increase_by_sec(delta_seconds:float) -> void:
 	seconds = seconds % 60
 	minutes = minutes % 60
 	hours = hours % 24
+	
+	if days > 28:
+		days = 0
 # 	Debugging print statement for time	
 #	print_debug(str(days) + ":" + str(hours) + ":" + str(minutes) + ":" + str(seconds))
 

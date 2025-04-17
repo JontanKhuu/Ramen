@@ -8,6 +8,7 @@ signal updated
 # Add event and check what time of date it should trigger.
 var events = {
 	"Trader Spawn": {"days": 2,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
+	"Trader Spawn2": {"days": 14,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
 	"Money Checkin": {"days": 1,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
 	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
 	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
@@ -29,7 +30,7 @@ func check_events(): # Recursive function to keep calling check_events the all e
 	if event_queue.size() == 0:
 		return
 	var next_event = event_queue[0]
-	if date_time.days == next_event.days and date_time.hours == next_event.hours and date_time.minutes == next_event.minutes:
+	if date_time.days == next_event.days and date_time.hours >= next_event.hours and date_time.minutes >= next_event.minutes:
 		print("Event Happened")
 		next_event.action.call()
 		event_queue.pop_front()
@@ -56,12 +57,16 @@ func sort_events(a,b):
 
 func trader_spawn(): # The actual function
 	print("Trader Spawned")
+	return
 
 func money_checkin():
 	print("Its time to pay your monthly rent")
+	return
 	
 func test_one():
 	print("Event 2")
+	return
 
 func test_two():
 	print("Event 3")
+	return
