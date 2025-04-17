@@ -24,3 +24,8 @@ var inventory_dict : Dictionary = {
 	RESOURCES_TRACKED.FOOD : 0,
 	RESOURCES_TRACKED.COINS : 0
 }
+var naming_dict : Dictionary = {
+	RESOURCES_TRACKED.WOOD : "WOOD",
+	RESOURCES_TRACKED.FOOD : "FOOD",
+	RESOURCES_TRACKED.COINS : "COINS",
+}
