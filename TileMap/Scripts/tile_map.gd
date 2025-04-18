@@ -21,7 +21,6 @@ var type : int = 0
 func _process(delta: float) -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)
-	#print(is_building)
 	
 	if is_building:
 		_handle_hover()
@@ -33,7 +32,6 @@ func set_build_settings(xd : int, yd : int, c : int, t : Global.BUILDINGS, r : G
 	cost = c
 	type = t
 	resource = r
-	print(type)
 	is_building = true
 
 func _handle_hover() -> void:

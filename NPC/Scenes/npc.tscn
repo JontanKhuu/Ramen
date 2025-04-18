@@ -57,6 +57,7 @@ unique_name_in_owner = true
 debug_enabled = true
 
 [node name="debugCam" type="Camera2D" parent="."]
+enabled = false
 
 [node name="UtilityAiAgent" type="Node" parent="."]
 script = ExtResource("3_7mkhf")

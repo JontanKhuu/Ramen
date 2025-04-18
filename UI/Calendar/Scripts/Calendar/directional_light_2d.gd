@@ -66,13 +66,10 @@ func update_transition(time_diff:int, next_state: DayState) -> void:
 func update_villager_states():
 	match current_state:
 		DayState.DAY:
-			print("why")
 			Global.set_villagers_state(Global.VILLAGER_STATE.WORKING)
 		DayState.AFTERNOON:
-			print("why2")
 			Global.set_villagers_state(Global.VILLAGER_STATE.RESTING)
 		DayState.NIGHT:
-			print("why3")
 			Global.set_villagers_state(Global.VILLAGER_STATE.SLEEPING)
 		
 		

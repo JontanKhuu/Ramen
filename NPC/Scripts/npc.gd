@@ -98,7 +98,6 @@ func wander():
 	_target = des_pos
 
 func _on_wander_timer_timeout() -> void:
-	print("ok")
 	wander()
 
 # Cutting woooooooooood
@@ -136,6 +135,7 @@ func find_bed() -> void:
 		_target = null
 	_target = bed.global_position
 
+# Utility AI
 func _on_utility_ai_agent_top_score_action_changed(top_action_id):
 	_target = null
 	wander_timer.stop()

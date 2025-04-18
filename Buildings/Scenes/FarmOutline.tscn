@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://6fjfxnu3ne2j"]
+
+[ext_resource type="Script" uid="uid://cog4of5ryin50" path="res://Buildings/Scripts/farm_outline.gd" id="1_nnpk7"]
+
+[sub_resource type="Shader" id="Shader_0v50y"]
+code = "shader_type canvas_item;
+
+uniform vec4 line_color : source_color = vec4(1.0);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+const vec2 OFFSETS[8] = {
+	vec2(-1, -1), vec2(-1, 0), vec2(-1, 1), vec2(0, -1), vec2(0, 1),
+	vec2(1, -1), vec2(1, 0), vec2(1, 1)
+};
+
+void fragment() {
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	float outline = 0.0;
+
+	for (int i = 0; i < OFFSETS.length(); i++) {
+		outline += texture(TEXTURE, UV + size * OFFSETS[i]).a;
+	}
+	outline = min(outline, 1.0);
+
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31tpo"]
+shader = SubResource("Shader_0v50y")
+shader_parameter/line_color = Color(1, 0.792157, 0.0941176, 0.694118)
+shader_parameter/line_thickness = 0.5
+
+[node name="FarmOutline" type="Area2D"]
+material = SubResource("ShaderMaterial_31tpo")
+position = Vector2(0, 8)
+script = ExtResource("1_nnpk7")
+
+[node name="shape" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="."]
+closed = true
+width = 5.0
+default_color = Color(0.999999, 0.696811, 0.411994, 1)
+sharp_limit = 0.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
