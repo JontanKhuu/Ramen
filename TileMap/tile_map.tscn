@@ -17,6 +17,7 @@ agent_radius = 0.0
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ptdic"]
 texture = ExtResource("1_u7vds")
 texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -8)
 0:0/0/terrain_set = 0
@@ -31,6 +32,9 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/terrains_peering_bit/top_corner = 0
 0:0/0/terrains_peering_bit/top_right_side = 0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+0:0/1 = 1
+0:0/1/texture_origin = Vector2i(0, -8)
+0:0/1/modulate = Color(1, 0.388235, 1, 1)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, -8)
 1:0/0/terrain_set = 0
@@ -131,8 +135,9 @@ sources/0 = SubResource("TileSetAtlasSource_i1uvu")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c6d2"]
 texture = ExtResource("4_6c6d2")
 texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/texture_origin = Vector2i(0, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0pkeh"]
 texture = ExtResource("5_4buhr")
