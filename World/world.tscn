@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=13 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/tile_map.tscn" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
+[ext_resource type="Script" uid="uid://crmdlu7nyasul" path="res://World/Scripts/player_camera.gd" id="7_eidgh"]
 [ext_resource type="PackedScene" uid="uid://b5p4b4qodr5vq" path="res://Buildings/Scenes/house.tscn" id="7_yf0ba"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
@@ -68,10 +69,14 @@ time_system = NodePath("../TimeSystem")
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
 position = Vector2(390, 253)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(413, 312)
-enabled = false
+[node name="Player_Camera" type="Camera2D" parent="."]
+position = Vector2(581, 335)
 zoom = Vector2(1.5, 1.5)
+script = ExtResource("7_eidgh")
+move_speed = 400.0
+zoom_speed = 0.01
+min_zoom = 0.75
+max_zoom = 1.5
 
 [node name="House" parent="." instance=ExtResource("7_yf0ba")]
 
