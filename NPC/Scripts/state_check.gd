@@ -3,12 +3,12 @@ class_name StateChecker
 
 @export var state : Global.VILLAGER_STATE
 
-@onready var player = get_node("/root/World/NPC")
+@onready var npc = self.owner
 
 func _ready() -> void:
 	pass
 
 func score() -> float:
-	if player.state == state:
+	if npc.state == state:
 		return 1.0 
 	return 0.0

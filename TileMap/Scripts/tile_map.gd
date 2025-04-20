@@ -18,6 +18,12 @@ var cost : int = 0
 var resource : Global.RESOURCES_TRACKED
 var type : int = 0
 
+var aStar : AStarGrid2D = AStarGrid2D.new()
+
+func _ready() -> void:
+	aStar.region = Rect2i(grass.get_used_rect())
+	aStar.update()
+	
 func _process(delta: float) -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)

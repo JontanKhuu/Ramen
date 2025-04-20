@@ -67,16 +67,18 @@ time_system = NodePath("../TimeSystem")
 
 [node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
 
-[node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
-position = Vector2(390, 253)
-
 [node name="Player_Camera" type="Camera2D" parent="."]
 position = Vector2(581, 335)
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("7_eidgh")
 move_speed = 400.0
-zoom_speed = 0.01
+zoom_speed = 0.1
 min_zoom = 0.75
 max_zoom = 1.5
+
+[node name="NPCs" type="Node" parent="."]
+
+[node name="NPC" parent="NPCs" instance=ExtResource("6_bkhv4")]
+position = Vector2(323, 606)
 
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]
