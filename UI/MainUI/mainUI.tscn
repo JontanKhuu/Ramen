@@ -31,7 +31,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="WoodBox" type="MarginContainer" parent="GUI/Resources"]
+[node name="ResourceBox" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 mouse_filter = 2
@@ -39,8 +39,19 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 0
 
-[node name="Wood" parent="GUI/Resources/WoodBox" instance=ExtResource("4_lvtto")]
+[node name="Separation" type="HBoxContainer" parent="GUI/Resources/ResourceBox"]
 layout_mode = 2
+
+[node name="Wood" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+
+[node name="Food" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 1
+
+[node name="Coin" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)

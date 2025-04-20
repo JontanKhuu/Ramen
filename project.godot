@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/utility_ai/plugin.cfg")
 TILEMAP=""
 VILLAGER=""
 HOUSE=""
+CROP=""
 
 [input]
 

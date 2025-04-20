@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dj3y6vnh3v28l"]
+[gd_scene load_steps=19 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
 [ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_asys0"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="6_8wx6m"]
 [ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
 [ext_resource type="Script" uid="uid://cppxnrqckdwf6" path="res://NPC/Scripts/state_check.gd" id="8_jsb76"]
+[ext_resource type="Script" uid="uid://dy5jis6ugg6gg" path="res://NPC/Scripts/unplanted_crops.gd" id="8_rydlk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
 radius = 4.0
@@ -35,11 +36,24 @@ _limits = [0.0, 1.2, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_k8wjy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_f6bf0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8yipn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.797753), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
+z_index = 1
 collision_layer = 129
 collision_mask = 129
 script = ExtResource("1_056qb")
-job = 2
+job = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_asys0")
@@ -54,6 +68,7 @@ one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
+path_postprocessing = 1
 debug_enabled = true
 
 [node name="debugCam" type="Camera2D" parent="."]
@@ -127,6 +142,41 @@ metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 script = ExtResource("8_jsb76")
 state = 2
 curve = SubResource("Curve_fl4u6")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Plant" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "plant"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Plant"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_farmer" type="Node" parent="UtilityAiAgent/Plant/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 3
+curve = SubResource("Curve_k8wjy")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="unplanted_crops" type="Node" parent="UtilityAiAgent/Plant/UtilityAiAggregation"]
+script = ExtResource("8_rydlk")
+curve = SubResource("Curve_f6bf0")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Harvest" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "harvest"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Harvest"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_farmer" type="Node" parent="UtilityAiAgent/Harvest/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 3
+curve = SubResource("Curve_8yipn")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
