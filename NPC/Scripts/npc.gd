@@ -132,7 +132,6 @@ func cut_wood() -> void:
 		var tree_map_pos = treeTiles.local_to_map(_target)
 		treeTiles.set_cell(tree_map_pos,0)
 		Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
-		
 		_target = null
 		pass
 
