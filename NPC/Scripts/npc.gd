@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Villager
 
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST
 }
 
 @export var speed := 100
@@ -29,9 +29,9 @@ func _process(delta: float) -> void:
 
 func _handle_target(delta: float):
 	visible = true
+	# if no target, find one according to job
 	if !_target:
 		_target = null
-		# if it's still looking for wood, try to find a new target
 		match task:
 			LOOKING_FOR.WOOD:
 				find_wood()
@@ -39,11 +39,15 @@ func _handle_target(delta: float):
 				find_building()
 			LOOKING_FOR.BED:
 				find_bed()
+			LOOKING_FOR.PLANT:
+				find_plant()
+			LOOKING_FOR.HARVEST:
+				find_harvest()
 			
 		return
-	
 	nav.target_position = _target
 	
+	# if at position of target, do action according to task
 	var to_target = self.global_position.distance_to(_target)
 	match task:
 		LOOKING_FOR.NONE:
@@ -61,6 +65,15 @@ func _handle_target(delta: float):
 		LOOKING_FOR.BED:
 			if to_target < 10:
 				visible = false
+				return
+		LOOKING_FOR.PLANT:
+			if to_target < 2:
+				plant_seed()
+				return
+		LOOKING_FOR.HARVEST:
+			if to_target < 2:
+				harvest_plant()
+				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -92,13 +105,13 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 
 # Idling
 func wander():
+	# wander a certain distance from current point
 	var WAN_DIS = 60
 	var start_pos = global_position
 	var des_pos = start_pos + Vector2(randf_range(-WAN_DIS,WAN_DIS),randf_range(-WAN_DIS,WAN_DIS))
 	_target = des_pos
 
 func _on_wander_timer_timeout() -> void:
-	print("ok")
 	wander()
 
 # Cutting woooooooooood
@@ -134,9 +147,70 @@ func find_building() -> void:
 func find_bed() -> void:
 	if !bed:
 		_target = null
+		return
 	_target = bed.global_position
 
-func _on_utility_ai_agent_top_score_action_changed(top_action_id):
+# Planting
+var plant : Crop
+
+func find_plant() -> void:
+	var crops = get_tree().get_nodes_in_group("CROP")
+	# filter for already planted crops
+	crops = crops.filter(func(element):return !element.planted) 
+	if crops.size() <= 0:
+		return
+	
+	var closest = crops[0]
+	for crop in crops:
+		var dis_to_close = global_position.distance_to(closest.global_position)
+		var dis_to_cur = global_position.distance_to(crop.global_position)
+		
+		if dis_to_cur < dis_to_close:
+			closest = crop
+	_target = closest.global_position
+	plant = closest
+
+func plant_seed() -> void:
+	if !plant:
+		_target = null
+		plant = null
+		return
+	plant.planted = true
+	# plant.sprite.frame += 1
+	_target = null
+	plant = null
+
+# Harvesting
+func find_harvest() -> void:
+	var crops = get_tree().get_nodes_in_group("CROP")
+	# filter for only fully grown crops
+	crops = crops.filter(func(element): return element.grown)
+	if crops.size() <= 0:
+		_target = null
+		return
+	
+	var closest = crops[0]
+	for crop in crops:
+		var dis_to_close = global_position.distance_to(closest.global_position)
+		var dis_to_cur = global_position.distance_to(crop.global_position)
+		
+		if dis_to_cur < dis_to_close:
+			closest = crop
+	_target = closest.global_position
+	plant = closest
+
+func harvest_plant() -> void:
+	if !plant:
+		return
+	plant.time = 0.0
+	plant.planted = false
+	plant.grown = false
+	Global.inventory_dict[Global.RESOURCES_TRACKED.FOOD] += 2
+	_target = null
+	plant = null
+
+# Utility AI
+func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 	_target = null
 	wander_timer.stop()
 	print("Action changed: %s" % top_action_id)
@@ -150,3 +224,7 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id):
 			task = LOOKING_FOR.BUILDING
 		"sleep":
 			task = LOOKING_FOR.BED
+		"plant":
+			task = LOOKING_FOR.PLANT
+		"harvest":
+			task = LOOKING_FOR.HARVEST

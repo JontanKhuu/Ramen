@@ -4,7 +4,7 @@ extends Control
 @export var yDimension : int
 @export var woodCost : int
 @export var stoneCost : int
-@export var building : Buildings.BUILDINGS
+@export var building : Global.BUILDINGS
 @export var resource1 : Global.RESOURCES_TRACKED
 @export var icon : CompressedTexture2D
 

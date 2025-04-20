@@ -17,7 +17,8 @@ script = ExtResource("1_uw0g8")
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="TextureRect" type="Sprite2D" parent="Sprite"]
+[node name="Icon" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
 texture = ExtResource("2_u8e87")
 offset = Vector2(10, 10)
 hframes = 5

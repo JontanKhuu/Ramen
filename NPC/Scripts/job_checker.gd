@@ -6,7 +6,7 @@ class_name JobChecker
 @onready var player = get_node("/root/World/NPC")
 
 func _ready() -> void:
-	print(player.job)
+	pass
 
 func score() -> float:
 	if player.job == job:

@@ -5,7 +5,7 @@ enum RESOURCES_TRACKED{
 }
 
 enum BUILDINGS{
-	NONE = 0, HOUSE = 1, STORAGE = 2
+	NONE = 0, HOUSE = 1, STORAGE = 2, FARM = 3
 }
 
 enum JOB{
@@ -18,7 +18,6 @@ enum VILLAGER_STATE{
 var build_queue = []
 
 func set_villagers_state(state : VILLAGER_STATE):
-	print("Ok")
 	for villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
 var value_dict : Dictionary = {
