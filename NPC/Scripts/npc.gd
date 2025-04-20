@@ -21,8 +21,11 @@ enum LOOKING_FOR{
 var is_moving : bool = false
 var _target
 
+var aStar : AStarGrid2D
+var path_points : Array
+
 func _ready() -> void:
-	pass
+	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
 	_handle_target(delta)
@@ -45,7 +48,8 @@ func _handle_target(delta: float):
 				find_harvest()
 			
 		return
-	nav.target_position = _target
+	
+	_handle_navigation_path()
 	
 	# if at position of target, do action according to task
 	var to_target = self.global_position.distance_to(_target)
@@ -103,8 +107,21 @@ func move_to(direction, delta):
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
+func _handle_navigation_path() -> void:
+	if nav.is_navigation_finished():
+		path_points.pop_front()
+	if path_points.is_empty():
+		var position_id = grassTiles.local_to_map(global_position)
+		var target_id = grassTiles.local_to_map(_target)
+		path_points = aStar.get_id_path(position_id,target_id,true)
+		return
+	
+	nav.target_position = grassTiles.map_to_local(path_points.front())
+	pass
+
 # Idling
 func wander():
+	return
 	# wander a certain distance from current point
 	var WAN_DIS = 60
 	var start_pos = global_position
@@ -117,8 +134,10 @@ func _on_wander_timer_timeout() -> void:
 # Cutting woooooooooood
 func find_wood() -> void:
 	var treesPos = treeTiles.get_used_cells().map(treeTiles.map_to_local)
+	if treesPos.is_empty():
+		return
 	# find closest tree
-	var closest = treesPos[0]
+	var closest = treesPos.front()
 	for tree in treesPos:
 		var dis_to_close = global_position.distance_to(closest)
 		var dis_to_curTree = global_position.distance_to(tree)
@@ -131,7 +150,8 @@ func cut_wood() -> void:
 	if global_position.distance_to(_target) < 10:
 		var tree_map_pos = treeTiles.local_to_map(_target)
 		treeTiles.set_cell(tree_map_pos,0)
-		Global.wood += 2
+		grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
+		Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
 		
 		_target = null
 		pass

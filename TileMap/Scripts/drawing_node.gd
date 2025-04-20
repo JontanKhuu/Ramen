@@ -38,6 +38,14 @@ func _process(delta: float) -> void:
 				
 
 func create_building(startPos, endPos, stepX, stepY) -> void:
+	# if no area is drawn then make one tile
+	if startPos == endPos:
+		var pos = grass.map_to_local(startPos)
+		var crop = CROP.instantiate()
+		cropNode.add_child(crop)
+		crop.global_position = pos
+		return
+	
 	# sets tiles to farm tiles
 	for x in range(startPos.x ,endPos.x, stepX):
 		for y in range(startPos.y ,endPos.y , stepY):
@@ -46,34 +54,7 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 			cropNode.add_child(crop)
 			crop.global_position = pos
 			
-	# offset because lines were weird
-	match stepX + stepY:
-		0:
-			if stepX < 0:
-				startPos += Vector2i(stepX,stepY)
-				endPos += Vector2i(stepX,stepY)
-			else:
-				startPos -= Vector2i(stepX,stepY)
-				endPos -= Vector2i(stepX,stepY)
-		2:
-			print("wow")
-			startPos -= Vector2i(stepX,stepY)
-			endPos -= Vector2i(stepX,stepY)
-	# finding points
-	var start = hover.map_to_local(startPos)
-	var end = hover.map_to_local(endPos)
-	var sideOne = hover.map_to_local(Vector2i(startPos.x,endPos.y))
-	var sideTwo = hover.map_to_local(Vector2i(endPos.x,startPos.y))
-	
-	var arr : PackedVector2Array = []
-	
-	# setting line and polygon points for area
-	var farmBuilding = FARM_BUILDING.instantiate()
-	get_node("/root/World").add_child(farmBuilding)
-	arr.append(start)
-	arr.append(sideOne)
-	arr.append(end )
-	arr.append(sideTwo )
-	farmBuilding.colShape.polygon = arr
-	farmBuilding.line.points = arr
+	pass
+
+func mark_for_demolish() -> void:
 	pass

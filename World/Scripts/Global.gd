@@ -25,7 +25,7 @@ var value_dict : Dictionary = {
 	RESOURCES_TRACKED.FOOD : 2
 }
 var inventory_dict : Dictionary = {
-	RESOURCES_TRACKED.WOOD : 5,
+	RESOURCES_TRACKED.WOOD : 10,
 	RESOURCES_TRACKED.FOOD : 0,
 	RESOURCES_TRACKED.COINS : 0
 }

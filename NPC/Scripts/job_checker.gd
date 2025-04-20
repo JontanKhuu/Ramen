@@ -1,3 +1,4 @@
+@tool
 extends UtilityAiConsideration
 class_name JobChecker
 
