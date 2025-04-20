@@ -12,7 +12,7 @@
 script = ExtResource("3_k8do8")
 seconds = 0
 minutes = 20
-hours = 15
+hours = 2
 days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
@@ -46,7 +46,7 @@ y_sort_enabled = true
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_3f78f")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 5000
+ticks_per_second = 1000
 
 [node name="MainUI" parent="." instance=ExtResource("3_bkhv4")]
 
@@ -69,6 +69,7 @@ time_system = NodePath("../TimeSystem")
 
 [node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
 position = Vector2(390, 253)
+job = 0
 
 [node name="Player_Camera" type="Camera2D" parent="."]
 position = Vector2(581, 335)

@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://cvqkc652n5re2"]
+
+[node name="JobManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 576.0
+offset_top = -68.0
+offset_right = -389.0
+offset_bottom = -489.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Job Manager Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+anchor_left = 2.075
+anchor_top = 1.089
+anchor_right = 2.075
+anchor_bottom = 1.089
+offset_left = -0.0249939
+offset_top = -0.0250244
+offset_right = 187.975
+offset_bottom = 260.975
+
+[node name="Job" type="VBoxContainer" parent="Job Manager Box"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Job"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Worker Icon" type="Sprite2D" parent="Job Manager Box/Job/Job Stuff"]
+
+[node name="Job Name" type="Label" parent="Job Manager Box/Job/Job Stuff"]
+layout_mode = 2
+text = "Available Workers: "
+
+[node name="Job Count" type="Label" parent="Job Manager Box/Job/Job Stuff"]
+layout_mode = 2
+text = "0"
+
+[node name="Builder" type="VBoxContainer" parent="Job Manager Box"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Builder"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Builder Job Icon" type="Sprite2D" parent="Job Manager Box/Builder/Job Stuff"]
+
+[node name="Job Name" type="Label" parent="Job Manager Box/Builder/Job Stuff"]
+layout_mode = 2
+text = "Builders: "
+
+[node name="Job Count" type="Label" parent="Job Manager Box/Builder/Job Stuff"]
+layout_mode = 2
+text = "0"
+
+[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Builder"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="-10" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "-10"
+
+[node name="-5" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "-5"
+
+[node name="-1" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "-1"
+
+[node name="+1" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "+1"
+
+[node name="+5" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "+5"
+
+[node name="+10" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
+layout_mode = 2
+text = "+10"
+
+[node name="Laborer" type="VBoxContainer" parent="Job Manager Box"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Laborer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Laborer Job Icon" type="Sprite2D" parent="Job Manager Box/Laborer/Job Stuff"]
+
+[node name="Job Name" type="Label" parent="Job Manager Box/Laborer/Job Stuff"]
+layout_mode = 2
+text = "Laborers: "
+
+[node name="Job Count" type="Label" parent="Job Manager Box/Laborer/Job Stuff"]
+layout_mode = 2
+text = "0"
+
+[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Laborer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="-10" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "-10"
+
+[node name="-5" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "-5"
+
+[node name="-1" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "-1"
+
+[node name="+1" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "+1"
+
+[node name="+5" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "+5"
+
+[node name="+10" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
+layout_mode = 2
+text = "+10"
+
+[node name="Farmer" type="VBoxContainer" parent="Job Manager Box"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Farmer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Farmers Job Icon" type="Sprite2D" parent="Job Manager Box/Farmer/Job Stuff"]
+
+[node name="Job Name" type="Label" parent="Job Manager Box/Farmer/Job Stuff"]
+layout_mode = 2
+text = "Farmers: "
+
+[node name="Job Count" type="Label" parent="Job Manager Box/Farmer/Job Stuff"]
+layout_mode = 2
+text = "0"
+
+[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Farmer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="-10" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "-10"
+
+[node name="-5" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "-5"
+
+[node name="-1" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "-1"
+
+[node name="+1" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "+1"
+
+[node name="+5" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "+5"
+
+[node name="+10" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
+layout_mode = 2
+text = "+10"
