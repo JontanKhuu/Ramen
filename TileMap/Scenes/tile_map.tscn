@@ -133,6 +133,7 @@ texture_region_size = Vector2i(32, 64)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(-1, 27)
 0:0/1 = 1
+0:0/1/texture_origin = Vector2i(-1, 27)
 0:0/1/modulate = Color(1, 0.482353, 0, 1)
 
 [sub_resource type="TileSet" id="TileSet_6c6d2"]

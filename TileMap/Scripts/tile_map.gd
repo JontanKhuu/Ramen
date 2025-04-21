@@ -51,6 +51,10 @@ func _handle_hover() -> void:
 		drawingNode.is_farm_building = true
 		is_building = false
 		return
+	elif type == Global.BUILDINGS.HARVEST:
+		drawingNode.is_removing = true
+		is_building = false
+		return
 	
 	var tile : Vector2i = hover.local_to_map(get_global_mouse_position() - Vector2(0,8))
 	hover.set_cell(tile,type,Vector2i(0,0))

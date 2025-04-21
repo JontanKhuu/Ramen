@@ -108,6 +108,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
 func _handle_navigation_path() -> void:
+	# go through each path point that astar provides to target
 	if nav.is_navigation_finished():
 		path_points.pop_front()
 	if path_points.is_empty():
@@ -121,7 +122,6 @@ func _handle_navigation_path() -> void:
 
 # Idling
 func wander():
-	return
 	# wander a certain distance from current point
 	var WAN_DIS = 60
 	var start_pos = global_position
@@ -133,7 +133,7 @@ func _on_wander_timer_timeout() -> void:
 
 # Cutting woooooooooood
 func find_wood() -> void:
-	var treesPos = treeTiles.get_used_cells().map(treeTiles.map_to_local)
+	var treesPos = treeTiles.get_used_cells_by_id(0,Vector2(0,0),1).map(treeTiles.map_to_local)
 	if treesPos.is_empty():
 		return
 	# find closest tree
