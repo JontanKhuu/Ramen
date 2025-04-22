@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=8 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=10 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]

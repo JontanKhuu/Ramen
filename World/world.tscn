@@ -14,7 +14,6 @@ script = ExtResource("3_k8do8")
 seconds = 0
 minutes = 20
 hours = 1
-
 days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
@@ -69,10 +68,6 @@ time_system = NodePath("../TimeSystem")
 
 [node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
 
-[node name="NPC" parent="." instance=ExtResource("6_bkhv4")]
-position = Vector2(390, 253)
-job = 0
-
 [node name="Player_Camera" type="Camera2D" parent="."]
 position = Vector2(581, 335)
 zoom = Vector2(1.5, 1.5)
@@ -86,6 +81,10 @@ max_zoom = 1.5
 
 [node name="NPC" parent="NPCs" instance=ExtResource("6_bkhv4")]
 position = Vector2(323, 606)
+
+[node name="NPC2" parent="NPCs" instance=ExtResource("6_bkhv4")]
+position = Vector2(390, 253)
+job = 0
 
 [node name="construction" parent="." instance=ExtResource("8_eidgh")]
 

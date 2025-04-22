@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cvqkc652n5re2"]
+[gd_scene load_steps=2 format=3 uid="uid://cvqkc652n5re2"]
+
+[ext_resource type="Script" uid="uid://5kw6sdtpjg6p" path="res://UI/Job_Manager/scripts/job_manager.gd" id="1_dnr38"]
 
 [node name="JobManager" type="Control"]
 layout_mode = 3
@@ -11,6 +13,7 @@ offset_right = -389.0
 offset_bottom = -489.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dnr38")
 
 [node name="Job Manager Box" type="VBoxContainer" parent="."]
 layout_mode = 2
