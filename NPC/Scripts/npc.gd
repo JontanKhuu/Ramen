@@ -152,7 +152,8 @@ func cut_wood() -> void:
 		treeTiles.set_cell(tree_map_pos,0)
 		grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
 		Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
-		
+
+
 		_target = null
 		pass
 
