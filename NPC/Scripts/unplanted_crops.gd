@@ -1,3 +1,4 @@
+@tool
 extends UtilityAiConsideration
 
 func score() -> float:

@@ -5,7 +5,7 @@ enum RESOURCES_TRACKED{
 }
 
 enum BUILDINGS{
-	NONE = 0, HOUSE = 1, STORAGE = 2, FARM = 3
+	NONE = 0, HOUSE = 1, STORAGE = 2, FARM = 3, HARVEST = 4
 }
 
 enum JOB{
@@ -25,7 +25,7 @@ var value_dict : Dictionary = {
 	RESOURCES_TRACKED.FOOD : 2
 }
 var inventory_dict : Dictionary = {
-	RESOURCES_TRACKED.WOOD : 5,
+	RESOURCES_TRACKED.WOOD : 10,
 	RESOURCES_TRACKED.FOOD : 0,
 	RESOURCES_TRACKED.COINS : 0
 }
