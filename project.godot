@@ -39,6 +39,8 @@ VILLAGER=""
 HOUSE=""
 CROP=""
 TENT=""
+TRADEUI=""
+EVENTSPAWN=""
 
 [input]
 

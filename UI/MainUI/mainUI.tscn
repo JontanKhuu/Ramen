@@ -108,6 +108,6 @@ offset_right = 0.0
 offset_bottom = 0.0
 mouse_filter = 2
 
-[node name="TradeUI" parent="." instance=ExtResource("6_6j1t5")]
+[node name="TradeUI" parent="." groups=["TRADEUI"] instance=ExtResource("6_6j1t5")]
 
 [node name="JobManager" parent="." instance=ExtResource("7_pg31w")]

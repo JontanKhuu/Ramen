@@ -1,26 +1,47 @@
 extends CharacterBody2D
+class_name EventNPC
+
+const goblin = preload("res://NPC/Assets/Merchant.png")
+const ambassador = preload("res://NPC/Assets/Ambassador.png")
+const guard1 = preload("res://NPC/Assets/Guard1.png")
+const guard2 = preload("res://NPC/Assets/Guard2.png")
+
+enum EVENT_TYPE{
+	NONE = 0,MERCHANT = 1, TRIBUTE = 2
+}
 
 @export var speed := 100
+
+@export var event_type : EVENT_TYPE 
 
 @onready var tiles : Node2D = get_node("/root/World/TileMap")
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var trade : Control = get_tree().get_first_node_in_group("TRADEUI")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 var _target
 
+var leaving : bool = false
 var aStar : AStarGrid2D
 var path_points : Array
 
 func _ready() -> void:
 	_target = get_tree().get_first_node_in_group("TENT").entrance.global_position
 	aStar = tiles.aStar
-
+	_handle_event_setup()
+	
 func _process(delta: float) -> void:
+	_handle_target(delta)
+
+func _handle_target(delta : float) -> void:
 	if !_target:
 		return
+	
 	var to_target = self.global_position.distance_to(_target)
 	if to_target < 5:
+		if leaving:
+			queue_free()
 		_target = null
 		velocity = Vector2.ZERO
 		nav.emit_signal("navigation_finished")
@@ -57,4 +78,30 @@ func _handle_navigation_path() -> void:
 		return
 	
 	nav.target_position = grassTiles.map_to_local(path_points.front())
-	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	var distance = get_global_mouse_position().distance_to(global_position)
+	if event.is_action_pressed("confirm") and distance < 10:
+		_event_action()
+
+# Event handling
+func _handle_event_setup() -> void:
+	match event_type:
+		EVENT_TYPE.MERCHANT:
+			sprite_2d.texture = goblin
+			pass
+		EVENT_TYPE.TRIBUTE:
+			sprite_2d.texture = ambassador
+			pass
+
+func _event_action() -> void:
+	match event_type:
+		EVENT_TYPE.MERCHANT:
+			trade.visible = true
+			pass
+		EVENT_TYPE.TRIBUTE:
+			sprite_2d.texture = ambassador
+			pass
+func leave() -> void:
+	_target = get_parent().global_position
+	leaving = true

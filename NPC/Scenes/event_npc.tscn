@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b250ohsf08qk7"]
+[gd_scene load_steps=3 format=3 uid="uid://b250ohsf08qk7"]
 
 [ext_resource type="Script" uid="uid://cc7abbam5vinm" path="res://NPC/Scenes/event_npc.gd" id="1_bw2qs"]
-[ext_resource type="Texture2D" uid="uid://cr05crb7xlo6m" path="res://NPC/Assets/Merchant.png" id="2_81t3t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_81t3t"]
 radius = 5.0
@@ -12,7 +11,6 @@ collision_layer = 0
 script = ExtResource("1_bw2qs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_81t3t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_81t3t")

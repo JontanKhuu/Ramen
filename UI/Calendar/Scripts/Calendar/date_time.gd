@@ -6,6 +6,8 @@ class_name DateTime extends Resource
 @export_range(0,59) var hours:int = 0 
 @export_range(0,59) var days:int = 0 
 
+signal day_passed
+
 var delta_time: float = 0
 
 # Function for increasing time
@@ -19,7 +21,9 @@ func increase_by_sec(delta_seconds:float) -> void:
 	seconds += delta_int_secs 
 	minutes += seconds/60 
 	hours += minutes/60
-	days += hours/24 
+	if hours >= 24:
+		days += hours/24 
+		day_passed.emit()
 
 	seconds = seconds % 60
 	minutes = minutes % 60

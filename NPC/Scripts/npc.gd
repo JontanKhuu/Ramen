@@ -54,7 +54,7 @@ func _handle_target(delta: float):
 	var to_target = self.global_position.distance_to(_target)
 	match task:
 		LOOKING_FOR.NONE:
-			if to_target < 5:
+			if to_target < 5 or nav.is_navigation_finished():
 				wander_timer.start()
 				_target = null
 				return

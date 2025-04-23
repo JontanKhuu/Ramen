@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=13 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/Scenes/tile_map.tscn" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
 [ext_resource type="Script" uid="uid://crmdlu7nyasul" path="res://World/Scripts/player_camera.gd" id="7_eidgh"]
-[ext_resource type="PackedScene" uid="uid://b250ohsf08qk7" path="res://NPC/Scenes/event_npc.tscn" id="8_oe8m4"]
 [ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_oe8m4"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
@@ -48,12 +47,11 @@ y_sort_enabled = true
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_3f78f")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 1000
+ticks_per_second = 5000
 
 [node name="MainUI" parent="." instance=ExtResource("3_bkhv4")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
-visible = false
 position = Vector2(576, 281)
 color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
@@ -91,9 +89,7 @@ job = 0
 [node name="Tent" parent="." instance=ExtResource("9_oe8m4")]
 position = Vector2(256, 546)
 
-[node name="EventSpawn" type="Node2D" parent="."]
+[node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
-
-[node name="EventNPC" parent="EventSpawn" instance=ExtResource("8_oe8m4")]
 
 [connection signal="updated" from="TimeSystem" to="DirectionalLight2D" method="update"]

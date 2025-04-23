@@ -1,14 +1,17 @@
 class_name TimeSystem extends Node 
 
+const EVENT = preload("res://NPC/Scenes/event_npc.tscn")
+
 signal updated
 
 @export var date_time: DateTime 
 @export var ticks_per_second: int = 10000 # Change the int here to increase/decrease speed of time
 
+@onready var eventSpawn = get_tree().get_first_node_in_group("EVENTSPAWN")
 # Add event and check what time of date it should trigger.
 var events = {
-	"Trader Spawn": {"days": 2,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
-	"Money Checkin": {"days": 1,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
+	"Trader Spawn": {"days": 1,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
+	"Money Checkin": {"days": 2,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
 	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
 	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
 }
@@ -54,7 +57,11 @@ func sort_events(a,b):
 	else:
 		return false
 
-func trader_spawn(): # The actual function
+func trader_spawn() -> void: # The actual function
+	var merchant = EVENT.instantiate()
+	merchant.event_type = merchant.EVENT_TYPE.MERCHANT
+	date_time.connect("day_passed",Callable(merchant,"leave"))
+	eventSpawn.add_child(merchant)
 	print("Trader Spawned")
 
 func money_checkin():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
-[ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_asys0"]
+[ext_resource type="Texture2D" uid="uid://47an08dj67su" path="res://NPC/Assets/VillagerMale.png" id="2_jsb76"]
 [ext_resource type="Script" uid="uid://bxew2mys8y8u8" path="res://addons/utility_ai/agent/agent.gd" id="3_7mkhf"]
 [ext_resource type="Script" uid="uid://bpvkdlp8jw4sj" path="res://addons/utility_ai/actions/action.gd" id="4_8wx6m"]
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
@@ -56,7 +56,7 @@ script = ExtResource("1_056qb")
 job = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_asys0")
+texture = ExtResource("2_jsb76")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_056qb")
