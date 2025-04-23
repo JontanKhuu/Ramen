@@ -70,7 +70,7 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 	pass
 
 func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
-	if startPos == endPos:
+	if startPos == endPos and tree.get_used_cells().has(startPos):
 		tree.set_cell(startPos,0,Vector2i(0,0),1)
 		
 	for x in range(startPos.x ,endPos.x, stepX):

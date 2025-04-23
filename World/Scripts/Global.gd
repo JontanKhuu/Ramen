@@ -17,9 +17,6 @@ enum VILLAGER_STATE{
 
 var build_queue = []
 
-func set_villagers_state(state : VILLAGER_STATE):
-	for villager in get_tree().get_nodes_in_group("VILLAGER"):
-		villager.state = state
 var value_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : 1,
 	RESOURCES_TRACKED.FOOD : 2
@@ -34,3 +31,10 @@ var naming_dict : Dictionary = {
 	RESOURCES_TRACKED.FOOD : "FOOD",
 	RESOURCES_TRACKED.COINS : "COINS"
 }
+func set_villagers_state(state : VILLAGER_STATE):
+	for villager in get_tree().get_nodes_in_group("VILLAGER"):
+		villager.state = state
+
+func _process(delta: float) -> void:
+	#print(build_queue)
+	pass

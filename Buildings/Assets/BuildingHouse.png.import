@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnlqvqrdcjq4p"
-path="res://.godot/imported/FarmTile.png-10795c98a971f36367b87f8125a2fcbd.ctex"
+uid="uid://cg3khy23je2bt"
+path="res://.godot/imported/BuildingHouse.png-9c16223d10029d2844fbdc968c4ea57f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/FarmTile.png"
-dest_files=["res://.godot/imported/FarmTile.png-10795c98a971f36367b87f8125a2fcbd.ctex"]
+source_file="res://Buildings/Assets/BuildingHouse.png"
+dest_files=["res://.godot/imported/BuildingHouse.png-9c16223d10029d2844fbdc968c4ea57f.ctex"]
 
 [params]
 

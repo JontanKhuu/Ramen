@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5p4b4qodr5vq"]
 
 [ext_resource type="Script" uid="uid://cpe1scflq0fo3" path="res://Buildings/Scripts/house.gd" id="1_h65h6"]
-[ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://TileMap/Assets/BuildingHouse.png" id="2_fcaw0"]
+[ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://Buildings/Assets/BuildingHouse.png" id="2_fcaw0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
 

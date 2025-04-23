@@ -38,6 +38,7 @@ TILEMAP=""
 VILLAGER=""
 HOUSE=""
 CROP=""
+TENT=""
 
 [input]
 

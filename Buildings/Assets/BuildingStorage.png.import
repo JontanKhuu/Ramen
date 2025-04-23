@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg3khy23je2bt"
-path="res://.godot/imported/BuildingHouse.png-fb878dd271f90ee6554a23609737e099.ctex"
+uid="uid://kfqml2vqpir"
+path="res://.godot/imported/BuildingStorage.png-6c6f842cb59a68b3bd7b9d094c26b7d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/BuildingHouse.png"
-dest_files=["res://.godot/imported/BuildingHouse.png-fb878dd271f90ee6554a23609737e099.ctex"]
+source_file="res://Buildings/Assets/BuildingStorage.png"
+dest_files=["res://.godot/imported/BuildingStorage.png-6c6f842cb59a68b3bd7b9d094c26b7d0.ctex"]
 
 [params]
 

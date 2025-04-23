@@ -81,6 +81,10 @@ func _set_road_weights() -> void:
 	aStar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	aStar.update()
 	
+	var noNav = grass.get_used_cells_by_id(0,Vector2i(0,1),1)
+	for cell in noNav:
+		aStar.set_point_solid(cell,true)
+	
 	# apply less weight to roads for usage preference
 	var roadTiles = roads.get_used_cells()
 	var weightedTiles = grass.get_used_cells()

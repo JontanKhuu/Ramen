@@ -17,21 +17,26 @@ const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
 @onready var area: Area2D = $Area2D
 
 var builder : Villager 
+var villagers 
 
 func _ready() -> void:
 	Global.build_queue.append(self)
 	remove_nav_under()
 
 func _process(delta: float) -> void:
-	var villagers = area.get_overlapping_bodies()
+	villagers = area.get_overlapping_bodies()
 	if villagers.size() > 0:
 		builder = villagers[0]
 		_handle_building_time(delta,building)
 	
 func _handle_building_time(delta : float, building):
 	if timeToBuild <= 0.0:
-		builder._target = null
 		Global.build_queue.remove_at(Global.build_queue.find(self))
+		
+		for villager in villagers:
+			villager._target = null
+			villager.find_building()
+		
 		_build_chosen_building()
 		return
 	timeToBuild -= delta
