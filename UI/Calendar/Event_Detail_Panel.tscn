@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://fi5fgsdv4q10"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b07ng"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddesr"]
+
+[node name="EventDetailPanel" type="Control"]
+layout_mode = 3
+anchor_left = 0.365
+anchor_top = 0.105
+anchor_right = 0.664
+anchor_bottom = 0.886
+offset_left = 0.519989
+offset_top = -0.0400009
+offset_right = 0.0719604
+offset_bottom = -0.128052
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EventPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b07ng")
+
+[node name="EventContainer" type="VBoxContainer" parent="EventPanel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="ClosePanel" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 293.0
+offset_top = 474.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Close"
+flat = true
+
+[node name="EventsLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = -21.0
+offset_right = 54.0
+offset_bottom = 2.0
+grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ddesr")
+text = "  Todays Events  "

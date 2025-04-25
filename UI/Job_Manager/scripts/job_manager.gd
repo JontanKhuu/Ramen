@@ -1,9 +1,9 @@
 extends Node
 
-@onready var available_workers: Label = $Job_Manager_Box/Jobs/Available_Works/Job_Count
-@onready var builders_count: Label = $Job_Manager_Box/Builders/Job_Stuff/Job_Count
-@onready var laborers_count: Label = $Job_Manager_Box/Laborers/Job_Stuff/Job_Count
-@onready var farmers_count: Label = $Job_Manager_Box/Farmers/Job_Stuff/Job_Count
+@onready var available_workers: Label = $Job_Manager_Box/Job/Job_Stuff/Job_Count
+@onready var builders_count: Label = $Job_Manager_Box/Builder/Job_Stuff/Job_Count
+@onready var laborers_count: Label = $Job_Manager_Box/Laborer/Job_Stuff/Job_Count
+@onready var farmers_count: Label = $Job_Manager_Box/Farmer/Job_Stuff/Job_Count
 @onready var JOB = Global.JOB
 
 func _ready():
