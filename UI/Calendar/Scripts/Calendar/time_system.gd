@@ -11,8 +11,16 @@ var events = {
 	"Money Checkin": {"days": 1,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
 	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
 	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
+	"Trader Spawn2": {"days": 3,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
+	"Money Checkin2": {"days": 6,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
+	"Queue Sort Test2": {"days": 7,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
+	"Queue Sort Tes3t": {"days": 4,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
+	"Test Eve3nt2": {"days": 5,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
+	"Trader Sp3awn2": {"days": 18,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
+	"Test Event22": {"days": 12,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
+	"Test Event222": {"days": 26,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
 }
-
+	
 var previous_day = -1
 var event_queue = []
 

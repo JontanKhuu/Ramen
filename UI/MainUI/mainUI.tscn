@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=9 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
-[ext_resource type="PackedScene" uid="uid://x0fj4b75fxgn" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
+[ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
 [ext_resource type="Texture2D" uid="uid://kdshdbkr7m1u" path="res://UI/BuildMenu/Assets/IconHouseBuild.png" id="3_wec40"]
 [ext_resource type="PackedScene" uid="uid://dy750xbw85hp1" path="res://UI/MainUI/resource_tracka.tscn" id="4_lvtto"]
 [ext_resource type="Texture2D" uid="uid://det8icwdmvnuh" path="res://UI/BuildMenu/Assets/IconStorageBuild.png" id="4_q5o53"]
 [ext_resource type="Texture2D" uid="uid://ce5qnlx3msp1l" path="res://UI/BuildMenu/Assets/IconRemoveResource.png" id="5_d8xat"]
 [ext_resource type="PackedScene" uid="uid://cwyk2c760n12i" path="res://UI/Trading/trade_ui.tscn" id="6_6j1t5"]
 [ext_resource type="PackedScene" uid="uid://cvqkc652n5re2" path="res://UI/Job_Manager/Job_Manager.tscn" id="7_pg31w"]
-[ext_resource type="Script" uid="uid://5kw6sdtpjg6p" path="res://UI/Job_Manager/scripts/job_manager.gd" id="8_bwhks"]
 
 [node name="MainUI" type="CanvasLayer"]
 
@@ -112,4 +111,3 @@ mouse_filter = 2
 [node name="TradeUI" parent="." instance=ExtResource("6_6j1t5")]
 
 [node name="JobManager" parent="." instance=ExtResource("7_pg31w")]
-script = ExtResource("8_bwhks")
