@@ -18,6 +18,7 @@ enum EVENT_TYPE{
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var trade : Control = get_tree().get_first_node_in_group("TRADEUI")
+@onready var tribute : Control = get_tree().get_first_node_in_group("TRIBUTE")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 var _target
@@ -92,6 +93,7 @@ func _handle_event_setup() -> void:
 			pass
 		EVENT_TYPE.TRIBUTE:
 			sprite_2d.texture = ambassador
+			tribute.paid = false
 			pass
 
 func _event_action() -> void:
@@ -100,7 +102,7 @@ func _event_action() -> void:
 			trade.visible = true
 			pass
 		EVENT_TYPE.TRIBUTE:
-			sprite_2d.texture = ambassador
+			tribute.visible = true
 			pass
 func leave() -> void:
 	_target = get_parent().global_position
