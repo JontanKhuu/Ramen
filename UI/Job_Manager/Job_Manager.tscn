@@ -30,154 +30,16 @@ offset_bottom = 260.975
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Job"]
+[node name="Job Container" type="HBoxContainer" parent="Job Manager Box/Job"]
 layout_mode = 2
-size_flags_horizontal = 4
+alignment = 1
 
-[node name="Worker Icon" type="Sprite2D" parent="Job Manager Box/Job/Job Stuff"]
+[node name="Job Icon" type="Sprite2D" parent="Job Manager Box/Job/Job Container"]
 
-[node name="Job Name" type="Label" parent="Job Manager Box/Job/Job Stuff"]
+[node name="Job Name" type="Label" parent="Job Manager Box/Job/Job Container"]
 layout_mode = 2
-text = "Available Workers: "
+text = "Unemployed:"
 
-[node name="Job Count" type="Label" parent="Job Manager Box/Job/Job Stuff"]
-layout_mode = 2
-text = "0"
-
-[node name="Builder" type="VBoxContainer" parent="Job Manager Box"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Builder"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Builder Job Icon" type="Sprite2D" parent="Job Manager Box/Builder/Job Stuff"]
-
-[node name="Job Name" type="Label" parent="Job Manager Box/Builder/Job Stuff"]
-layout_mode = 2
-text = "Builders: "
-
-[node name="Job Count" type="Label" parent="Job Manager Box/Builder/Job Stuff"]
+[node name="Job Count" type="Label" parent="Job Manager Box/Job/Job Container"]
 layout_mode = 2
 text = "0"
-
-[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Builder"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="-10" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "-10"
-
-[node name="-5" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "-5"
-
-[node name="-1" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "-1"
-
-[node name="+1" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "+1"
-
-[node name="+5" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "+5"
-
-[node name="+10" type="Button" parent="Job Manager Box/Builder/Worker Allocation"]
-layout_mode = 2
-text = "+10"
-
-[node name="Laborer" type="VBoxContainer" parent="Job Manager Box"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Laborer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Laborer Job Icon" type="Sprite2D" parent="Job Manager Box/Laborer/Job Stuff"]
-
-[node name="Job Name" type="Label" parent="Job Manager Box/Laborer/Job Stuff"]
-layout_mode = 2
-text = "Laborers: "
-
-[node name="Job Count" type="Label" parent="Job Manager Box/Laborer/Job Stuff"]
-layout_mode = 2
-text = "0"
-
-[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Laborer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="-10" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "-10"
-
-[node name="-5" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "-5"
-
-[node name="-1" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "-1"
-
-[node name="+1" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "+1"
-
-[node name="+5" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "+5"
-
-[node name="+10" type="Button" parent="Job Manager Box/Laborer/Worker Allocation"]
-layout_mode = 2
-text = "+10"
-
-[node name="Farmer" type="VBoxContainer" parent="Job Manager Box"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Job Stuff" type="HBoxContainer" parent="Job Manager Box/Farmer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Farmers Job Icon" type="Sprite2D" parent="Job Manager Box/Farmer/Job Stuff"]
-
-[node name="Job Name" type="Label" parent="Job Manager Box/Farmer/Job Stuff"]
-layout_mode = 2
-text = "Farmers: "
-
-[node name="Job Count" type="Label" parent="Job Manager Box/Farmer/Job Stuff"]
-layout_mode = 2
-text = "0"
-
-[node name="Worker Allocation" type="HBoxContainer" parent="Job Manager Box/Farmer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="-10" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "-10"
-
-[node name="-5" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "-5"
-
-[node name="-1" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "-1"
-
-[node name="+1" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "+1"
-
-[node name="+5" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "+5"
-
-[node name="+10" type="Button" parent="Job Manager Box/Farmer/Worker Allocation"]
-layout_mode = 2
-text = "+10"
