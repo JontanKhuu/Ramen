@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo87gfupu4owd"]
+
+[ext_resource type="Script" uid="uid://wlb0rpiqgptw" path="res://UI/Job_Manager/scripts/JobAllocation.gd" id="1_ckv75"]
+
+[node name="Job" type="VBoxContainer"]
+size_flags_vertical = 0
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+alignment = 1
+script = ExtResource("1_ckv75")
+
+[connection signal="value_changed" from="SpinBox" to="SpinBox" method="_on_value_changed"]
