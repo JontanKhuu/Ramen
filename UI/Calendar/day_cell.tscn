@@ -3,15 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_7r5qq"]
 
 [node name="Button" type="Button"]
-self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(80, 80)
 anchors_preset = -1
 anchor_right = 0.081
 anchor_bottom = 0.105
 offset_right = -0.311996
 offset_bottom = -0.0400009
-text = "	[[Events]]
-
-	"
 flat = true
 
 [node name="EventToday" type="Sprite2D" parent="."]
