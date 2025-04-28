@@ -1,77 +1,87 @@
 extends Node
 
-@onready var available_workers: Label = $Job_Manager_Box/Jobs/Available_Works/Job_Count
-@onready var builders_count: Label = $Job_Manager_Box/Builders/Job_Stuff/Job_Count
-@onready var laborers_count: Label = $Job_Manager_Box/Laborers/Job_Stuff/Job_Count
-@onready var farmers_count: Label = $Job_Manager_Box/Farmers/Job_Stuff/Job_Count
-@onready var JOB = Global.JOB
+@onready var available_workers: Label = $"Job Manager Box/Job/Job Container/Job Count"
+@onready var job_manager = $"Job Manager Box"
+@onready var jobs = Global.JOB
+@onready var job_container = VBoxContainer.new()
+var current_job_counts: Dictionary = {} # Keep track of the current number of villagers in each job
 
 func _ready():
-	var job_data = {
-		"Builder": Global.JOB.BUILDER,
-		"Laborer": Global.JOB.LABORER,
-		"Farmer": Global.JOB.FARMER,
-	}
-	for job_name in job_data.keys():
-		var worker_allocation_container = get_node("Job Manager Box/" + job_name + "/Worker Allocation")
-		if worker_allocation_container:
-			var buttons = worker_allocation_container.get_children()
-			for button in buttons:
-				if button is Button:
-					var amount_text = button.text
-					var amount = amount_text.to_int()
-					button.connect("pressed", self._on_worker_button_pressed.bind(job_data[job_name], amount))
-				else:
-					printerr("Warning: Non-button child in Worker Allocation for:", job_name)
-		else:
-			printerr("Error: Could not find Worker Allocation container for:", job_name)
-		update_job_number(job_name, job_data[job_name]) # Initialize job counts for specific jobs
-	# Now, also update the "None" job count label
-	update_job_number("Job", Global.JOB.NONE)
+	var initial_job_counts = _get_initial_job_counts()
+	available_workers.text = str(initial_job_counts[jobs.NONE]) # Display initial unemployed count
+	job_manager.add_child(job_container)
+	_create_job_spinboxes(initial_job_counts) # Pass initial job counts
+	_connect_spinbox_signals()
 
-func get_villager_job(job_enum: int) -> Array:
+func _get_initial_job_counts() -> Dictionary:
+	var job_counts = {}
+	for job_name in jobs.keys():
+		job_counts[jobs[job_name]] = _get_villager_job(jobs[job_name]).size()
+	return job_counts
+
+func _get_villager_job(job_enum: int) -> Array:
 	var all_villagers = get_tree().get_nodes_in_group("VILLAGER")
 	var filtered_villagers = []
 	for villager in all_villagers:
 		if villager.job == job_enum:
 			filtered_villagers.append(villager)
 	return filtered_villagers
-	
-func update_job_number(job_name: String, job_enum: int):
-	var job_count_label = get_node("Job Manager Box/" + job_name + "/Job Stuff/Job Count")
-	if job_count_label is Label:
-		job_count_label.text = str(get_villager_job(job_enum).size())
-	else:
-		printerr("Error: Could not find Job Count Label for:", job_name)
-	
-func _on_worker_button_pressed(job_enum: int, amount: int):
-	if amount > 0:
-		# Add workers to the job
-		var jobless_villagers = get_villager_job(Global.JOB.NONE)
-		var villagers_to_add = min(amount, jobless_villagers.size())
+
+func _create_job_spinboxes(initial_job_counts: Dictionary):
+	var total_villagers = 0
+	for count in initial_job_counts.values():
+		total_villagers += count
+
+	for job_name in jobs.keys():
+		var job_enum_value = jobs[job_name]
+		if job_enum_value != jobs.NONE:
+			var spinbox = SpinBox.new()
+			spinbox.name = job_name # Use the job name directly
+			spinbox.alignment = HORIZONTAL_ALIGNMENT_CENTER
+			spinbox.prefix = job_name.to_lower().capitalize() + "s:"
+			spinbox.max_value = total_villagers # Initial max is total villagers
+			spinbox.value = initial_job_counts.get(job_enum_value, 0) # Set initial value
+			job_container.add_child(spinbox)
+			current_job_counts[job_name] = spinbox.value # Initialize count
+
+func _connect_spinbox_signals():
+	for child in job_container.get_children():
+		if child is SpinBox:
+			child.value_changed.connect(_on_job_spinbox_changed.bind(child))
+
+func _update_spinbox_max_values():
+	var unemployed_count = _get_villager_job(jobs.NONE).size()
+	var total_villagers = unemployed_count
+	for count in current_job_counts.values():
+		total_villagers += count
+
+	for child in job_container.get_children():
+		if child is SpinBox:
+			var job_name = child.name
+			var current_assigned = current_job_counts.get(job_name, 0)
+			child.max_value = current_assigned + unemployed_count
+
+func _on_job_spinbox_changed(new_value: float, spinbox):
+	var job_name = spinbox.name
+	var previous_value = current_job_counts.get(job_name, 0)
+	var difference = int(new_value - previous_value)
+
+	if difference > 0:
+		var unemployed = _get_villager_job(jobs.NONE)
+		var villagers_to_add = min(difference, unemployed.size())
 		for _i in villagers_to_add:
-			if not jobless_villagers.is_empty():
-				var current_villager = jobless_villagers.pop_front()
-				current_villager.job = job_enum
-		if villagers_to_add > 0:
-			# Need to find the job name to update the label
-			for job_name in ["Laborer", "Builder", "Farmer"]:
-				if Global.JOB[job_name.to_upper()] == job_enum:
-					update_job_number(job_name, job_enum)
-					break
-			update_job_number("Job", Global.JOB.NONE)
-	elif amount < 0:
-		# Remove workers from the job
-		var current_job_villagers = get_villager_job(job_enum)
-		var villagers_to_remove = min(-amount, current_job_villagers.size())
+			if not unemployed.is_empty():
+				var current_villager = unemployed.pop_front()
+				current_villager.job = jobs[job_name]
+	elif difference < 0:
+		var current_job_enum = jobs[job_name]
+		var current_job_villagers = _get_villager_job(current_job_enum)
+		var villagers_to_remove = min(-difference, current_job_villagers.size())
 		for _i in villagers_to_remove:
 			if not current_job_villagers.is_empty():
 				var current_villager = current_job_villagers.pop_front()
-				current_villager.job = Global.JOB.NONE
-		if villagers_to_remove > 0:
-			# Need to find the job name to update the label
-			for job_name in ["Laborer", "Builder", "Farmer"]:
-				if Global.JOB[job_name.to_upper()] == job_enum:
-					update_job_number(job_name, job_enum)
-					break
-			update_job_number("Job", Global.JOB.NONE)
+				current_villager.job = jobs.NONE
+
+	current_job_counts[job_name] = int(new_value)
+	available_workers.text = str(_get_villager_job(jobs.NONE).size())
+	_update_spinbox_max_values() # Update max values after each change

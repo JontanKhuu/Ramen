@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://x0fj4b75fxgn"]
+[gd_scene load_steps=3 format=3 uid="uid://dxw10u0i2gy2c"]
 
 [ext_resource type="Script" uid="uid://c1oidv5xtkwap" path="res://UI/Calendar/Scripts/Calendar/calendar.gd" id="1_hrbdr"]
 [ext_resource type="Texture2D" uid="uid://8y487xspadw6" path="res://UI/Calendar/Assets/Gravestone Timer.png" id="1_t1okh"]
