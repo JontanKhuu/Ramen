@@ -27,6 +27,3 @@ func assign_homes() -> void:
 		elif slot2 == null:
 			slot2 = unit
 			unit.bed = bed
-		
-		pass
-	pass

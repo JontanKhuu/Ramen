@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwyk2c760n12i"]
+[gd_scene load_steps=7 format=3 uid="uid://cwyk2c760n12i"]
 
 [ext_resource type="Script" uid="uid://bhrlicibpik8f" path="res://UI/Trading/trade_ui.gd" id="1_215ll"]
 [ext_resource type="Texture2D" uid="uid://cgh4rsjc2kjh4" path="res://UI/Trading/trade.png" id="2_6kbsj"]
 [ext_resource type="Texture2D" uid="uid://d0i28vbkj0mjo" path="res://UI/Trading/ChangeArrow.png" id="3_6kbsj"]
 [ext_resource type="FontFile" uid="uid://y2wfxqrg8ieg" path="res://NPC/Debug/PressStart2P.ttf" id="4_apywq"]
+[ext_resource type="Texture2D" uid="uid://0jdtbs4d4txc" path="res://UI/Trading/Confirm.png" id="5_ao3bn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_apywq"]
 line_spacing = 1.0
@@ -99,4 +100,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -80.0
+offset_right = -79.0
+offset_bottom = -52.0
+grow_horizontal = 0
+grow_vertical = 0
+icon = ExtResource("5_ao3bn")
+flat = true
+expand_icon = true
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://brjjrn1jq0pfo"]
 
 [ext_resource type="Script" uid="uid://b7sg2bn8endu0" path="res://Buildings/Scripts/construction.gd" id="1_6j6br"]
-[ext_resource type="Texture2D" uid="uid://37af7vhssqiw" path="res://TileMap/Assets/BuildingConstruction.png" id="2_1k4if"]
+[ext_resource type="Texture2D" uid="uid://37af7vhssqiw" path="res://Buildings/Assets/BuildingConstruction.png" id="2_1k4if"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2kccs"]
 
@@ -23,15 +23,15 @@ unique_name_in_owner = true
 
 [node name="North" type="Node2D" parent="Sprite2D/Points"]
 unique_name_in_owner = true
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 
 [node name="South" type="Node2D" parent="Sprite2D/Points"]
 unique_name_in_owner = true
-position = Vector2(0, 12)
+position = Vector2(0, 15)
 
 [node name="West" type="Node2D" parent="Sprite2D/Points"]
 unique_name_in_owner = true
-position = Vector2(-20, 4)
+position = Vector2(-24, 4)
 
 [node name="East" type="Node2D" parent="Sprite2D/Points"]
 unique_name_in_owner = true

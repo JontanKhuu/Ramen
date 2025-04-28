@@ -3,23 +3,25 @@ extends Node2D
 const FARM_BUILDING = preload("res://Buildings/Scenes/FarmOutline.tscn")
 const CROP = preload("res://TileMap/Scenes/crop.tscn")
 
+@onready var tiles : Node2D = owner
 @onready var hover : TileMapLayer = get_parent()
 @onready var grass : TileMapLayer = owner.get_child(0)
 @onready var tree : TileMapLayer = owner.get_child(1)
 @onready var cropNode : Node2D = get_node("/root/World/Crops")
+@onready var roads: TileMapLayer = %Roads
 
-var is_farm_building : bool = false
-var is_removing : bool = false
+var type : Global.BUILDINGS
 var is_drawing : bool = false
 var selectionStartPoint : Vector2 = Vector2.ZERO
 
+var road_tiles : Array = []
+
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("confirm") && (is_farm_building or is_removing):
+	# right clickt to cancel, left click to start drawing
+	if Input.is_action_just_pressed("confirm") && (type >= 3):
 		selectionStartPoint = get_global_mouse_position()
 		is_drawing = true
 	if Input.is_action_just_pressed("cancel"):
-		is_farm_building = false
-		is_removing = false
 		is_drawing = false
 
 func _process(delta: float) -> void:
@@ -34,17 +36,26 @@ func _handle_drawing() -> void:
 	# directions for creating area
 	var stepX = 1 if selectPos.x < mousePos.x else -1
 	var stepY = 1 if selectPos.y < mousePos.y else -1
-	
+		
+		
+		
 	# if dragged area is released, build
 	if Input.is_action_just_released("confirm"):
-		if is_farm_building:
-			create_building(selectPos,mousePos,stepX,stepY)
-		elif is_removing:
-			mark_for_demolish(selectPos,mousePos,stepX,stepY)
-		is_farm_building = false
-		is_removing = false
+		match type:
+			Global.BUILDINGS.FARM:
+				create_building(selectPos,mousePos,stepX,stepY)
+			Global.BUILDINGS.HARVEST:
+				mark_for_demolish(selectPos,mousePos,stepX,stepY)
+			Global.BUILDINGS.ROAD:
+				build_roads(road_tiles)
+		type = Global.BUILDINGS.NONE
 		is_drawing = false
-		
+		return
+	
+	if type == Global.BUILDINGS.ROAD:
+		road_tiles = hover_roads(selectPos,mousePos,stepX,stepY)
+		return
+	
 	for x in range(selectPos.x ,mousePos.x, stepX):
 		for y in range(selectPos.y ,mousePos.y , stepY):
 			hover.set_cell(Vector2i(x,y),0,Vector2i(0,0))
@@ -70,11 +81,31 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 	pass
 
 func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
-	if startPos == endPos:
+	# Marking resources for demolish
+	if startPos == endPos and tree.get_used_cells().has(startPos):
 		tree.set_cell(startPos,0,Vector2i(0,0),1)
 		
 	for x in range(startPos.x ,endPos.x, stepX):
 		for y in range(startPos.y ,endPos.y , stepY):
 			if tree.get_used_cells().has(Vector2i(x,y)):
 				tree.set_cell(Vector2i(x,y),0,Vector2i(0,0),1)
+
+func hover_roads(selectPos,mousePos,stepX,stepY) -> Array:
+	var arr : Array = []
+	if selectPos == mousePos:
+		hover.set_cell(selectPos,0,Vector2i(0,0))
+		arr.append(selectPos)
+	
+	for x in range(selectPos.x ,mousePos.x, stepX):
+		hover.set_cell(Vector2i(x,mousePos.y),0,Vector2i(0,0))
+		arr.append(Vector2i(x,mousePos.y))
+	for y in range(selectPos.y ,mousePos.y , stepY):
+		hover.set_cell(Vector2i(selectPos.x,y),0,Vector2i(0,0))
+		arr.append(Vector2i(selectPos.x,y))
+	
+	return arr
+
+func build_roads(road_tiles : Array) -> void:
+	roads.set_cells_terrain_connect(road_tiles,0,0)
+	tiles._set_road_weights()
 	pass

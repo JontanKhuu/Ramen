@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
-[ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_asys0"]
+[ext_resource type="Texture2D" uid="uid://47an08dj67su" path="res://NPC/Assets/VillagerMale.png" id="2_jsb76"]
 [ext_resource type="Script" uid="uid://bxew2mys8y8u8" path="res://addons/utility_ai/agent/agent.gd" id="3_7mkhf"]
 [ext_resource type="Script" uid="uid://bpvkdlp8jw4sj" path="res://addons/utility_ai/actions/action.gd" id="4_8wx6m"]
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_83rtv"]
@@ -50,13 +50,13 @@ point_count = 2
 
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
 z_index = 1
-collision_layer = 129
-collision_mask = 129
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("1_056qb")
 job = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_asys0")
+texture = ExtResource("2_jsb76")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_056qb")
@@ -68,8 +68,10 @@ one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
+path_desired_distance = 5.0
+target_desired_distance = 5.0
 path_postprocessing = 1
-debug_enabled = true
+avoidance_enabled = true
 
 [node name="debugCam" type="Camera2D" parent="."]
 enabled = false
@@ -180,6 +182,7 @@ curve = SubResource("Curve_8yipn")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
+visible = false
 utility_agent = NodePath("../UtilityAiAgent")
 
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

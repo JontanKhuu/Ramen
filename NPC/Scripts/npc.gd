@@ -18,7 +18,6 @@ enum LOOKING_FOR{
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
 
-var is_moving : bool = false
 var _target
 
 var aStar : AStarGrid2D
@@ -28,6 +27,7 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
+	print(bed)
 	_handle_target(delta)
 
 func _handle_target(delta: float):
@@ -55,7 +55,7 @@ func _handle_target(delta: float):
 	var to_target = self.global_position.distance_to(_target)
 	match task:
 		LOOKING_FOR.NONE:
-			if to_target < 5:
+			if to_target < 5 or nav.is_navigation_finished():
 				wander_timer.start()
 				_target = null
 				return
@@ -64,10 +64,12 @@ func _handle_target(delta: float):
 				cut_wood()
 				return
 		LOOKING_FOR.BUILDING:
-			if to_target < 20:
-				return
-		LOOKING_FOR.BED:
 			if to_target < 10:
+				_target = null
+				return
+		LOOKING_FOR.BED :
+			if to_target < 5 or nav.is_navigation_finished():
+				print("wow")
 				visible = false
 				return
 		LOOKING_FOR.PLANT:
@@ -84,7 +86,6 @@ func _handle_target(delta: float):
 # Movement 
 
 func move_to(direction, delta):
-	is_moving = true
 	#if direction.x > 0:
 		#$Flip.scale.x = 1
 		#turn right
@@ -162,7 +163,7 @@ func find_building() -> void:
 	if Global.build_queue.size() <= 0:
 		return
 	var building = Global.build_queue[0]
-	_target = building.south.global_position
+	_target = building.east.global_position
 
 # Sleep
 func find_bed() -> void:

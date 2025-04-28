@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnlqvqrdcjq4p"
-path="res://.godot/imported/FarmTile.png-10795c98a971f36367b87f8125a2fcbd.ctex"
+uid="uid://djhipoett7jbo"
+path="res://.godot/imported/Ambassador.png-2734a043f701356e28291a289e0fc316.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/FarmTile.png"
-dest_files=["res://.godot/imported/FarmTile.png-10795c98a971f36367b87f8125a2fcbd.ctex"]
+source_file="res://NPC/Assets/Ambassador.png"
+dest_files=["res://.godot/imported/Ambassador.png-2734a043f701356e28291a289e0fc316.ctex"]
 
 [params]
 

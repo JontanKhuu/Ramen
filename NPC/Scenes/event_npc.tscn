@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b250ohsf08qk7"]
+
+[ext_resource type="Script" uid="uid://cc7abbam5vinm" path="res://NPC/Scenes/event_npc.gd" id="1_bw2qs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_81t3t"]
+radius = 5.0
+height = 14.0
+
+[node name="EventNPC" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_bw2qs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_81t3t")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

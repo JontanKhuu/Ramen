@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4od6l5fg7xh0"]
+
+[ext_resource type="Texture2D" uid="uid://bmi0b6f2tb7ca" path="res://Buildings/Assets/BuildingTent.png" id="1_2o5o1"]
+[ext_resource type="Script" uid="uid://bg48ihkjme05h" path="res://Buildings/Scenes/tent.gd" id="1_4cdbr"]
+
+[node name="Tent" type="StaticBody2D" groups=["TENT"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_4cdbr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2o5o1")
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(19, 20)

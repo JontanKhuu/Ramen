@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmi0b6f2tb7ca"
-path="res://.godot/imported/BuildingTent.png-14dfc23a239bbff1e5c4dd1a3eef695b.ctex"
+uid="uid://0jdtbs4d4txc"
+path="res://.godot/imported/Confirm.png-ca42eddb653e6eac7eab7fbd166d744b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/BuildingTent.png"
-dest_files=["res://.godot/imported/BuildingTent.png-14dfc23a239bbff1e5c4dd1a3eef695b.ctex"]
+source_file="res://UI/Trading/Confirm.png"
+dest_files=["res://.godot/imported/Confirm.png-ca42eddb653e6eac7eab7fbd166d744b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kfqml2vqpir"
-path="res://.godot/imported/BuildingStorage.png-ca5c48ece5a7cca6d28949c9f4daade3.ctex"
+uid="uid://clt0g6fushowu"
+path="res://.godot/imported/PalaW.PNG-1efba401d091c81a3811d2a86249fb47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/BuildingStorage.png"
-dest_files=["res://.godot/imported/BuildingStorage.png-ca5c48ece5a7cca6d28949c9f4daade3.ctex"]
+source_file="res://PalaW.PNG"
+dest_files=["res://.godot/imported/PalaW.PNG-1efba401d091c81a3811d2a86249fb47.ctex"]
 
 [params]
 

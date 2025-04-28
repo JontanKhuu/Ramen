@@ -29,6 +29,9 @@ func _process(delta: float) -> void:
 
 func _on_visibility_changed() -> void:
 	await get_tree().create_timer(.5).timeout
+	for child in vbox.get_children():
+		child.queue_free()
+	
 	initCoins = Global.inventory_dict[Global.RESOURCES_TRACKED.COINS]
 	for i in Global.RESOURCES_TRACKED.size():
 		if i == Global.RESOURCES_TRACKED.COINS:
@@ -36,3 +39,7 @@ func _on_visibility_changed() -> void:
 		var tradeRow = TRADE_ROW.instantiate()
 		tradeRow.resource = i
 		vbox.add_child(tradeRow)
+
+
+func _on_button_pressed() -> void:
+	visible = false
