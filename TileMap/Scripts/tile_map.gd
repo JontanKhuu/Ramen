@@ -10,6 +10,7 @@ const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
 @onready var hover: TileMapLayer = $Hover
 @onready var drawingNode: Node2D = %DrawingNode
 @onready var roads: TileMapLayer = $Roads
+@onready var buildings_node : Node2D = get_tree().get_first_node_in_group("BUILDINGS_NODE")
 
 var is_building : bool = false
 
@@ -17,7 +18,7 @@ var xdim : int = 2
 var ydim : int = 2
 var cost : int = 0
 var resource : Global.RESOURCES_TRACKED
-var type : int = 0
+var type : Global.BUILDINGS
 
 var aStar : AStarGrid2D = AStarGrid2D.new()
 
@@ -25,10 +26,6 @@ func _ready() -> void:
 	_set_road_weights()
 	_remove_tree_nav()
 	
-	#for x in aStar.size.x :
-		#for y in aStar.size.y:
-			#aStar.set_point_weight_scale(Vector2i(x,y),.5)
-			#grass.set_cell(Vector2i(x,y),0,Vector2i(0,0),1)
 	
 func _process(delta: float) -> void:
 	for cell in hover.get_used_cells():
@@ -47,14 +44,11 @@ func set_build_settings(xd : int, yd : int, c : int, t : Global.BUILDINGS, r : G
 	is_building = true
 
 func _handle_hover() -> void:
-	if type == Global.BUILDINGS.FARM:
-		drawingNode.is_farm_building = true
+	if type >= 3:
 		is_building = false
+		drawingNode.type = type
 		return
-	elif type == Global.BUILDINGS.HARVEST:
-		drawingNode.is_removing = true
-		is_building = false
-		return
+		
 	
 	var tile : Vector2i = hover.local_to_map(get_global_mouse_position() - Vector2(0,8))
 	hover.set_cell(tile,type,Vector2i(0,0))
@@ -67,11 +61,14 @@ func _handle_hover() -> void:
 		var building = BUILDING.instantiate()
 		building.global_position = hover.map_to_local(tile + Vector2i(1,1))
 		building.building = type
-		get_parent().add_child(building)
+		buildings_node.add_child(building)
 		
 		is_building = false
 		Global.inventory_dict[resource] -= cost
-		
+	
+	if Input.is_action_just_pressed("cancel"):
+		is_building = false
+		type = 0
 	pass
 
 func _set_road_weights() -> void:
@@ -79,6 +76,8 @@ func _set_road_weights() -> void:
 	aStar.region = Rect2i(grass.get_used_rect())
 	aStar.cell_shape = AStarGrid2D.CELL_SHAPE_ISOMETRIC_DOWN
 	aStar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	aStar.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	aStar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
 	aStar.update()
 	
 	var noNav = grass.get_used_cells_by_id(0,Vector2i(0,1),1)

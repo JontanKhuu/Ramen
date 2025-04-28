@@ -27,6 +27,7 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
+	print(bed)
 	_handle_target(delta)
 
 func _handle_target(delta: float):
@@ -66,8 +67,9 @@ func _handle_target(delta: float):
 			if to_target < 10:
 				_target = null
 				return
-		LOOKING_FOR.BED:
-			if to_target < 10:
+		LOOKING_FOR.BED :
+			if to_target < 5 or nav.is_navigation_finished():
+				print("wow")
 				visible = false
 				return
 		LOOKING_FOR.PLANT:

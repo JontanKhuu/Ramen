@@ -293,4 +293,5 @@ unique_name_in_owner = true
 script = ExtResource("7_j7i0r")
 
 [node name="Roads" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
 tile_set = SubResource("TileSet_2cgye")

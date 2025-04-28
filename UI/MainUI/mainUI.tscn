@@ -102,6 +102,11 @@ layout_mode = 2
 building = 4
 icon = ExtResource("5_d8xat")
 
+[node name="RoadAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 5
+icon = ExtResource("5_d8xat")
+
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
 offset_left = 0.0
 offset_top = 0.0

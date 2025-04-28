@@ -42,6 +42,7 @@ TENT=""
 TRADEUI=""
 EVENTSPAWN=""
 TRIBUTE=""
+BUILDINGS_NODE=""
 
 [input]
 

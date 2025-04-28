@@ -13,7 +13,7 @@
 script = ExtResource("3_k8do8")
 seconds = 0
 minutes = 20
-hours = 1
+hours = 15
 days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
@@ -83,10 +83,13 @@ max_zoom = 1.5
 position = Vector2(323, 606)
 
 [node name="NPC2" parent="NPCs" instance=ExtResource("6_bkhv4")]
-position = Vector2(390, 253)
+position = Vector2(365, 548)
 job = 0
 
-[node name="Tent" parent="." instance=ExtResource("9_oe8m4")]
+[node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
+y_sort_enabled = true
+
+[node name="Tent" parent="Buildings" instance=ExtResource("9_oe8m4")]
 position = Vector2(256, 546)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
