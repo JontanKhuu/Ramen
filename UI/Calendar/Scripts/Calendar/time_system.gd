@@ -7,6 +7,7 @@ signal updated
 @export var date_time: DateTime 
 @export var ticks_per_second: int = 10000 # Change the int here to increase/decrease speed of time
 
+@onready var world : Node2D = owner
 @onready var eventSpawn = get_tree().get_first_node_in_group("EVENTSPAWN")
 # Add event and check what time of date it should trigger.
 var events = {
@@ -26,6 +27,9 @@ var events = {
 	
 var previous_day = -1
 var event_queue = []
+
+func _ready() -> void:
+	date_time.connect("day_passed",Callable(world,"birth_chance"))
 
 # Function that updates time
 func _process(delta:float) -> void:
@@ -73,6 +77,10 @@ func trader_spawn() -> void: # The actual function
 	print("Trader Spawned")
 
 func money_checkin():
+	var tax = EVENT.instantiate()
+	tax.event_type = tax.EVENT_TYPE.TRIBUTE
+	date_time.connect("day_passed",Callable(tax,"leave"))
+	eventSpawn.add_child(tax)
 	print("Its time to pay your monthly rent")
 	
 func test_one():

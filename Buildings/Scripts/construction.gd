@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 		builder = villagers[0]
 		_handle_building_time(delta,building)
 	
-func _handle_building_time(delta : float, building):
+func _handle_building_time(delta : float, building_type):
 	if timeToBuild <= 0.0:
 		Global.build_queue.remove_at(Global.build_queue.find(self))
 		
@@ -48,6 +48,8 @@ func _build_chosen_building():
 		1: # House
 			var house = HOUSE.instantiate()
 			house.global_position = global_position
+			house.deliveryPoint = grassTiles.local_to_map(south.global_position)
+			house.deliveryPoint += Vector2i(-4,0) # offset of tilemap coord
 			get_parent().add_child(house)
 		2: # Storage
 			var storage = STORAGE.instantiate()

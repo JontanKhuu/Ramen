@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=10 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
@@ -117,5 +117,5 @@ mouse_filter = 2
 [node name="TradeUI" parent="." groups=["TRADEUI"] instance=ExtResource("6_6j1t5")]
 
 [node name="JobManager" parent="." instance=ExtResource("7_pg31w")]
-[node name="TributePayment" parent="." instance=ExtResource("9_bwhks")]
 
+[node name="TributePayment" parent="." instance=ExtResource("9_bwhks")]

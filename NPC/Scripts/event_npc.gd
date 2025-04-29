@@ -40,7 +40,7 @@ func _handle_target(delta : float) -> void:
 		return
 	
 	var to_target = self.global_position.distance_to(_target)
-	if to_target < 5:
+	if to_target < 10:
 		if leaving:
 			queue_free()
 		_target = null
@@ -52,7 +52,7 @@ func _handle_target(delta : float) -> void:
 	var direction = self.global_position.direction_to(nav.get_next_path_position())
 	move_to(direction, delta)
 
-func move_to(direction, delta):
+func move_to(direction, _delta):
 	var new_velocity = direction * speed
 	velocity = new_velocity
 	

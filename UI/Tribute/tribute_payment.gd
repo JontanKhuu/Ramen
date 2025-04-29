@@ -20,4 +20,5 @@ func _on_button_pressed() -> void:
 
 
 func _on_visibility_changed() -> void:
-	label.text = "You have paid this month's tribute, the ambassador will leave"
+	if paid:
+		label.text = "You have paid this month's tribute, the ambassador will leave"

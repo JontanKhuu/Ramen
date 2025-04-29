@@ -27,7 +27,7 @@ func _ready() -> void:
 	_remove_tree_nav()
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)
 	

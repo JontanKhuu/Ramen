@@ -39,13 +39,3 @@ var naming_dict : Dictionary = {
 func set_villagers_state(state : VILLAGER_STATE) -> void:
 	for villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
-
-func calculate_housing_crisis() -> void:
-	var beds : int
-	beds += get_tree().get_nodes_in_group("HOUSE").size() * 2
-	beds += get_tree().get_nodes_in_group("TENT").size() * 2
-	var people : int = get_tree().get_nodes_in_group("VILLAGER").size()
-	var surplus = beds - people
-	if surplus <= 0:
-		return
-	

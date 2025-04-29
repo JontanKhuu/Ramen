@@ -27,7 +27,6 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
-	print(bed)
 	_handle_target(delta)
 
 func _handle_target(delta: float):
@@ -69,7 +68,6 @@ func _handle_target(delta: float):
 				return
 		LOOKING_FOR.BED :
 			if to_target < 5 or nav.is_navigation_finished():
-				print("wow")
 				visible = false
 				return
 		LOOKING_FOR.PLANT:
@@ -85,7 +83,7 @@ func _handle_target(delta: float):
 
 # Movement 
 
-func move_to(direction, delta):
+func move_to(direction, _delta):
 	#if direction.x > 0:
 		#$Flip.scale.x = 1
 		#turn right
