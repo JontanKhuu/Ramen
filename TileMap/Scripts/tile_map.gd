@@ -4,6 +4,7 @@ class_name BuildMap
 const HOUSE = preload("res://Buildings/Scenes/house.tscn")
 const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
 const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
+const DROP = preload("res://TileMap/Scenes/resourceDrop.tscn")
 
 @onready var grass: TileMapLayer = $Grass
 @onready var tree: TileMapLayer = $Tree
@@ -99,3 +100,20 @@ func _remove_tree_nav() -> void:
 	var trees = tree.get_used_cells()
 	for cell in trees:
 		grass.set_cell(cell,0,Vector2i(0,1),1)
+
+func spawn_resource(initPos : Vector2i):
+	print("wow")
+	var drop_instance = DROP.instantiate()
+	var launch_speed = 100
+	var launch_time = .25
+	add_child(drop_instance)
+	
+	var pos = grass.map_to_local(initPos)
+	drop_instance.global_position = pos
+	
+	var direction : Vector2 = Vector2(
+		randi_range(-1.0,1.0),
+		randi_range(-1.0,1.0)
+	).normalized()
+	
+	drop_instance.launch(direction * launch_speed, launch_time)

@@ -13,7 +13,7 @@ enum LOOKING_FOR{
 @export var bed : Node2D
 
 @onready var wander_timer: Timer = %WanderTimer
-@onready var tiles : Node2D = get_node("/root/World/TileMap")
+@onready var tiles : BuildMap = get_node("/root/World/TileMap")
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
@@ -148,11 +148,15 @@ func find_wood() -> void:
 func cut_wood() -> void:
 	if global_position.distance_to(_target) < 10:
 		var tree_map_pos = treeTiles.local_to_map(_target)
+		var tree_data = treeTiles.get_cell_tile_data(tree_map_pos)
+		var amount : int = tree_data.get_custom_data("Amount")
+		for i in range(amount):
+			tiles.spawn_resource(tree_map_pos)
+		
 		treeTiles.set_cell(tree_map_pos,0)
 		grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
-		Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
-
-
+		
+		# Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
 		_target = null
 		pass
 
