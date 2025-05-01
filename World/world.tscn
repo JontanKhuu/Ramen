@@ -84,10 +84,6 @@ max_zoom = 1.5
 [node name="NPC" parent="NPCs" instance=ExtResource("6_bkhv4")]
 position = Vector2(323, 606)
 
-[node name="NPC2" parent="NPCs" instance=ExtResource("6_bkhv4")]
-position = Vector2(365, 548)
-job = 0
-
 [node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
 y_sort_enabled = true
 

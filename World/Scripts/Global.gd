@@ -1,7 +1,7 @@
 extends Node
 
 enum RESOURCES_TRACKED{
-	WOOD = 0, FOOD = 1, COINS = 2,HOMES = 3
+	WOOD , FOOD , COINS ,HOMES ,STONE 
 }
 
 enum BUILDINGS{

@@ -182,6 +182,7 @@ curve = SubResource("Curve_8yipn")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
+visible = false
 utility_agent = NodePath("../UtilityAiAgent")
 
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

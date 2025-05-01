@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Drops
 
 @export var type : Global.RESOURCES_TRACKED:
 	set(type):
@@ -6,6 +7,7 @@ extends StaticBody2D
 			Global.RESOURCES_TRACKED.WOOD:
 				# change sprite
 				pass
+@export var amount : int
 
 var launch_velocity : Vector2 = Vector2.ZERO
 var move_duration : float = 0
