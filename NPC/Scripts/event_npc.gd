@@ -68,7 +68,6 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
 func _handle_navigation_path() -> void:
-	
 	# go through each path point that astar provides to target
 	if nav.is_navigation_finished():
 		path_points.pop_front()
