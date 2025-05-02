@@ -82,13 +82,20 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 
 func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
 	# Marking resources for demolish
-	if startPos == endPos and tree.get_used_cells().has(startPos):
-		tree.set_cell(startPos,0,Vector2i(0,0),1)
+	var treeTiles = tree.get_used_cells_by_id(0,Vector2i(0,0))
+	var stoneTiles = tree.get_used_cells_by_id(1,Vector2i(0,0))
+	if startPos == endPos:
+		if treeTiles.has(startPos):
+			tree.set_cell(startPos,0,Vector2i(0,0),1)
+		elif stoneTiles.has(startPos):
+			tree.set_cell(startPos,1,Vector2i(0,0),1)
 		
 	for x in range(startPos.x ,endPos.x, stepX):
 		for y in range(startPos.y ,endPos.y , stepY):
-			if tree.get_used_cells().has(Vector2i(x,y)):
+			if treeTiles.has(Vector2i(x,y)):
 				tree.set_cell(Vector2i(x,y),0,Vector2i(0,0),1)
+			elif stoneTiles.has(Vector2i(x,y)):
+				tree.set_cell(Vector2i(x,y),1,Vector2i(0,0),1)
 
 func hover_roads(selectPos,mousePos,stepX,stepY) -> Array:
 	var arr : Array = []

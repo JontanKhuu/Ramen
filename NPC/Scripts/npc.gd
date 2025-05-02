@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Villager
 
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED, PLANT, HARVEST
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE
 }
 
 @export var speed := 100
@@ -13,10 +13,11 @@ enum LOOKING_FOR{
 @export var bed : Node2D
 
 @onready var wander_timer: Timer = %WanderTimer
-@onready var tiles : Node2D = get_node("/root/World/TileMap")
+@onready var tiles : BuildMap = get_node("/root/World/TileMap")
 @onready var grassTiles : TileMapLayer = tiles.get_child(0)
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
+@onready var utilAI: UtilityAiAgent = $UtilityAiAgent
 
 var _target
 
@@ -45,7 +46,10 @@ func _handle_target(delta: float):
 				find_plant()
 			LOOKING_FOR.HARVEST:
 				find_harvest()
-			
+			LOOKING_FOR.PICKDROPS:
+				_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+			LOOKING_FOR.STORAGE:
+				find_storage()
 		return
 	
 	_handle_navigation_path()
@@ -78,6 +82,16 @@ func _handle_target(delta: float):
 			if to_target < 2:
 				harvest_plant()
 				return
+		LOOKING_FOR.PICKDROPS:
+			if to_target < 8:
+				pick_up_resource()
+				return
+		LOOKING_FOR.STORAGE:
+			if to_target < 5:
+				store_resource(currentDrop.type,currentDrop.amount)
+				_target = null
+				return
+		
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -132,7 +146,13 @@ func _on_wander_timer_timeout() -> void:
 
 # Cutting woooooooooood
 func find_wood() -> void:
+	if find_drops(Global.RESOURCES_TRACKED.WOOD,Global.RESOURCES_TRACKED.STONE):
+		find_drops(Global.RESOURCES_TRACKED.WOOD,Global.RESOURCES_TRACKED.STONE)
+		return
+	# add tree and stone tiles
 	var treesPos = treeTiles.get_used_cells_by_id(0,Vector2(0,0),1).map(treeTiles.map_to_local)
+	treesPos.append_array(treeTiles.get_used_cells_by_id(1,Vector2(0,0),1).map(treeTiles.map_to_local))
+	
 	if treesPos.is_empty():
 		return
 	# find closest tree
@@ -146,15 +166,18 @@ func find_wood() -> void:
 	_target = closest
 
 func cut_wood() -> void:
-	if global_position.distance_to(_target) < 10:
-		var tree_map_pos = treeTiles.local_to_map(_target)
-		treeTiles.set_cell(tree_map_pos,0)
-		grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
-		Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
-
-
-		_target = null
-		pass
+	var tree_map_pos = treeTiles.local_to_map(_target)
+	var tree_data = treeTiles.get_cell_tile_data(tree_map_pos)
+	var type = tree_data.get_custom_data("Type")
+	var amount : int = tree_data.get_custom_data("Amount")
+	for i in range(amount):
+		tiles.spawn_resource(tree_map_pos,Global.stringResource_dict[type])
+	
+	treeTiles.set_cell(tree_map_pos,0)
+	grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
+	
+	_target = null
+	pass
 
 # Building stooooooof
 func find_building() -> void:
@@ -174,19 +197,16 @@ func find_bed() -> void:
 var plant : Crop
 
 func find_plant() -> void:
+	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for already planted crops
 	crops = crops.filter(func(element):return !element.planted) 
 	if crops.size() <= 0:
 		return
 	
-	var closest = crops[0]
-	for crop in crops:
-		var dis_to_close = global_position.distance_to(closest.global_position)
-		var dis_to_cur = global_position.distance_to(crop.global_position)
-		
-		if dis_to_cur < dis_to_close:
-			closest = crop
+	var closest = find_closest(crops)
 	_target = closest.global_position
 	plant = closest
 
@@ -202,6 +222,9 @@ func plant_seed() -> void:
 
 # Harvesting
 func find_harvest() -> void:
+	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for only fully grown crops
 	crops = crops.filter(func(element): return element.grown)
@@ -209,27 +232,71 @@ func find_harvest() -> void:
 		_target = null
 		return
 	
-	var closest = crops[0]
-	for crop in crops:
-		var dis_to_close = global_position.distance_to(closest.global_position)
-		var dis_to_cur = global_position.distance_to(crop.global_position)
-		
-		if dis_to_cur < dis_to_close:
-			closest = crop
+	var closest = find_closest(crops)
 	_target = closest.global_position
 	plant = closest
 
 func harvest_plant() -> void:
 	if !plant:
 		return
+	for i in range(plant.amount):
+		var pos = grassTiles.local_to_map(plant.global_position)
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.FOOD)
 	plant.time = 0.0
 	plant.planted = false
 	plant.grown = false
-	Global.inventory_dict[Global.RESOURCES_TRACKED.FOOD] += 2
 	_target = null
 	plant = null
 
+# Pick up and transport resources          
+var currentDrop : Drops
+func find_drops(type : Global.RESOURCES_TRACKED, type2 : Global.RESOURCES_TRACKED) -> bool:
+	var preDrops = get_tree().get_nodes_in_group("DROPS")
+	var drops = preDrops.filter(func(element): return type == element.type)
+	if type2 != Global.RESOURCES_TRACKED.NONE:
+		drops.append_array(preDrops.filter(func(element): return element.type == type2))
+	if drops.is_empty():
+		return false
+	
+	var closest = find_closest(drops)
+	_target = closest.global_position
+	currentDrop = closest
+	task = LOOKING_FOR.PICKDROPS
+	return true
+func pick_up_resource():
+	currentDrop.visible = false
+	# change later to be on top of head
+	task = LOOKING_FOR.STORAGE
+	_target = null
+	pass
+
+func find_storage():
+	var storages = get_tree().get_nodes_in_group("STORAGE")
+	if storages.is_empty():
+		_target = get_tree().get_first_node_in_group("TENT").entrance.global_position
+		return
+	var closest = find_closest(storages)
+	_target = closest.global_position
+	pass
+
+func store_resource(type : Global.RESOURCES_TRACKED,amt : int):
+	currentDrop.queue_free()
+	Global.inventory_dict[type] += amt
+	_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+	pass
+
 # Utility AI
+func find_closest(nodeArray : Array):
+	var closest = nodeArray[0]
+	for node in nodeArray:
+		var dis_to_close = global_position.distance_to(closest.global_position)
+		var dis_to_cur = global_position.distance_to(node.global_position)
+		
+		if dis_to_cur < dis_to_close:
+			closest = node
+	return closest
+	pass
+
 func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 	_target = null
 	wander_timer.stop()

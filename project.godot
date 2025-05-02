@@ -43,6 +43,8 @@ TRADEUI=""
 EVENTSPAWN=""
 TRIBUTE=""
 BUILDINGS_NODE=""
+DROPS=""
+STORAGE=""
 
 [input]
 

@@ -12,6 +12,7 @@ scale = Vector2(2, 2)
 theme_override_constants/separation = 10
 alignment = 1
 script = ExtResource("1_uw0g8")
+trackedResource = 1
 
 [node name="Sprite" type="Control" parent="."]
 custom_minimum_size = Vector2(20, 20)

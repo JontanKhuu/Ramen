@@ -1,17 +1,21 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbnbamy4encin"]
 
 [ext_resource type="Script" uid="uid://dno7ebl8ngvdt" path="res://TileMap/Scenes/crop.gd" id="1_p08hb"]
-[ext_resource type="Texture2D" uid="uid://cnlqvqrdcjq4p" path="res://Buildings/Assets/FarmTile.png" id="1_r3dhe"]
+[ext_resource type="Texture2D" uid="uid://dl5vjnc6m0no0" path="res://TileMap/Assets/CropBerryVenusflytrap.png" id="2_p08hb"]
 
 [node name="Crop" type="Node2D" groups=["CROP"]]
 script = ExtResource("1_p08hb")
+amount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(0, 8)
-texture = ExtResource("1_r3dhe")
+position = Vector2(0, -8)
+texture = ExtResource("2_p08hb")
+hframes = 4
+frame = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 z_index = 5
 offset_top = -23.0
 offset_right = 4.0
