@@ -21,7 +21,15 @@ func _process(delta: float) -> void:
 		grow()
 		
 	bar.value = time
-		
+	match bar.value:
+		0:
+			sprite.frame = 0
+		25:
+			sprite.frame = 1
+		55:
+			sprite.frame = 2
+		75:
+			sprite.frame = 3
 	if get_global_mouse_position().distance_to(global_position) < 10:
 		bar.visible = true
 	#else:
