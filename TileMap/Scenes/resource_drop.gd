@@ -1,12 +1,12 @@
 extends StaticBody2D
 class_name Drops
 
-@export var type : Global.RESOURCES_TRACKED:
-	set(type):
-		match type:
-			Global.RESOURCES_TRACKED.WOOD:
-				# change sprite
-				pass
+@export var type : Global.RESOURCES_TRACKED
+	#set(type):
+		#match type:
+			#Global.RESOURCES_TRACKED.WOOD:
+				## change sprite
+				#pass
 @export var amount : int
 
 var launch_velocity : Vector2 = Vector2.ZERO

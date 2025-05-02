@@ -53,7 +53,8 @@ z_index = 1
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_056qb")
-job = 1
+speed = 150
+job = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jsb76")
@@ -68,8 +69,8 @@ one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
-path_desired_distance = 5.0
-target_desired_distance = 5.0
+path_desired_distance = 4.0
+target_desired_distance = 4.0
 path_postprocessing = 1
 avoidance_enabled = true
 
@@ -182,6 +183,7 @@ curve = SubResource("Curve_8yipn")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
+visible = false
 utility_agent = NodePath("../UtilityAiAgent")
 
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

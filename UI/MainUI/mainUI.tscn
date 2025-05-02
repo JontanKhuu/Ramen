@@ -50,11 +50,15 @@ layout_mode = 2
 
 [node name="Food" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
 layout_mode = 2
-trackedResource = 1
+trackedResource = 2
 
 [node name="Coin" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
 layout_mode = 2
-trackedResource = 2
+trackedResource = 3
+
+[node name="Stone" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)

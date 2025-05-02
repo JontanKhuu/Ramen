@@ -101,10 +101,12 @@ func _remove_tree_nav() -> void:
 	for cell in trees:
 		grass.set_cell(cell,0,Vector2i(0,1),1)
 
-func spawn_resource(initPos : Vector2i):
+func spawn_resource(initPos : Vector2i, type : Global.RESOURCES_TRACKED):
+	print("one")
 	var drop_instance = DROP.instantiate()
 	var launch_speed = 100
 	var launch_time = .25
+	drop_instance.type = type
 	add_child(drop_instance)
 	
 	var pos = grass.map_to_local(initPos)

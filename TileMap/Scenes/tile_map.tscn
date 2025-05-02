@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=4 uid="uid://diuxg5omwl2tu"]
+[gd_scene load_steps=23 format=4 uid="uid://diuxg5omwl2tu"]
 
 [ext_resource type="Script" uid="uid://bglqddxhcnin1" path="res://TileMap/Scripts/tile_map.gd" id="1_i1uvu"]
 [ext_resource type="Texture2D" uid="uid://cmun518ew75th" path="res://TileMap/Assets/tile.png" id="1_u7vds"]
 [ext_resource type="Texture2D" uid="uid://d3rrlxsid1oex" path="res://TileMap/Assets/Tree.png" id="2_ptdic"]
 [ext_resource type="Texture2D" uid="uid://iou72nbgk7rl" path="res://TileMap/Assets/Hover.png" id="4_6c6d2"]
+[ext_resource type="Texture2D" uid="uid://dympofq0mlwtv" path="res://TileMap/Assets/Stone.png" id="4_ha3ia"]
 [ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://Buildings/Assets/BuildingHouse.png" id="5_4buhr"]
 [ext_resource type="Texture2D" uid="uid://kfqml2vqpir" path="res://Buildings/Assets/BuildingStorage.png" id="7_g6klr"]
 [ext_resource type="Script" uid="uid://ct5tgd4e0l2jc" path="res://TileMap/Scripts/drawing_node.gd" id="7_j7i0r"]
@@ -141,16 +142,31 @@ texture_region_size = Vector2i(32, 64)
 0:0/1/custom_data_0 = "WOOD"
 0:0/1/custom_data_1 = 2
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1fu5r"]
+texture = ExtResource("4_ha3ia")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 10)
+0:0/0/custom_data_0 = "STONE"
+0:0/0/custom_data_1 = 3
+0:0/1 = 1
+0:0/1/texture_origin = Vector2i(0, 10)
+0:0/1/modulate = Color(0.847178, 0.395513, 0.413629, 1)
+0:0/1/custom_data_0 = "STONE"
+0:0/1/custom_data_1 = 3
+
 [sub_resource type="TileSet" id="TileSet_6c6d2"]
 tile_shape = 1
 tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(32, 16)
-custom_data_layer_0/name = "ResourceType"
+custom_data_layer_0/name = "Type"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "Amount"
 custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_i1uvu")
+sources/1 = SubResource("TileSetAtlasSource_1fu5r")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c6d2"]
 texture = ExtResource("4_6c6d2")
@@ -286,14 +302,15 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAE
 tile_set = SubResource("TileSet_ita36")
 
 [node name="Tree" type="TileMapLayer" parent="."]
-z_index = 3
+z_index = 1
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAiAAMAAAAAAAAAAAAlACAAAAAAAAAAAAA2AAsAAAAAAAAAAAAUAAgAAAAAAAAAAAAaABUAAAAAAAAAAAAoABEAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAiAAMAAAAAAAAAAAAlACAAAAAAAAAAAAA2AAsAAAAAAAAAAAAUAAgAAAAAAAAAAAAaABUAAAAAAAAAAAAoABEAAAAAAAAAAAAtAAwAAQAAAAAAAAAtAAsAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_6c6d2")
 
 [node name="Hover" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
 z_index = 5
+y_sort_enabled = true
 tile_set = SubResource("TileSet_0pkeh")
 
 [node name="DrawingNode" type="Node2D" parent="Hover"]
@@ -302,4 +319,5 @@ script = ExtResource("7_j7i0r")
 
 [node name="Roads" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
+y_sort_enabled = true
 tile_set = SubResource("TileSet_2cgye")

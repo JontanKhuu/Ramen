@@ -5,14 +5,17 @@
 
 [node name="Crop" type="Node2D" groups=["CROP"]]
 script = ExtResource("1_p08hb")
+amount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(0, -8)
 texture = ExtResource("2_p08hb")
 hframes = 4
+frame = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 z_index = 5
 offset_top = -23.0
 offset_right = 4.0

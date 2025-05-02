@@ -1,17 +1,17 @@
 [gd_scene load_steps=14 format=3 uid="uid://b7j3lm2yhyfp8"]
 
-[ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="1_j8job"]
-[ext_resource type="Script" path="res://World/Scripts/world.gd" id="1_oe8m4"]
-[ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_3f78f"]
-[ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://UI/MainUI/mainUI.tscn" id="3_bkhv4"]
-[ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_k8do8"]
-[ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/Scenes/tile_map.tscn" id="5_k8do8"]
-[ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="6_bkhv4"]
-[ext_resource type="Script" uid="uid://crmdlu7nyasul" path="res://World/Scripts/player_camera.gd" id="7_eidgh"]
-[ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_oe8m4"]
+[ext_resource type="Script" path="res://World/Scripts/world.gd" id="1_flw8f"]
+[ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_6j0en"]
+[ext_resource type="Script" uid="uid://cs3tjofpk4ng3" path="res://UI/Calendar/Scripts/Calendar/date_time.gd" id="3_pr1x1"]
+[ext_resource type="PackedScene" uid="uid://dw0nf8qpq5dkg" path="res://UI/MainUI/mainUI.tscn" id="4_nonhq"]
+[ext_resource type="Script" uid="uid://bpqpddcn0ivte" path="res://UI/Calendar/Scripts/Calendar/directional_light_2d.gd" id="5_cc6rb"]
+[ext_resource type="PackedScene" uid="uid://diuxg5omwl2tu" path="res://TileMap/Scenes/tile_map.tscn" id="6_3ghsa"]
+[ext_resource type="Script" uid="uid://crmdlu7nyasul" path="res://World/Scripts/player_camera.gd" id="7_ia5we"]
+[ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="8_wg14y"]
+[ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_jq823"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
-script = ExtResource("3_k8do8")
+script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 20
 hours = 2
@@ -19,7 +19,7 @@ days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [sub_resource type="Resource" id="Resource_3f78f"]
-script = ExtResource("3_k8do8")
+script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 0
 hours = 2
@@ -27,7 +27,7 @@ days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [sub_resource type="Resource" id="Resource_yf0ba"]
-script = ExtResource("3_k8do8")
+script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 0
 hours = 16
@@ -35,7 +35,7 @@ days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [sub_resource type="Resource" id="Resource_k8do8"]
-script = ExtResource("3_k8do8")
+script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 0
 hours = 20
@@ -44,20 +44,20 @@ metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_oe8m4")
+script = ExtResource("1_flw8f")
 
 [node name="TimeSystem" type="Node" parent="."]
-script = ExtResource("2_3f78f")
+script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 5000
+ticks_per_second = 3000
 
-[node name="MainUI" parent="." instance=ExtResource("3_bkhv4")]
+[node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
 position = Vector2(576, 281)
 color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
-script = ExtResource("1_j8job")
+script = ExtResource("5_cc6rb")
 day_color = Color(1, 1, 1, 1)
 afternoon_color = Color(0.788235, 0.72549, 0.498039, 1)
 night_color = Color(0.529412, 0.501961, 0.372549, 1)
@@ -67,13 +67,14 @@ night_start = SubResource("Resource_k8do8")
 time_system = NodePath("../TimeSystem")
 
 [node name="Crops" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="TileMap" parent="." instance=ExtResource("5_k8do8")]
+[node name="TileMap" parent="." instance=ExtResource("6_3ghsa")]
 
 [node name="Player_Camera" type="Camera2D" parent="."]
 position = Vector2(581, 335)
 zoom = Vector2(1.5, 1.5)
-script = ExtResource("7_eidgh")
+script = ExtResource("7_ia5we")
 move_speed = 400.0
 zoom_speed = 0.1
 min_zoom = 0.75
@@ -81,13 +82,14 @@ max_zoom = 1.5
 
 [node name="NPCs" type="Node" parent="."]
 
-[node name="NPC" parent="NPCs" instance=ExtResource("6_bkhv4")]
+[node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
+y_sort_enabled = true
 position = Vector2(323, 606)
 
 [node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
 y_sort_enabled = true
 
-[node name="Tent" parent="Buildings" instance=ExtResource("9_oe8m4")]
+[node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]
 position = Vector2(256, 546)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]

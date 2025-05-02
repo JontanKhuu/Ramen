@@ -83,11 +83,11 @@ func _handle_target(delta: float):
 				harvest_plant()
 				return
 		LOOKING_FOR.PICKDROPS:
-			if to_target < 5:
+			if to_target < 8:
 				pick_up_resource()
 				return
 		LOOKING_FOR.STORAGE:
-			if to_target < 2:
+			if to_target < 5:
 				store_resource(currentDrop.type,currentDrop.amount)
 				_target = null
 				return
@@ -149,7 +149,10 @@ func find_wood() -> void:
 	if find_drops(Global.RESOURCES_TRACKED.WOOD,Global.RESOURCES_TRACKED.STONE):
 		find_drops(Global.RESOURCES_TRACKED.WOOD,Global.RESOURCES_TRACKED.STONE)
 		return
+	# add tree and stone tiles
 	var treesPos = treeTiles.get_used_cells_by_id(0,Vector2(0,0),1).map(treeTiles.map_to_local)
+	treesPos.append_array(treeTiles.get_used_cells_by_id(1,Vector2(0,0),1).map(treeTiles.map_to_local))
+	
 	if treesPos.is_empty():
 		return
 	# find closest tree
@@ -163,19 +166,18 @@ func find_wood() -> void:
 	_target = closest
 
 func cut_wood() -> void:
-	if global_position.distance_to(_target) < 10:
-		var tree_map_pos = treeTiles.local_to_map(_target)
-		var tree_data = treeTiles.get_cell_tile_data(tree_map_pos)
-		var amount : int = tree_data.get_custom_data("Amount")
-		for i in range(amount):
-			tiles.spawn_resource(tree_map_pos)
-		
-		treeTiles.set_cell(tree_map_pos,0)
-		grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
-		
-		# Global.inventory_dict[Global.RESOURCES_TRACKED.WOOD] += 2
-		_target = null
-		pass
+	var tree_map_pos = treeTiles.local_to_map(_target)
+	var tree_data = treeTiles.get_cell_tile_data(tree_map_pos)
+	var type = tree_data.get_custom_data("Type")
+	var amount : int = tree_data.get_custom_data("Amount")
+	for i in range(amount):
+		tiles.spawn_resource(tree_map_pos,Global.stringResource_dict[type])
+	
+	treeTiles.set_cell(tree_map_pos,0)
+	grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
+	
+	_target = null
+	pass
 
 # Building stooooooof
 func find_building() -> void:
@@ -195,6 +197,9 @@ func find_bed() -> void:
 var plant : Crop
 
 func find_plant() -> void:
+	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for already planted crops
 	crops = crops.filter(func(element):return !element.planted) 
@@ -217,6 +222,9 @@ func plant_seed() -> void:
 
 # Harvesting
 func find_harvest() -> void:
+	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for only fully grown crops
 	crops = crops.filter(func(element): return element.grown)
@@ -231,6 +239,9 @@ func find_harvest() -> void:
 func harvest_plant() -> void:
 	if !plant:
 		return
+	for i in range(plant.amount):
+		var pos = grassTiles.local_to_map(plant.global_position)
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.FOOD)
 	plant.time = 0.0
 	plant.planted = false
 	plant.grown = false
@@ -240,10 +251,10 @@ func harvest_plant() -> void:
 # Pick up and transport resources          
 var currentDrop : Drops
 func find_drops(type : Global.RESOURCES_TRACKED, type2 : Global.RESOURCES_TRACKED) -> bool:
-	var drops = get_tree().get_nodes_in_group("DROPS")
-	#drops = drops.filter(func(element):element.type == type)
-	if type2:
-		drops.append_array(drops.filter(func(element):element.type == type2))
+	var preDrops = get_tree().get_nodes_in_group("DROPS")
+	var drops = preDrops.filter(func(element): return type == element.type)
+	if type2 != Global.RESOURCES_TRACKED.NONE:
+		drops.append_array(preDrops.filter(func(element): return element.type == type2))
 	if drops.is_empty():
 		return false
 	
