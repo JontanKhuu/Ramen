@@ -65,7 +65,7 @@ func _on_job_spinbox_changed(new_value: float, spinbox):
 	var job_name = spinbox.name
 	var previous_value = current_job_counts.get(job_name, 0)
 	var difference = int(new_value - previous_value)
-
+	
 	if difference > 0:
 		var unemployed = _get_villager_job(jobs.NONE)
 		var villagers_to_add = min(difference, unemployed.size())

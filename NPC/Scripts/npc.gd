@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Villager
 
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT
 }
 
 @export var speed := 100
@@ -50,6 +50,8 @@ func _handle_target(delta: float):
 				_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
 			LOOKING_FOR.STORAGE:
 				find_storage()
+			LOOKING_FOR.HUNT:
+				find_hunt()
 		return
 	
 	_handle_navigation_path()
@@ -91,6 +93,12 @@ func _handle_target(delta: float):
 				store_resource(currentDrop.type,currentDrop.amount)
 				_target = null
 				return
+		LOOKING_FOR.HUNT:
+			if to_target < 5:
+				hunt()
+				return
+			else:
+				find_hunt()
 		
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
@@ -284,7 +292,28 @@ func store_resource(type : Global.RESOURCES_TRACKED,amt : int):
 	Global.inventory_dict[type] += amt
 	_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
 	pass
-
+	
+# Hunting
+var animal
+func find_hunt():
+	if find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.LEATHER):
+		find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.LEATHER)
+		return
+	var deer = get_tree().get_nodes_in_group("DEERMEN")
+	if deer.is_empty():
+		return
+	var closest = find_closest(deer)
+	animal = closest
+	_target = closest.global_position
+	pass
+func hunt():
+	var pos = grassTiles.local_to_map(animal.global_position)
+	for i in range(animal.meat_amount):
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.VENISON)
+	for i in range(animal.leather_amount):
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.LEATHER)
+	animal.queue_free()
+	_target = null
 # Utility AI
 func find_closest(nodeArray : Array):
 	var closest = nodeArray[0]
@@ -315,3 +344,5 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.PLANT
 		"harvest":
 			task = LOOKING_FOR.HARVEST
+		"hunt":
+			task = LOOKING_FOR.HUNT

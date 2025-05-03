@@ -89,6 +89,7 @@ y_sort_enabled = true
 position = Vector2(323, 606)
 
 [node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
+z_index = 1
 y_sort_enabled = true
 
 [node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]

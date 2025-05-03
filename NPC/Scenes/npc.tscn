@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dj3y6vnh3v28l"]
+[gd_scene load_steps=20 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
 [ext_resource type="Texture2D" uid="uid://47an08dj67su" path="res://NPC/Assets/VillagerMale.png" id="2_jsb76"]
@@ -48,13 +48,17 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.797753), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_j2ybg"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
 z_index = 1
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_056qb")
 speed = 150
-job = 3
+job = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jsb76")
@@ -180,6 +184,21 @@ metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 script = ExtResource("6_83rtv")
 job = 3
 curve = SubResource("Curve_8yipn")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Hunt" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "hunt"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Hunt"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_hunter" type="Node" parent="UtilityAiAgent/Hunt/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 4
+curve = SubResource("Curve_j2ybg")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]

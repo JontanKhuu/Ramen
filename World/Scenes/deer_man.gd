@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @export var speed := 80
 @export var wander_distance : float = 100
+@export var meat_amount : int
+@export var leather_amount : int
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var wander_timer: Timer = $WanderTimer
