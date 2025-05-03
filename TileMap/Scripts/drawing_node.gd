@@ -16,6 +16,14 @@ var selectionStartPoint : Vector2 = Vector2.ZERO
 
 var road_tiles : Array = []
 var used_tiles : Array = []
+	
+# starting and end points
+var mousePos
+var selectPos
+
+# directions for creating area
+var stepX
+var stepY
 
 func _input(event: InputEvent) -> void:
 	# right clickt to cancel, left click to start drawing
@@ -30,18 +38,23 @@ func _process(delta: float) -> void:
 		_handle_drawing()
 
 func _handle_drawing() -> void:
-	# starting and end points
-	var mousePos = hover.local_to_map(get_global_mouse_position())
-	var selectPos = hover.local_to_map(selectionStartPoint)
+	mousePos = hover.local_to_map(get_global_mouse_position())
+	selectPos = hover.local_to_map(selectionStartPoint)
 	
-	# directions for creating area
-	var stepX = 1 if selectPos.x < mousePos.x else -1
-	var stepY = 1 if selectPos.y < mousePos.y else -1
-		
-		
-		
+	stepX = 1 if selectPos.x < mousePos.x else -1
+	stepY = 1 if selectPos.y < mousePos.y else -1
+	
+	if type == Global.BUILDINGS.ROAD:
+		road_tiles = hover_roads(selectPos,mousePos,stepX,stepY)
+		return
+	
+	for x in range(selectPos.x ,mousePos.x, stepX):
+		for y in range(selectPos.y ,mousePos.y , stepY):
+			hover.set_cell(Vector2i(x,y),0,Vector2i(0,0))
+	
+func _unhandled_input(event: InputEvent) -> void:
 	# if dragged area is released, build
-	if Input.is_action_just_released("confirm"):
+	if event.is_action_released("confirm") and is_drawing:
 		used_tiles = grass.get_used_cells_by_id(0,Vector2i(0,1),1)
 		match type:
 			Global.BUILDINGS.FARM:
@@ -52,16 +65,6 @@ func _handle_drawing() -> void:
 				build_roads(road_tiles)
 		type = Global.BUILDINGS.NONE
 		is_drawing = false
-		return
-	
-	if type == Global.BUILDINGS.ROAD:
-		road_tiles = hover_roads(selectPos,mousePos,stepX,stepY)
-		return
-	
-	for x in range(selectPos.x ,mousePos.x, stepX):
-		for y in range(selectPos.y ,mousePos.y , stepY):
-			hover.set_cell(Vector2i(x,y),0,Vector2i(0,0))
-	
 
 func create_building(startPos, endPos, stepX, stepY) -> void:
 	# if no area is drawn then make one tile

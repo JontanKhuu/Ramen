@@ -117,7 +117,7 @@ building = 5
 icon = ExtResource("7_dwcca")
 
 [node name="IconHotbar" type="Sprite2D" parent="GUI/BuildingOptions"]
-position = Vector2(94, 12)
+position = Vector2(90, 12)
 texture = ExtResource("8_dwcca")
 
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]

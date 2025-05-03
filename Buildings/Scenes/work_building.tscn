@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c6kvxi55mxvcw" path="res://Buildings/Scripts/work_building.gd" id="1_b08ig"]
 
-[node name="WorkBuilding" type="StaticBody2D"]
+[node name="WorkBuilding" type="StaticBody2D" groups=["WORKPLACE"]]
 script = ExtResource("1_b08ig")
 
 [node name="ColorRect" type="ColorRect" parent="."]

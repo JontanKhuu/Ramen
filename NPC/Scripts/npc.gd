@@ -179,7 +179,7 @@ func cut_wood() -> void:
 	var type = tree_data.get_custom_data("Type")
 	var amount : int = tree_data.get_custom_data("Amount")
 	for i in range(amount):
-		tiles.spawn_resource(tree_map_pos,Global.stringResource_dict[type])
+		tiles.spawn_resource(tree_map_pos,Global.naming_dict.find_key(type))
 	
 	treeTiles.set_cell(tree_map_pos,0)
 	grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
