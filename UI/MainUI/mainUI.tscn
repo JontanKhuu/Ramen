@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=13 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dy750xbw85hp1" path="res://UI/MainUI/resource_tracka.tscn" id="4_lvtto"]
 [ext_resource type="Texture2D" uid="uid://det8icwdmvnuh" path="res://UI/BuildMenu/Assets/IconStorageBuild.png" id="4_q5o53"]
 [ext_resource type="Texture2D" uid="uid://ce5qnlx3msp1l" path="res://UI/BuildMenu/Assets/IconRemoveResource.png" id="5_d8xat"]
+[ext_resource type="Texture2D" uid="uid://n1hnbf6gu3rl" path="res://UI/BuildMenu/Assets/IconFarmBuild.png" id="5_jw022"]
 [ext_resource type="PackedScene" uid="uid://cwyk2c760n12i" path="res://UI/Trading/trade_ui.tscn" id="6_6j1t5"]
+[ext_resource type="Texture2D" uid="uid://b6mnsfcwrcjpk" path="res://UI/BuildMenu/Assets/IconRoadBuild.png" id="7_dwcca"]
 [ext_resource type="PackedScene" uid="uid://cvqkc652n5re2" path="res://UI/Job_Manager/Job_Manager.tscn" id="7_pg31w"]
+[ext_resource type="Texture2D" uid="uid://uxwmiju705tk" path="res://UI/BuildMenu/Assets/IconHotbar.png" id="8_dwcca"]
 [ext_resource type="PackedScene" uid="uid://bsbd0byrto3fe" path="res://UI/Tribute/tribute_payment.tscn" id="9_bwhks"]
 
 [node name="MainUI" type="CanvasLayer"]
@@ -75,11 +78,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -17.0
-offset_top = -34.0
-offset_right = 17.0
+offset_left = -93.0
+offset_top = -32.0
+offset_right = 93.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 1
 
 [node name="HouseAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
@@ -99,7 +104,7 @@ icon = ExtResource("4_q5o53")
 [node name="FarmAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
 building = 3
-icon = ExtResource("5_d8xat")
+icon = ExtResource("5_jw022")
 
 [node name="HarvestAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
@@ -109,7 +114,11 @@ icon = ExtResource("5_d8xat")
 [node name="RoadAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
 building = 5
-icon = ExtResource("5_d8xat")
+icon = ExtResource("7_dwcca")
+
+[node name="IconHotbar" type="Sprite2D" parent="GUI/BuildingOptions"]
+position = Vector2(94, 12)
+texture = ExtResource("8_dwcca")
 
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
 offset_left = 0.0

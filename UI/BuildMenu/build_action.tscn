@@ -13,6 +13,7 @@ script = ExtResource("1_t1kum")
 building = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_rj5g0")
 offset = Vector2(17, 17)
 
