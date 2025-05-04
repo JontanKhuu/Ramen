@@ -34,7 +34,9 @@ func _on_visibility_changed() -> void:
 	
 	initCoins = Global.inventory_dict[Global.RESOURCES_TRACKED.COINS]
 	for i in Global.RESOURCES_TRACKED.size():
-		if i == Global.RESOURCES_TRACKED.COINS:
+		if i == Global.RESOURCES_TRACKED.HOMES:
+			continue
+		if i == Global.RESOURCES_TRACKED.COINS or i == 0:
 			continue
 		var tradeRow = TRADE_ROW.instantiate()
 		tradeRow.resource = i

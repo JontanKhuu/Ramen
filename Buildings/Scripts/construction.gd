@@ -2,8 +2,9 @@ extends StaticBody2D
 
 const HOUSE = preload("res://Buildings/Scenes/house.tscn")
 const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
+const WORKPLACE = preload("res://Buildings/Scenes/work_building.tscn")
 
-@export var building : Buildings.BUILDINGS
+@export var building : Global.BUILDINGS
 @export var timeToBuild : float = 5.0
 
 @onready var tiles : Node2D = get_node("/root/World/TileMap")
@@ -47,14 +48,23 @@ func _build_chosen_building():
 	match building: # type of building
 		1: # House
 			var house = HOUSE.instantiate()
-			house.global_position = global_position
-			house.deliveryPoint = grassTiles.local_to_map(south.global_position)
-			house.deliveryPoint += Vector2i(-4,0) # offset of tilemap coord
+			house.global_position = global_position # offset of tilemap coord
 			get_parent().add_child(house)
 		2: # Storage
 			var storage = STORAGE.instantiate()
 			storage.global_position = global_position
 			get_parent().add_child(storage)
+		3: # Hunt Camp
+			var camp = WORKPLACE.instantiate()
+			camp.global_position = global_position
+			camp.type = Global.WORKPLACE.HUNT
+			get_parent().add_child(camp)
+		4:
+			var tan = WORKPLACE.instantiate()
+			tan.global_position = global_position
+			tan.type = Global.WORKPLACE.CLOTH
+			get_parent().add_child(tan)
+	Global.update_job_limits()
 	queue_free()
 
 func remove_nav_under() -> void:

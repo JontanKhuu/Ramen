@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Villager
 
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, TAN
 }
 
 @export var speed := 100
@@ -11,6 +11,7 @@ enum LOOKING_FOR{
 @export var job : Global.JOB
 @export var state : Global.VILLAGER_STATE
 @export var bed : Node2D
+@export var workplace : Workplace
 
 @onready var wander_timer: Timer = %WanderTimer
 @onready var tiles : BuildMap = get_node("/root/World/TileMap")
@@ -52,6 +53,8 @@ func _handle_target(delta: float):
 				find_storage()
 			LOOKING_FOR.HUNT:
 				find_hunt()
+			LOOKING_FOR.TAN:
+				find_tan()
 		return
 	
 	_handle_navigation_path()
@@ -296,8 +299,8 @@ func store_resource(type : Global.RESOURCES_TRACKED,amt : int):
 # Hunting
 var animal
 func find_hunt():
-	if find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.LEATHER):
-		find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.LEATHER)
+	if find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.HIDES):
+		find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.HIDES)
 		return
 	var deer = get_tree().get_nodes_in_group("DEERMEN")
 	if deer.is_empty():
@@ -311,9 +314,17 @@ func hunt():
 	for i in range(animal.meat_amount):
 		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.VENISON)
 	for i in range(animal.leather_amount):
-		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.LEATHER)
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.HIDES)
 	animal.queue_free()
 	_target = null
+# Tan
+func find_tan() -> void:
+	var tans = get_tree().get_nodes_in_group("WORKPLACE")
+	tans = tans.filter(func(element): return element.type == Global.WORKPLACE.CLOTH)
+	var closest = find_closest(tans)
+	workplace = closest
+	_target = closest.global_position
+	pass
 # Utility AI
 func find_closest(nodeArray : Array):
 	var closest = nodeArray[0]
@@ -346,3 +357,5 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.HARVEST
 		"hunt":
 			task = LOOKING_FOR.HUNT
+		"tan":
+			task = LOOKING_FOR.TAN

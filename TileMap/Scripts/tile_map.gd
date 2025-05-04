@@ -45,7 +45,8 @@ func set_build_settings(xd : int, yd : int, c : int, t : Global.BUILDINGS, r : G
 	is_building = true
 
 func _handle_hover() -> void:
-	if type >= 3:
+	print(type)
+	if type >= Global.BUILDINGS.FARM:
 		is_building = false
 		drawingNode.type = type
 		return

@@ -84,7 +84,8 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 			var crop = CROP.instantiate()
 			cropNode.add_child(crop)
 			crop.global_position = pos
-			
+	
+	Global.update_job_limits()
 	pass
 
 func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
