@@ -13,8 +13,12 @@ const STORK = preload("res://NPC/Scenes/stork.tscn")
 @onready var villager = get_tree().get_nodes_in_group("VILLAGER")
 
 var bed: Node2D
+var south
 
 func _ready() -> void:
+	south = $south
+	deliveryPoint = grassTiles.local_to_map(south.global_position)
+	deliveryPoint += Vector2i(-4,0)
 	bed = %bed
 	assign_homes()
 	

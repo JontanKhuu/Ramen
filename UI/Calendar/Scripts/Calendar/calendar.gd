@@ -36,7 +36,7 @@ func Calendar_Pressed() -> void:
 		var pos_y = size.y - instance.size.y
 		instance.position = Vector2(pos_x,pos_y)/2
 	else:
-		print("Calendar is already visible")
+		("Calendar is already visible")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("ui_cancel"):

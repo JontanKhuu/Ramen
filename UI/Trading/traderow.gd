@@ -8,8 +8,6 @@ var inv : int
 @onready var sell: SpinBox = $Sell
 
 func _process(delta: float) -> void:
-	print(Global.inventory_dict[Global.RESOURCES_TRACKED.COINS])
-	
 	price = Global.value_dict[resource]
 	inv = Global.inventory_dict[resource]
 	

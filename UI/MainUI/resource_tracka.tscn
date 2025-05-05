@@ -23,7 +23,7 @@ unique_name_in_owner = true
 texture = ExtResource("2_u8e87")
 offset = Vector2(10, 10)
 hframes = 5
-vframes = 4
+vframes = 5
 frame = 5
 
 [node name="Label" type="Label" parent="."]

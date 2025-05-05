@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Villager
 
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, TAN, HAUL
 }
 
 @export var speed := 100
@@ -11,6 +11,7 @@ enum LOOKING_FOR{
 @export var job : Global.JOB
 @export var state : Global.VILLAGER_STATE
 @export var bed : Node2D
+@export var workplace : Workplace
 
 @onready var wander_timer: Timer = %WanderTimer
 @onready var tiles : BuildMap = get_node("/root/World/TileMap")
@@ -18,6 +19,7 @@ enum LOOKING_FOR{
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
 @onready var utilAI: UtilityAiAgent = $UtilityAiAgent
+@onready var resource_hold: Sprite2D = $ResourceHold
 
 var _target
 
@@ -50,6 +52,15 @@ func _handle_target(delta: float):
 				_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
 			LOOKING_FOR.STORAGE:
 				find_storage()
+			LOOKING_FOR.HUNT:
+				find_hunt()
+			LOOKING_FOR.TAN:
+				find_tan()
+			LOOKING_FOR.HAUL:
+				if workplace and currentDrop == null:
+					haul()
+				else:
+					_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
 		return
 	
 	_handle_navigation_path()
@@ -67,7 +78,7 @@ func _handle_target(delta: float):
 				cut_wood()
 				return
 		LOOKING_FOR.BUILDING:
-			if to_target < 10:
+			if to_target < 8:
 				_target = null
 				return
 		LOOKING_FOR.BED :
@@ -83,15 +94,33 @@ func _handle_target(delta: float):
 				harvest_plant()
 				return
 		LOOKING_FOR.PICKDROPS:
-			if to_target < 8:
+			if to_target < 10:
 				pick_up_resource()
 				return
 		LOOKING_FOR.STORAGE:
-			if to_target < 5:
+			if to_target < 10:
 				store_resource(currentDrop.type,currentDrop.amount)
-				_target = null
 				return
-		
+		LOOKING_FOR.HUNT:
+			if to_target < 8:
+				hunt()
+				return
+			else:
+				find_hunt()
+		LOOKING_FOR.TAN:
+			if to_target < 8:
+				visible = false
+				workplace.has_worker = true
+				return
+			else:
+				workplace.has_worker = false
+		LOOKING_FOR.HAUL:
+			if to_target < 5 and currentDrop == null:
+				haul()
+				return
+			elif to_target < 5 and _target != workplace.entrance.global_position:
+				store_resource(currentDrop.type,currentDrop.amount)
+				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -171,7 +200,7 @@ func cut_wood() -> void:
 	var type = tree_data.get_custom_data("Type")
 	var amount : int = tree_data.get_custom_data("Amount")
 	for i in range(amount):
-		tiles.spawn_resource(tree_map_pos,Global.stringResource_dict[type])
+		tiles.spawn_resource(tree_map_pos,Global.naming_dict.find_key(type))
 	
 	treeTiles.set_cell(tree_map_pos,0)
 	grassTiles.set_cell(tree_map_pos,0,Vector2i(0,1))
@@ -250,7 +279,9 @@ func harvest_plant() -> void:
 
 # Pick up and transport resources          
 var currentDrop : Drops
+var storageBuilding
 func find_drops(type : Global.RESOURCES_TRACKED, type2 : Global.RESOURCES_TRACKED) -> bool:
+	# check if there is drops
 	var preDrops = get_tree().get_nodes_in_group("DROPS")
 	var drops = preDrops.filter(func(element): return type == element.type)
 	if type2 != Global.RESOURCES_TRACKED.NONE:
@@ -258,32 +289,102 @@ func find_drops(type : Global.RESOURCES_TRACKED, type2 : Global.RESOURCES_TRACKE
 	if drops.is_empty():
 		return false
 	
+	# find closest drop
 	var closest = find_closest(drops)
 	_target = closest.global_position
 	currentDrop = closest
 	task = LOOKING_FOR.PICKDROPS
 	return true
 func pick_up_resource():
+	resource_hold.visible = true
+	resource_hold.frame = currentDrop.frame
 	currentDrop.visible = false
 	# change later to be on top of head
 	task = LOOKING_FOR.STORAGE
 	_target = null
-	pass
 
 func find_storage():
+	# find closest storgae otherwise just drop at tent
 	var storages = get_tree().get_nodes_in_group("STORAGE")
+	if workplace != null and task != LOOKING_FOR.HAUL:
+		storages.append(workplace)
 	if storages.is_empty():
 		_target = get_tree().get_first_node_in_group("TENT").entrance.global_position
+		storageBuilding = get_tree().get_first_node_in_group("TENT")
 		return
 	var closest = find_closest(storages)
-	_target = closest.global_position
-	pass
-
+	if closest is Workplace:
+		_target = closest.entrance.global_position
+	else:
+		_target = closest.global_position
+	storageBuilding = closest
+	#
 func store_resource(type : Global.RESOURCES_TRACKED,amt : int):
+	resource_hold.visible = false
 	currentDrop.queue_free()
-	Global.inventory_dict[type] += amt
+	storageBuilding.storage[type] += amt
+	Global.update_storages()
 	_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
-	pass
+	
+# Hunting
+var animal
+func find_hunt():
+	var camps = get_tree().get_nodes_in_group("WORKPLACE")
+	camps = camps.filter(func(element):return element.type == Global.WORKPLACE.HUNT)
+	workplace = find_closest(camps)
+	if find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.HIDES):
+		find_drops(Global.RESOURCES_TRACKED.VENISON,Global.RESOURCES_TRACKED.HIDES)
+		return
+		
+	var deer = get_tree().get_nodes_in_group("DEERMEN")
+	if deer.is_empty() or workplace.is_full:
+		task = LOOKING_FOR.HAUL
+		_target = workplace.entrance.global_position
+		return
+	var closest = find_closest(deer)
+	animal = closest
+	_target = closest.global_position
+
+func hunt():
+	var pos = grassTiles.local_to_map(animal.global_position)
+	for i in range(animal.meat_amount):
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.VENISON)
+	for i in range(animal.leather_amount):
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.HIDES)
+	animal.queue_free()
+	_target = null
+	
+# Tan
+func find_tan() -> void:
+	var tans = get_tree().get_nodes_in_group("WORKPLACE")
+	tans = tans.filter(func(element): return element.type == Global.WORKPLACE.CLOTH)
+	var closest = find_closest(tans)
+	workplace = closest
+	
+	_target = workplace.entrance.global_position
+
+# haul
+func haul() -> void:
+	if workplace == null:
+		_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+		return
+	if workplace.storage[workplace.product] <= 0 and workplace.storage[workplace.product2] <= 0 :
+		return
+	
+	currentDrop = Drops.new()
+	currentDrop.visible = false
+	if workplace.storage[workplace.product] > 0:
+		currentDrop.type = workplace.product 
+	else:
+		currentDrop.type = workplace.product2
+	currentDrop.amount = 1
+	resource_hold.visible = true
+	resource_hold.frame = currentDrop.frame
+	
+	workplace.storage[currentDrop.type] -= currentDrop.amount
+	Global.update_storages()
+	
+	find_storage()
 
 # Utility AI
 func find_closest(nodeArray : Array):
@@ -295,10 +396,10 @@ func find_closest(nodeArray : Array):
 		if dis_to_cur < dis_to_close:
 			closest = node
 	return closest
-	pass
 
 func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 	_target = null
+	workplace = null
 	wander_timer.stop()
 	print("Action changed: %s" % top_action_id)
 	match top_action_id:
@@ -315,3 +416,7 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.PLANT
 		"harvest":
 			task = LOOKING_FOR.HARVEST
+		"hunt":
+			task = LOOKING_FOR.HUNT
+		"tan":
+			task = LOOKING_FOR.TAN

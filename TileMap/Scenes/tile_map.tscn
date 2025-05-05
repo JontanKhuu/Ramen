@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://diuxg5omwl2tu"]
+[gd_scene load_steps=32 format=4 uid="uid://diuxg5omwl2tu"]
 
 [ext_resource type="Script" uid="uid://bglqddxhcnin1" path="res://TileMap/Scripts/tile_map.gd" id="1_i1uvu"]
 [ext_resource type="Texture2D" uid="uid://cmun518ew75th" path="res://TileMap/Assets/tile.png" id="1_u7vds"]
@@ -8,15 +8,47 @@
 [ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://Buildings/Assets/BuildingHouse.png" id="5_4buhr"]
 [ext_resource type="Texture2D" uid="uid://kfqml2vqpir" path="res://Buildings/Assets/BuildingStorage.png" id="7_g6klr"]
 [ext_resource type="Script" uid="uid://ct5tgd4e0l2jc" path="res://TileMap/Scripts/drawing_node.gd" id="7_j7i0r"]
+[ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="8_1fu5r"]
 [ext_resource type="Texture2D" uid="uid://kkln86wr3iew" path="res://TileMap/Assets/Roads.png" id="8_cwpcu"]
+[ext_resource type="Texture2D" uid="uid://54okulcvxyy0" path="res://TileMap/Assets/HoverTannery.png" id="9_dwfy6"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_0pkeh"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dwfy6"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
 agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2cgye"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_y25y6"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uru7d"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tspno"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_avexq"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_s2jro"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
@@ -39,7 +71,7 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/terrains_peering_bit/top_left_side = 0
 0:0/0/terrains_peering_bit/top_corner = 0
 0:0/0/terrains_peering_bit/top_right_side = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_dwfy6")
 0:0/1 = 1
 0:0/1/texture_origin = Vector2i(0, -8)
 0:0/1/modulate = Color(0.404722, 0.000123359, 0.409719, 1)
@@ -57,7 +89,7 @@ texture_region_size = Vector2i(32, 32)
 1:0/0/terrains_peering_bit/top_left_side = 0
 1:0/0/terrains_peering_bit/top_corner = 0
 1:0/0/terrains_peering_bit/top_right_side = 0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uru7d")
 0:1/next_alternative_id = 2
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, -8)
@@ -71,7 +103,7 @@ texture_region_size = Vector2i(32, 32)
 0:1/0/terrains_peering_bit/top_left_side = 0
 0:1/0/terrains_peering_bit/top_corner = 0
 0:1/0/terrains_peering_bit/top_right_side = 0
-0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_y25y6")
 0:1/1 = 1
 0:1/1/texture_origin = Vector2i(0, -8)
 1:1/0 = 0
@@ -87,7 +119,7 @@ texture_region_size = Vector2i(32, 32)
 1:1/0/terrains_peering_bit/top_left_side = 0
 1:1/0/terrains_peering_bit/top_corner = 0
 1:1/0/terrains_peering_bit/top_right_side = 0
-1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tspno")
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, -8)
 2:0/0/terrain_set = 0
@@ -101,7 +133,7 @@ texture_region_size = Vector2i(32, 32)
 2:0/0/terrains_peering_bit/top_left_side = 0
 2:0/0/terrains_peering_bit/top_corner = 0
 2:0/0/terrains_peering_bit/top_right_side = 0
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_avexq")
 2:1/0 = 0
 2:1/0/texture_origin = Vector2i(0, -8)
 2:1/0/terrain_set = 0
@@ -115,7 +147,7 @@ texture_region_size = Vector2i(32, 32)
 2:1/0/terrains_peering_bit/top_left_side = 0
 2:1/0/terrains_peering_bit/top_corner = 0
 2:1/0/terrains_peering_bit/top_right_side = 0
-2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0pkeh")
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_s2jro")
 
 [sub_resource type="TileSet" id="TileSet_ita36"]
 tile_shape = 1
@@ -189,6 +221,20 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/texture_origin = Vector2i(0, -8)
 0:0/0/modulate = Color(1, 1, 1, 0.623529)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwfy6"]
+texture = ExtResource("8_1fu5r")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/modulate = Color(1, 1, 1, 0.619608)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y25y6"]
+texture = ExtResource("9_dwfy6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/modulate = Color(1, 1, 1, 0.623529)
+
 [sub_resource type="TileSet" id="TileSet_0pkeh"]
 tile_shape = 1
 tile_layout = 5
@@ -197,6 +243,8 @@ tile_size = Vector2i(32, 16)
 sources/0 = SubResource("TileSetAtlasSource_6c6d2")
 sources/1 = SubResource("TileSetAtlasSource_0pkeh")
 sources/2 = SubResource("TileSetAtlasSource_qke5h")
+sources/3 = SubResource("TileSetAtlasSource_dwfy6")
+sources/4 = SubResource("TileSetAtlasSource_y25y6")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ha3ia"]
 texture = ExtResource("8_cwpcu")

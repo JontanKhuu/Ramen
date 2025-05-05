@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bknpq5xs0m5hk"]
+
+[ext_resource type="Script" uid="uid://cvfqyl5nhysws" path="res://UI/Job_Manager/scripts/job_box.gd" id="1_761ff"]
+
+[node name="JobBox" type="SpinBox"]
+offset_right = 86.5625
+offset_bottom = 31.0
+script = ExtResource("1_761ff")

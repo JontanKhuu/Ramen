@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1e0qkqoe86ww"]
+
+[ext_resource type="Script" uid="uid://dua1l8hb7qe3u" path="res://World/Scenes/deer_man.gd" id="1_es2yr"]
+
+[node name="DeerMan" type="CharacterBody2D" groups=["DEERMEN"]]
+script = ExtResource("1_es2yr")
+meat_amount = 2
+leather_amount = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 5.0
+offset_bottom = 11.0
+color = Color(0.437994, 0.305744, 0.168406, 1)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[node name="WanderTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

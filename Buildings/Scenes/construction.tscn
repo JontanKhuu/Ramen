@@ -13,6 +13,7 @@ height = 82.0
 y_sort_enabled = true
 script = ExtResource("1_6j6br")
 building = 1
+timeToBuild = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1k4if")

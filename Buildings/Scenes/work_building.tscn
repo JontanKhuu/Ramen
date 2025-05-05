@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ko2a6yyvo27y"]
+
+[ext_resource type="Script" uid="uid://c6kvxi55mxvcw" path="res://Buildings/Scripts/work_building.gd" id="1_b08ig"]
+[ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="2_ybfpe"]
+
+[node name="WorkBuilding" type="StaticBody2D" groups=["WORKPLACE"]]
+script = ExtResource("1_b08ig")
+max_storage = 20
+cost = 1
+productAmount = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ybfpe")
+offset = Vector2(0, -8)
+hframes = 4
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(9, 23)
+
+[node name="ProductionTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]

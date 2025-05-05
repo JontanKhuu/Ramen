@@ -1,5 +1,7 @@
 extends Node
 
+const jobBox = preload("res://UI/Job_Manager/job_box.tscn")
+
 @onready var available_workers: Label = $"Job Manager Box/Job/Job Container/Job Count"
 @onready var job_manager = $"Job Manager Box"
 @onready var jobs = Global.JOB
@@ -35,12 +37,13 @@ func _create_job_spinboxes(initial_job_counts: Dictionary):
 	for job_name in jobs.keys():
 		var job_enum_value = jobs[job_name]
 		if job_enum_value != jobs.NONE:
-			var spinbox = SpinBox.new()
+			var spinbox = jobBox.instantiate()
 			spinbox.name = job_name # Use the job name directly
 			spinbox.alignment = HORIZONTAL_ALIGNMENT_CENTER
 			spinbox.prefix = job_name.to_lower().capitalize() + "s:"
 			spinbox.max_value = total_villagers # Initial max is total villagers
 			spinbox.value = initial_job_counts.get(job_enum_value, 0) # Set initial value
+			spinbox.type = Global.job_name_dict.find_key(job_name)
 			job_container.add_child(spinbox)
 			current_job_counts[job_name] = spinbox.value # Initialize count
 
@@ -56,16 +59,20 @@ func _update_spinbox_max_values():
 		total_villagers += count
 
 	for child in job_container.get_children():
-		if child is SpinBox:
+		if child.name == "LABORER" or child.name == "BUILDER":
 			var job_name = child.name
 			var current_assigned = current_job_counts.get(job_name, 0)
 			child.max_value = current_assigned + unemployed_count
+			continue
+		if child is JobBox:
+			child.max_value = Global.job_limit_dict[child.type]
 
 func _on_job_spinbox_changed(new_value: float, spinbox):
+	Global.update_job_limits()
 	var job_name = spinbox.name
 	var previous_value = current_job_counts.get(job_name, 0)
 	var difference = int(new_value - previous_value)
-
+	
 	if difference > 0:
 		var unemployed = _get_villager_job(jobs.NONE)
 		var villagers_to_add = min(difference, unemployed.size())
