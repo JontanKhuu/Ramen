@@ -5,8 +5,9 @@
 
 [node name="WorkBuilding" type="StaticBody2D" groups=["WORKPLACE"]]
 script = ExtResource("1_b08ig")
-has_worker = true
-has_resoures = true
+max_storage = 20
+cost = 1
+productAmount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ybfpe")
@@ -14,7 +15,7 @@ offset = Vector2(0, -8)
 hframes = 4
 
 [node name="Entrance" type="Node2D" parent="."]
-position = Vector2(42, 26)
+position = Vector2(9, 23)
 
 [node name="ProductionTimer" type="Timer" parent="."]
 autostart = true

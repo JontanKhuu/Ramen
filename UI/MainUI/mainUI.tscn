@@ -65,6 +65,18 @@ trackedResource = 3
 layout_mode = 2
 trackedResource = 5
 
+[node name="Venison" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 6
+
+[node name="Hides" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 8
+
+[node name="Clothes" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 7
+
 [node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2

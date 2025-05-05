@@ -35,7 +35,6 @@ func _create_job_spinboxes(initial_job_counts: Dictionary):
 		total_villagers += count
 
 	for job_name in jobs.keys():
-		print(job_name)
 		var job_enum_value = jobs[job_name]
 		if job_enum_value != jobs.NONE:
 			var spinbox = jobBox.instantiate()
@@ -55,7 +54,6 @@ func _connect_spinbox_signals():
 
 func _update_spinbox_max_values():
 	var unemployed_count = _get_villager_job(jobs.NONE).size()
-	print(unemployed_count)
 	var total_villagers = unemployed_count
 	for count in current_job_counts.values():
 		total_villagers += count
@@ -70,6 +68,7 @@ func _update_spinbox_max_values():
 			child.max_value = Global.job_limit_dict[child.type]
 
 func _on_job_spinbox_changed(new_value: float, spinbox):
+	Global.update_job_limits()
 	var job_name = spinbox.name
 	var previous_value = current_job_counts.get(job_name, 0)
 	var difference = int(new_value - previous_value)

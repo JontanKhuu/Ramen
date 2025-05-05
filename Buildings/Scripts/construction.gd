@@ -58,11 +58,15 @@ func _build_chosen_building():
 			var camp = WORKPLACE.instantiate()
 			camp.global_position = global_position
 			camp.type = Global.WORKPLACE.HUNT
+			camp.product = Global.RESOURCES_TRACKED.HIDES
+			camp.product2 = Global.RESOURCES_TRACKED.VENISON
 			get_parent().add_child(camp)
 		4:
 			var tan = WORKPLACE.instantiate()
 			tan.global_position = global_position
 			tan.type = Global.WORKPLACE.CLOTH
+			tan.product = Global.RESOURCES_TRACKED.CLOTHES
+			tan.prereq = Global.RESOURCES_TRACKED.HIDES
 			get_parent().add_child(tan)
 	Global.update_job_limits()
 	queue_free()

@@ -4,7 +4,6 @@ var surplus : int
 
 func birth_chance() -> void:
 	surplus = calculate_housing_crisis()
-	print(surplus)
 	if surplus > 0:
 		for i in range(surplus):
 			find_empty_house()

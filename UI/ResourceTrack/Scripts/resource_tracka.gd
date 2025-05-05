@@ -17,3 +17,9 @@ func _process(delta: float) -> void:
 			icon.frame = 14
 		Global.RESOURCES_TRACKED.STONE:
 			icon.frame = 8
+		Global.RESOURCES_TRACKED.VENISON:
+			icon.frame = 20
+		Global.RESOURCES_TRACKED.HIDES:
+			icon.frame = 21
+		Global.RESOURCES_TRACKED.CLOTHES:
+			icon.frame = 22

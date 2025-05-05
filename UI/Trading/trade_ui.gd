@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	
 
 func _on_visibility_changed() -> void:
-	await get_tree().create_timer(.5).timeout
+	await get_tree().create_timer(.01).timeout
 	for child in vbox.get_children():
 		child.queue_free()
 	
