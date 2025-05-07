@@ -1,21 +1,24 @@
 extends Node
 
 enum RESOURCES_TRACKED{
-	NONE, WOOD , FOOD , COINS ,HOMES ,STONE, VENISON, CLOTHES, HIDES
+	NONE, WOOD , FOOD , COINS ,HOMES ,STONE, VENISON, CLOTHES, HIDES,
+	STEAK
 }
 
 enum BUILDINGS{
 	# plop
 	NONE = 0, HOUSE = 1, STORAGE = 2,
-	HUNT = 3, TANNERY,
+	HUNT = 3, TANNERY, MINE, COOKERY, SMELTER,
+	FORGE = 8, FISHHUT, FORESTER,
 	# drawing area to place
-	FARM , HARVEST , ROAD , 
+	FARM = 11, HARVEST , ROAD , 
 }
 enum WORKPLACE {
-	NONE = 0, HUNT, CLOTH
+	NONE = 0, HUNT, CLOTH, MINE, COOKERY, FISH, SMELTER, FORGE
 }
 enum JOB{
-	NONE = 0, LABORER= 1, BUILDER = 2, FARMER = 3,HUNTER = 4, TANNER
+	NONE = 0, LABORER= 1, BUILDER = 2, FARMER = 3,HUNTER = 4, TANNER, 
+	MINER, COOK, CHILD
 }
 enum VILLAGER_STATE{
 	WORKING, RESTING, SLEEPING
@@ -32,17 +35,7 @@ var value_dict : Dictionary = {
 	RESOURCES_TRACKED.HIDES : 2,
 	RESOURCES_TRACKED.CLOTHES : 4,
 }
-var inventory_dict : Dictionary = { # for overall storage
-	RESOURCES_TRACKED.NONE : 0,
-	RESOURCES_TRACKED.WOOD : 0,
-	RESOURCES_TRACKED.FOOD : 0,
-	RESOURCES_TRACKED.COINS : 0,
-	RESOURCES_TRACKED.HOMES : 0,
-	RESOURCES_TRACKED.STONE : 0,
-	RESOURCES_TRACKED.VENISON : 0,
-	RESOURCES_TRACKED.HIDES : 0,
-	RESOURCES_TRACKED.CLOTHES : 0,
-}
+var inventory_dict : Dictionary # for overall storage
 var building_inventory_dict : Dictionary = { # for individual storages
 	RESOURCES_TRACKED.NONE : 0,
 	RESOURCES_TRACKED.WOOD : 0,
@@ -53,6 +46,7 @@ var building_inventory_dict : Dictionary = { # for individual storages
 	RESOURCES_TRACKED.VENISON : 0,
 	RESOURCES_TRACKED.HIDES : 0,
 	RESOURCES_TRACKED.CLOTHES : 0,
+	RESOURCES_TRACKED.STEAK : 0,
 }
 var naming_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : "WOOD",
@@ -63,6 +57,7 @@ var naming_dict : Dictionary = {
 	RESOURCES_TRACKED.HIDES : "HIDES",
 	RESOURCES_TRACKED.VENISON : "VENISON",
 	RESOURCES_TRACKED.CLOTHES : "CLOTHES",
+	RESOURCES_TRACKED.STEAK : "STEAK",
 }
 var job_name_dict : Dictionary = {
 	JOB.NONE : "NONE",
@@ -70,12 +65,16 @@ var job_name_dict : Dictionary = {
 	JOB.BUILDER : "BUILDER",
 	JOB.FARMER : "FARMER",
 	JOB.HUNTER : "HUNTER",
-	JOB.TANNER : "TANNER"
+	JOB.TANNER : "TANNER",
+	JOB.MINER : "MINER",
+	JOB.COOK : "COOK",
 }
 var job_limit_dict : Dictionary = {
 	JOB.FARMER : 0,
 	JOB.HUNTER : 0,
-	JOB.TANNER : 0.
+	JOB.TANNER : 0,
+	JOB.MINER : 0,
+	JOB.COOK : 0,
 }
 
 func update_storages() -> void:
@@ -102,6 +101,10 @@ func update_job_limits() -> void:
 				job_limit_dict[JOB.HUNTER] += 2
 			WORKPLACE.CLOTH:
 				job_limit_dict[JOB.TANNER] += 2
+			WORKPLACE.MINE:
+				job_limit_dict[JOB.MINER] += 2
+			WORKPLACE.COOKERY:
+				job_limit_dict[JOB.COOK] += 2
 	# farm
 	var farm_tiles = get_tree().get_nodes_in_group("CROP").size()
 	job_limit_dict[JOB.FARMER] = int(farm_tiles / 8)

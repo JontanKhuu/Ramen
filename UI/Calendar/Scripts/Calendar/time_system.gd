@@ -30,6 +30,7 @@ var event_queue = []
 
 func _ready() -> void:
 	date_time.connect("day_passed",Callable(world,"birth_chance"))
+	date_time.connect("day_passed",Callable(self,"day_passed"))
 
 # Function that updates time
 func _process(delta:float) -> void:
@@ -68,6 +69,13 @@ func sort_events(a,b):
 		return true 
 	else:
 		return false
+
+func day_passed() -> void:
+	await get_tree().create_timer(.5)
+	for vil : Villager in get_tree().get_nodes_in_group("VILLAGER"):
+		if date_time.day_passed.is_connected(Callable(vil,"day_passed")):
+			continue
+		date_time.connect("day_passed",Callable(vil,"day_passed"))
 
 func trader_spawn() -> void: # The actual function
 	var merchant = EVENT.instantiate()

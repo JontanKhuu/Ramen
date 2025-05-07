@@ -77,6 +77,10 @@ trackedResource = 8
 layout_mode = 2
 trackedResource = 7
 
+[node name="Steak" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 9
+
 [node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
@@ -121,17 +125,17 @@ icon = ExtResource("4_q5o53")
 
 [node name="FarmAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
-building = 5
+building = 11
 icon = ExtResource("5_jw022")
 
 [node name="HarvestAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
-building = 6
+building = 12
 icon = ExtResource("5_d8xat")
 
 [node name="RoadAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
-building = 7
+building = 13
 icon = ExtResource("7_dwcca")
 
 [node name="HuntAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
@@ -142,6 +146,16 @@ icon = ExtResource("9_164ei")
 [node name="TanneryAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
 building = 4
+icon = ExtResource("10_4hn2f")
+
+[node name="MineAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 5
+icon = ExtResource("10_4hn2f")
+
+[node name="CookeryAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 6
 icon = ExtResource("10_4hn2f")
 
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]

@@ -1,12 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://ko2a6yyvo27y"]
+[gd_scene load_steps=10 format=3 uid="uid://ko2a6yyvo27y"]
 
 [ext_resource type="Script" uid="uid://c6kvxi55mxvcw" path="res://Buildings/Scripts/work_building.gd" id="1_b08ig"]
 [ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="2_ybfpe"]
+[ext_resource type="Script" uid="uid://bxew2mys8y8u8" path="res://addons/utility_ai/agent/agent.gd" id="3_qj16j"]
+[ext_resource type="Script" uid="uid://bpvkdlp8jw4sj" path="res://addons/utility_ai/actions/action.gd" id="4_8672i"]
+[ext_resource type="Script" uid="uid://ds3cm31xh6g85" path="res://addons/utility_ai/considerations/consideration.gd" id="5_8672i"]
+[ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_refxb"]
+[ext_resource type="Script" uid="uid://dojkyt7skh8fh" path="res://addons/utility_ai/considerations/consideration_from_node.gd" id="6_qj16j"]
+
+[sub_resource type="Curve" id="Curve_refxb"]
+_data = [Vector2(0, 0.449438), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_8672i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.285, 0.348315), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="WorkBuilding" type="StaticBody2D" groups=["WORKPLACE"]]
 script = ExtResource("1_b08ig")
-max_storage = 20
-cost = 1
+max_storage = 24
 productAmount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,4 +32,52 @@ position = Vector2(9, 23)
 [node name="ProductionTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="UtilityAiAgent" type="Node" parent="."]
+script = ExtResource("3_qj16j")
+metadata/_custom_type_script = "uid://bxew2mys8y8u8"
+
+[node name="none" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8672i")
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiConsiderationFromNode" type="Node" parent="UtilityAiAgent/none"]
+script = ExtResource("5_8672i")
+curve = SubResource("Curve_refxb")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="prereq1" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8672i")
+_action_id = "prereq1"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/prereq1"]
+script = ExtResource("5_refxb")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="demOne" type="Node" parent="UtilityAiAgent/prereq1/UtilityAiAggregation" node_paths=PackedStringArray("node")]
+unique_name_in_owner = true
+script = ExtResource("6_qj16j")
+node = NodePath("../../../..")
+property_name = "prereq_amt"
+curve = SubResource("Curve_8672i")
+metadata/_custom_type_script = "uid://dojkyt7skh8fh"
+
+[node name="prereq2" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8672i")
+_action_id = "prereq2"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/prereq2"]
+script = ExtResource("5_refxb")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="demTwo" type="Node" parent="UtilityAiAgent/prereq2/UtilityAiAggregation" node_paths=PackedStringArray("node")]
+unique_name_in_owner = true
+script = ExtResource("6_qj16j")
+node = NodePath("../../../..")
+property_name = "prereq2_amt"
+curve = SubResource("Curve_8672i")
+metadata/_custom_type_script = "uid://dojkyt7skh8fh"
+
 [connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]
+[connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
