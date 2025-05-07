@@ -1,11 +1,18 @@
 extends CharacterBody2D
 class_name Villager
 
+const kidSprite = preload("res://NPC/Assets/VillagerKidMale.png")
+const manSprite = preload("res://NPC/Assets/VillagerMale.png")
+
 enum LOOKING_FOR{
-	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, TAN, HAUL
+	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
+	TAN, HAUL, FILL, MINE, COOK
 }
 
 @export var speed := 100
+@export var age : int = 6
+@export var age_limit : int = 25
+@export var is_child : bool
 
 @export var task : LOOKING_FOR
 @export var job : Global.JOB
@@ -20,18 +27,33 @@ enum LOOKING_FOR{
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
 @onready var utilAI: UtilityAiAgent = $UtilityAiAgent
 @onready var resource_hold: Sprite2D = $ResourceHold
-
+@onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var birthTimer : Timer = $BirthTimer
 var _target
 
 var aStar : AStarGrid2D
 var path_points : Array
 
+var is_gathering : bool = false
 func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
+	if birthTimer.time_left > 0:
+		age = 1
+		day_passed()
+		z_index = 10
+		velocity = Vector2(0,200)
+		move_and_slide()
+		return
 	_handle_target(delta)
-
+	
+	if is_child:
+		return
+	if velocity != Vector2.ZERO:
+		anim.play("walk")
+	if nav.is_navigation_finished():
+		anim.play("idle")
 func _handle_target(delta: float):
 	visible = true
 	# if no target, find one according to job
@@ -55,12 +77,21 @@ func _handle_target(delta: float):
 			LOOKING_FOR.HUNT:
 				find_hunt()
 			LOOKING_FOR.TAN:
-				find_tan()
+				find_workplace(Global.WORKPLACE.CLOTH)
 			LOOKING_FOR.HAUL:
 				if workplace and currentDrop == null:
 					haul()
 				else:
 					_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+			LOOKING_FOR.FILL:
+				if workplace and currentDrop == null:
+					find_fill(workplace)
+				else:
+					_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+			LOOKING_FOR.MINE:
+				find_workplace(Global.WORKPLACE.MINE)
+			LOOKING_FOR.COOK:
+				find_workplace(Global.WORKPLACE.COOKERY)
 		return
 	
 	_handle_navigation_path()
@@ -121,8 +152,28 @@ func _handle_target(delta: float):
 			elif to_target < 5 and _target != workplace.entrance.global_position:
 				store_resource(currentDrop.type,currentDrop.amount)
 				return
+		LOOKING_FOR.FILL:
+			if to_target < 5 and currentDrop == null:
+				haul_fill()
+				return
+			elif to_target < 5:
+				storageBuilding = workplace
+				store_resource(currentDrop.type,currentDrop.amount)
+				return
+		LOOKING_FOR.MINE:
+			if normal_production(to_target):
+				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
+
+func normal_production(dis) -> bool:
+	if dis < 8:
+		visible = false
+		workplace.has_worker = true
+		return true
+	else:
+		workplace.has_worker = false
+	return false
 
 # Movement 
 
@@ -355,15 +406,13 @@ func hunt():
 	_target = null
 	
 # Tan
-func find_tan() -> void:
-	var tans = get_tree().get_nodes_in_group("WORKPLACE")
-	tans = tans.filter(func(element): return element.type == Global.WORKPLACE.CLOTH)
-	var closest = find_closest(tans)
-	workplace = closest
+func find_workplace(worktype : Global.WORKPLACE) -> void:
+	if workplace == null :
+		return
 	
 	_target = workplace.entrance.global_position
 
-# haul
+# haul (emptying work storages)
 func haul() -> void:
 	if workplace == null:
 		_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
@@ -386,8 +435,44 @@ func haul() -> void:
 	
 	find_storage()
 
+# fill work storages
+func find_fill(wp : Workplace) -> void:
+	if wp == null:
+		return
+	var storages = get_tree().get_nodes_in_group("STORAGE")
+	storages.append(get_tree().get_first_node_in_group("TENT"))
+	storages.append_array(get_tree().get_nodes_in_group("WORKPLACE"))
+	
+	storages = storages.filter(has_resource)
+	storageBuilding = find_closest(storages)
+	if storageBuilding == null:
+		return
+	if storageBuilding is Workplace or storageBuilding is Tent:
+		_target = storageBuilding.entrance.global_position
+	else:
+		_target = storageBuilding.global_position
+func has_resource(node):
+	if node == workplace:
+		return false
+	return node.storage[workplace.need] > 0
+
+func haul_fill() -> void:
+	currentDrop = Drops.new()
+	currentDrop.visible = false
+	currentDrop.type = workplace.need
+	currentDrop.amount = 1
+	resource_hold.visible = true
+	resource_hold.frame = currentDrop.frame
+	
+	_target = workplace.entrance.global_position
+	storageBuilding.storage[currentDrop.type] -= currentDrop.amount
+	Global.update_storages()
+	
 # Utility AI
 func find_closest(nodeArray : Array):
+	if nodeArray.is_empty():
+		_target = null
+		return null
 	var closest = nodeArray[0]
 	for node in nodeArray:
 		var dis_to_close = global_position.distance_to(closest.global_position)
@@ -399,7 +484,6 @@ func find_closest(nodeArray : Array):
 
 func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 	_target = null
-	workplace = null
 	wander_timer.stop()
 	print("Action changed: %s" % top_action_id)
 	match top_action_id:
@@ -420,3 +504,31 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.HUNT
 		"tan":
 			task = LOOKING_FOR.TAN
+		"fill":
+			task = LOOKING_FOR.FILL
+		"mine":
+			task = LOOKING_FOR.MINE
+		"cook":
+			task = LOOKING_FOR.COOK
+
+# Days
+func day_passed() -> void:
+	age += 1
+	if age < 6:
+		is_child = true
+		$Sprite2D.texture = kidSprite
+		$Sprite2D.hframes = 1
+	else:
+		is_child = false
+		$Sprite2D.hframes = 6
+		$Sprite2D.texture = manSprite
+		# is adult and work
+	if age > 21:
+		var diff = age_limit - age
+		var rand : int = randi() % 10 + 1
+		if rand >= 1 + diff:
+			pass
+
+
+func _on_birth_timer_timeout() -> void:
+	z_index = 1

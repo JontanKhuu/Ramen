@@ -20,6 +20,7 @@ func calculate_housing_crisis() -> int:
 func find_empty_house() :
 	# check if space in each home
 	var homes : Array = get_tree().get_nodes_in_group("HOUSE")
+	homes.append_array(get_tree().get_nodes_in_group("TENT"))
 	for home : House in homes:
 		if home.has_space():
 			run_birth_chance(home)
@@ -27,6 +28,6 @@ func find_empty_house() :
 func run_birth_chance(home : House) -> void:
 	# run chance for birth
 	var rand : int = randi() % 10 + 1
-	if rand >= 6:
+	if rand >= 1:
 		home.birth()
 		surplus -= 1

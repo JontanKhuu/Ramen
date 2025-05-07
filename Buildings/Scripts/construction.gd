@@ -26,6 +26,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	villagers = area.get_overlapping_bodies()
+	villagers = villagers.filter(func(element):return element.job == Global.JOB.BUILDER)
 	if villagers.size() > 0:
 		builder = villagers[0]
 		_handle_building_time(delta,building)
@@ -45,29 +46,24 @@ func _handle_building_time(delta : float, building_type):
 	pass
 
 func _build_chosen_building():
+	var place
+	if building >= 3:
+		place = WORKPLACE.instantiate()
 	match building: # type of building
 		1: # House
-			var house = HOUSE.instantiate()
-			house.global_position = global_position # offset of tilemap coord
-			get_parent().add_child(house)
+			place = HOUSE.instantiate()
 		2: # Storage
-			var storage = STORAGE.instantiate()
-			storage.global_position = global_position
-			get_parent().add_child(storage)
+			place = STORAGE.instantiate()
 		3: # Hunt Camp
-			var camp = WORKPLACE.instantiate()
-			camp.global_position = global_position
-			camp.type = Global.WORKPLACE.HUNT
-			camp.product = Global.RESOURCES_TRACKED.HIDES
-			camp.product2 = Global.RESOURCES_TRACKED.VENISON
-			get_parent().add_child(camp)
+			place.type = Global.WORKPLACE.HUNT
 		4:
-			var tan = WORKPLACE.instantiate()
-			tan.global_position = global_position
-			tan.type = Global.WORKPLACE.CLOTH
-			tan.product = Global.RESOURCES_TRACKED.CLOTHES
-			tan.prereq = Global.RESOURCES_TRACKED.HIDES
-			get_parent().add_child(tan)
+			place.type = Global.WORKPLACE.CLOTH
+		5:
+			place.type = Global.WORKPLACE.MINE
+		6:
+			place.type = Global.WORKPLACE.COOKERY
+	place.global_position = global_position
+	get_parent().add_child(place)
 	Global.update_job_limits()
 	queue_free()
 

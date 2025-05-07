@@ -14,10 +14,10 @@ func _process(delta: float) -> void:
 	velocity = global_position.direction_to(target) * 200
 	if global_position.distance_to(deliveryPoint) < 10 and !delivered:
 		var npc = NPC.instantiate()
-		npc.global_position = deliveryPoint
-		npc.velocity = Vector2(0,100)
-		npc.job = Global.JOB.NONE
 		NPCs.add_child(npc)
+		npc.global_position = deliveryPoint
+		npc.job = Global.JOB.CHILD
+		npc.birthTimer.start()
 		delivered = true
 		pass
 	

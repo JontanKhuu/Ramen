@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dj3y6vnh3v28l"]
+[gd_scene load_steps=29 format=3 uid="uid://dj3y6vnh3v28l"]
 
 [ext_resource type="Script" uid="uid://j0eg4xid27jn" path="res://NPC/Scripts/npc.gd" id="1_056qb"]
 [ext_resource type="Texture2D" uid="uid://47an08dj67su" path="res://NPC/Assets/VillagerMale.png" id="2_jsb76"]
@@ -10,6 +10,63 @@
 [ext_resource type="Script" uid="uid://5l24jbktf0xf" path="res://NPC/Scripts/job_checker.gd" id="6_83rtv"]
 [ext_resource type="Script" uid="uid://cppxnrqckdwf6" path="res://NPC/Scripts/state_check.gd" id="8_jsb76"]
 [ext_resource type="Script" uid="uid://dy5jis6ugg6gg" path="res://NPC/Scripts/unplanted_crops.gd" id="8_rydlk"]
+[ext_resource type="Script" uid="uid://dojkyt7skh8fh" path="res://addons/utility_ai/considerations/consideration_from_node.gd" id="10_fl4u6"]
+
+[sub_resource type="Animation" id="Animation_k8wjy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8yipn"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fl4u6"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k8wjy"]
+_data = {
+&"RESET": SubResource("Animation_k8wjy"),
+&"idle": SubResource("Animation_8yipn"),
+&"walk": SubResource("Animation_fl4u6")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_056qb"]
 radius = 2.0
@@ -57,16 +114,32 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_becqy"]
+_limits = [0.0, 1.1, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_n6yuv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Villager" type="CharacterBody2D" groups=["VILLAGER"]]
 z_index = 1
+y_sort_enabled = true
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_056qb")
-speed = 500
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k8wjy")
+}
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
 texture = ExtResource("2_jsb76")
 offset = Vector2(0, -8)
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
@@ -87,6 +160,7 @@ one_shot = true
 unique_name_in_owner = true
 path_desired_distance = 6.0
 target_desired_distance = 6.0
+path_postprocessing = 1
 avoidance_enabled = true
 debug_enabled = true
 
@@ -109,6 +183,12 @@ metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 
 [node name="is_jobless" type="Node" parent="UtilityAiAgent/Idle/UtilityAiAggregation"]
 script = ExtResource("6_83rtv")
+curve = SubResource("Curve_83rtv")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="is_child" type="Node" parent="UtilityAiAgent/Idle/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 8
 curve = SubResource("Curve_83rtv")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
@@ -222,16 +302,67 @@ metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
 script = ExtResource("5_83rtv")
 metadata/_custom_type_script = "uid://b2f8vq1st70r0"
 
-[node name="is_hunter" type="Node" parent="UtilityAiAgent/Tan/UtilityAiAggregation"]
+[node name="is_tanner" type="Node" parent="UtilityAiAgent/Tan/UtilityAiAggregation"]
 script = ExtResource("6_83rtv")
 job = 5
 curve = SubResource("Curve_f0bpj")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Fill" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "fill"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Fill"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_gathering" type="Node" parent="UtilityAiAgent/Fill/UtilityAiAggregation" node_paths=PackedStringArray("node")]
+script = ExtResource("10_fl4u6")
+node = NodePath("../../../..")
+property_name = "is_gathering"
+curve = SubResource("Curve_becqy")
+metadata/_custom_type_script = "uid://dojkyt7skh8fh"
+
+[node name="Mine" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "mine"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Mine"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_miner" type="Node" parent="UtilityAiAgent/Mine/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 6
+curve = SubResource("Curve_n6yuv")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Cook" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "mine"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Cook"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_cook" type="Node" parent="UtilityAiAgent/Cook/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 7
+curve = SubResource("Curve_n6yuv")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
 visible = false
 utility_agent = NodePath("../UtilityAiAgent")
 
+[node name="BirthTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
+[connection signal="timeout" from="BirthTimer" to="." method="_on_birth_timer_timeout"]

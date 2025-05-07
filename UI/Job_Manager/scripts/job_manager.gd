@@ -36,7 +36,7 @@ func _create_job_spinboxes(initial_job_counts: Dictionary):
 
 	for job_name in jobs.keys():
 		var job_enum_value = jobs[job_name]
-		if job_enum_value != jobs.NONE:
+		if job_enum_value != jobs.NONE and job_enum_value != jobs.CHILD:
 			var spinbox = jobBox.instantiate()
 			spinbox.name = job_name # Use the job name directly
 			spinbox.alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -59,13 +59,19 @@ func _update_spinbox_max_values():
 		total_villagers += count
 
 	for child in job_container.get_children():
+		var job_name = child.name
+		var current_assigned = current_job_counts.get(job_name, 0)
+		var altLim = current_assigned + unemployed_count
+		
 		if child.name == "LABORER" or child.name == "BUILDER":
-			var job_name = child.name
-			var current_assigned = current_job_counts.get(job_name, 0)
-			child.max_value = current_assigned + unemployed_count
+			child.max_value = altLim
 			continue
 		if child is JobBox:
-			child.max_value = Global.job_limit_dict[child.type]
+			var lim = Global.job_limit_dict[child.type]
+			if lim < altLim:
+				child.max_value = lim
+			else:
+				child.max_value = altLim
 
 func _on_job_spinbox_changed(new_value: float, spinbox):
 	Global.update_job_limits()

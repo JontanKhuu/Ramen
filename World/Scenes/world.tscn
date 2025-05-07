@@ -50,7 +50,7 @@ script = ExtResource("1_flw8f")
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 1000
+ticks_per_second = 25000
 
 [node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 
@@ -82,18 +82,17 @@ zoom_speed = 0.1
 min_zoom = 0.75
 max_zoom = 1.5
 
-[node name="NPCs" type="Node" parent="."]
-
-[node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
-y_sort_enabled = true
-position = Vector2(323, 606)
-
 [node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
 z_index = 1
 y_sort_enabled = true
 
 [node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]
 position = Vector2(256, 546)
+
+[node name="NPCs" type="Node" parent="."]
+
+[node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
