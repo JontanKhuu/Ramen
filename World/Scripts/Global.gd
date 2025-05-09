@@ -1,9 +1,10 @@
 extends Node
 
 enum RESOURCES_TRACKED{
-	NONE, WOOD , FOOD , COINS ,HOMES ,STONE, VENISON, CLOTHES, HIDES,
+	NONE, WOOD , BERRIES , COINS ,HOMES ,STONE, VENISON, CLOTHES, HIDES,
 	STEAK
 }
+var foods : Array = ["FLYTRAP BERRIES","STEAK"]
 
 enum BUILDINGS{
 	# plop
@@ -29,7 +30,7 @@ var tribute_payment : float
 
 var value_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : 1,
-	RESOURCES_TRACKED.FOOD : 2,
+	RESOURCES_TRACKED.BERRIES : 2,
 	RESOURCES_TRACKED.STONE : 2,
 	RESOURCES_TRACKED.VENISON : 2,
 	RESOURCES_TRACKED.HIDES : 2,
@@ -39,7 +40,7 @@ var inventory_dict : Dictionary # for overall storage
 var building_inventory_dict : Dictionary = { # for individual storages
 	RESOURCES_TRACKED.NONE : 0,
 	RESOURCES_TRACKED.WOOD : 0,
-	RESOURCES_TRACKED.FOOD : 0,
+	RESOURCES_TRACKED.BERRIES : 0,
 	RESOURCES_TRACKED.COINS : 0,
 	RESOURCES_TRACKED.HOMES : 0,
 	RESOURCES_TRACKED.STONE : 0,
@@ -50,7 +51,7 @@ var building_inventory_dict : Dictionary = { # for individual storages
 }
 var naming_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : "WOOD",
-	RESOURCES_TRACKED.FOOD : "FOOD",
+	RESOURCES_TRACKED.BERRIES : "FLYTRAP BERRIES",
 	RESOURCES_TRACKED.COINS : "COINS",
 	RESOURCES_TRACKED.HOMES : "HOMES",
 	RESOURCES_TRACKED.STONE : "STONE",
@@ -86,11 +87,13 @@ func update_storages() -> void:
 	for storage in storages:
 		for key in inventory_dict:
 			inventory_dict[key] += storage.storage[key]
-	pass
 
 func set_villagers_state(state : VILLAGER_STATE) -> void:
-	for villager in get_tree().get_nodes_in_group("VILLAGER"):
+	for villager : Villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
+		if state == Global.VILLAGER_STATE.RESTING:
+			villager.task = villager.LOOKING_FOR.EAT
+			villager._target = null
 
 func update_job_limits() -> void:
 	for key in job_limit_dict:

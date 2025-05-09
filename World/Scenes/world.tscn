@@ -15,7 +15,7 @@
 script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 20
-hours = 2
+hours = 3
 days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
@@ -50,7 +50,7 @@ script = ExtResource("1_flw8f")
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 25000
+ticks_per_second = 60000
 
 [node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 

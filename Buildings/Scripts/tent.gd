@@ -12,9 +12,16 @@ func _ready() -> void:
 	
 	storage = Global.building_inventory_dict.duplicate(false)
 	storage[Global.RESOURCES_TRACKED.WOOD] = 10
-	storage[Global.RESOURCES_TRACKED.FOOD] = 2
+	storage[Global.RESOURCES_TRACKED.BERRIES] = 0
 	storage[Global.RESOURCES_TRACKED.HIDES] = 2
 	
 	bed = entrance
 	assign_homes()
 	Global.update_storages()
+
+func has_food() -> Array:
+	var availFood : Array = []
+	for food in Global.foods:
+		if storage[Global.naming_dict.find_key(food)] > 0:
+			availFood.append(Global.naming_dict.find_key(food))
+	return availFood

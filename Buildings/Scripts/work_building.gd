@@ -136,6 +136,13 @@ func check_if_stocked() -> bool:
 	if storage[prereq] >= cost and storage[prereq2] >= cost2:
 		return true
 	return false
+	
+func has_food() -> Array:
+	var availFood : Array = []
+	for food in Global.foods:
+		if storage[Global.naming_dict.find_key(food)] > 0:
+			availFood.append(Global.naming_dict.find_key(food))
+	return availFood
 
 
 func _on_utility_ai_agent_top_score_action_changed(top_action_id: Variant) -> void:

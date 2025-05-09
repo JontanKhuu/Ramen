@@ -17,7 +17,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Flip/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,7 +33,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Flip/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -51,7 +51,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Flip/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -135,21 +135,26 @@ libraries = {
 &"": SubResource("AnimationLibrary_k8wjy")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Flip" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
 position = Vector2(0, -8)
 texture = ExtResource("2_jsb76")
 offset = Vector2(0, -8)
+flip_h = true
 hframes = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_056qb")
-
-[node name="ResourceHold" type="Sprite2D" parent="."]
+[node name="ResourceHold" type="Sprite2D" parent="Flip"]
+unique_name_in_owner = true
 visible = false
 position = Vector2(0, -21)
 texture = ExtResource("3_rydlk")
 hframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_056qb")
 
 [node name="WanderTimer" type="Timer" parent="."]
 unique_name_in_owner = true
