@@ -63,7 +63,7 @@ func _update_spinbox_max_values():
 		var current_assigned = current_job_counts.get(job_name, 0)
 		var altLim = current_assigned + unemployed_count
 		
-		if child.name == "LABORER" or child.name == "BUILDER":
+		if child.name != "NONE" or child.name == "CHILD":
 			child.max_value = altLim
 			continue
 		if child is JobBox:

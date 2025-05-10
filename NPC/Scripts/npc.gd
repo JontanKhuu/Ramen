@@ -13,6 +13,8 @@ enum LOOKING_FOR{
 @export var age : int = 6
 @export var age_limit : int = 25
 @export var is_child : bool
+@export var villager_name: String = "Bob"
+@export var hunger: int = 100
 
 @export var task : LOOKING_FOR
 @export var job : Global.JOB
@@ -529,6 +531,6 @@ func day_passed() -> void:
 		if rand >= 1 + diff:
 			pass
 
-
 func _on_birth_timer_timeout() -> void:
 	z_index = 1
+	
