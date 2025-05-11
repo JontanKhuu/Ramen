@@ -3,6 +3,7 @@ class_name Villager
 
 const kidSprite = preload("res://NPC/Assets/VillagerKidMale.png")
 const manSprite = preload("res://NPC/Assets/VillagerMale.png")
+const villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
@@ -31,8 +32,14 @@ enum LOOKING_FOR{
 @onready var resource_hold: Sprite2D = $ResourceHold
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var birthTimer : Timer = $BirthTimer
-var _target
 
+signal stat_changed
+var current_hunger = hunger
+var current_name = villager_name 
+var current_age = age
+var current_job = job
+
+var _target
 var aStar : AStarGrid2D
 var path_points : Array
 
@@ -56,6 +63,20 @@ func _process(delta: float) -> void:
 		anim.play("walk")
 	if nav.is_navigation_finished():
 		anim.play("idle")
+	
+	if current_job != job: 
+		current_job = job 
+		stat_changed.emit()
+	if current_hunger != hunger: 
+		current_hunger = hunger 
+		stat_changed.emit()
+	if current_name != name: 
+		current_name = name 
+		stat_changed.emit()
+	if current_age != age: 
+		current_age = age	
+		stat_changed.emit()
+		
 func _handle_target(delta: float):
 	visible = true
 	# if no target, find one according to job
@@ -533,4 +554,6 @@ func day_passed() -> void:
 
 func _on_birth_timer_timeout() -> void:
 	z_index = 1
+	
+
 	

@@ -105,7 +105,6 @@ job = 1
 
 [node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
-villager_name = "Boa"
 job = 1
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]

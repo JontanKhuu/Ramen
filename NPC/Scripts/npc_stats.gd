@@ -9,8 +9,7 @@ extends CanvasLayer
 var villagers = []
 var current_page = 0
 var pages = []
-var villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
-
+const villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
 var selected_villager = null  # Store the currently selected villager
 
 func _ready():
@@ -18,6 +17,11 @@ func _ready():
 	_create_pages()
 	_show_page(current_page)
 	_connect_navigation_buttons()
+	_connect_villagers(villagers)
+	
+func _connect_villagers(villagers):
+	for villager in villagers:
+		villager.connect("stat_changed",update_selected_villager_display)
 
 func _create_pages():
 	# Clear existing pages
@@ -50,10 +54,10 @@ func _create_pages():
 			villager_display.get_node("LabelContainer/AgeLabel").text = "Age: " + str(villager.age)
 
 			# Get the LineEdit from the instantiated scene
-			var name_input = villager_display.get_node("LabelContainer/NameInput")  # Get it from the *instance*
+			var name_input = villager_display.get_node("LabelContainer/NameInput") 
 			name_input.text = villager.villager_name
 			name_input.connect("text_changed", _on_name_changed.bind(villager))
-			name_input.connect("focus_exited", _on_name_edit_finished.bind(villager)) # ADD THIS LINE
+			name_input.connect("focus_exited", _on_name_edit_finished.bind(villager)) 
 			villager_display.villager_node = villager
 
 			# Make the display clickable
@@ -68,7 +72,6 @@ func _create_pages():
 			button.flat = true
 			button.connect("pressed", _on_villager_display_clicked.bind(villager_display))
 			villager_display.add_child(button)
-
 			new_page.add_child(villager_display)
 
 	#create next and previous buttons
@@ -84,7 +87,6 @@ func _show_page(page_index):
 		pages[page_index].show()
 		current_page = page_index
 
-		#update button state
 		if is_instance_valid(page_navigation.get_node("PreviousButton")):
 			page_navigation.get_node("PreviousButton").disabled = (current_page == 0)
 		if is_instance_valid(page_navigation.get_node("NextButton")):
@@ -94,12 +96,7 @@ func _on_villager_display_clicked(clicked_display):
 	# Move camera to the villager.  Use the stored node.
 	camera_2d.position = clicked_display.villager_node.position
 	selected_villager = clicked_display.villager_node
-	# update_all_villager_displays() # REMOVE THIS LINE
 	update_selected_villager_display()
-
-func _process(delta):
-	# update_all_villager_displays() # REMOVE THIS LINE
-	pass #REMOVE THIS LINE
 
 func _create_navigation_buttons(page_count):
 	#create the buttons only once
@@ -119,10 +116,8 @@ func _create_navigation_buttons(page_count):
 
 func _connect_navigation_buttons():
 	if is_instance_valid(page_navigation.get_node("PreviousButton")):
-		page_navigation.get_node("PreviousButton").disconnect("pressed", _on_previous_page)
 		page_navigation.get_node("PreviousButton").connect("pressed", _on_previous_page)
 	if is_instance_valid(page_navigation.get_node("NextButton")):
-		page_navigation.get_node("NextButton").disconnect("pressed", _on_next_page)
 		page_navigation.get_node("NextButton").connect("pressed", _on_next_page)
 
 func _on_previous_page():
@@ -131,26 +126,20 @@ func _on_previous_page():
 func _on_next_page():
 	_show_page(current_page + 1)
 
-
-
 func _on_name_changed(new_name, villager):
-	# This function is called whenever the text in the LineEdit is changed
-	# for a specific villager.
+	# This function is called whenever the text in the LineEdit is changed for a specific villager.
 	villager.villager_name = new_name
-	print("Villager", villager.name, "name changed to:", new_name)
+	# print("Villager: ", villager.name, "name changed to: ", new_name)
 
 func _on_name_edit_finished(villager):
 	update_selected_villager_display()
 
 func update_selected_villager_display():
-	if selected_villager != null:
-		for page in pages:
-			for child in page.get_children():
-				if child.villager_node == selected_villager:
-					var villager_node = child.villager_node
-					if is_instance_valid(villager_node):
-						for job_name in jobs.keys():
-							if jobs[job_name] == villager_node.job:
-								child.get_node("LabelContainer/JobLabel").text = "Job: " + str(job_name).to_lower().capitalize()
-						child.get_node("LabelContainer/HungerLabel").text = "Hunger: " + str(villager_node.hunger)
-						child.get_node("LabelContainer/AgeLabel").text = "Age: " + str(villager_node.age)
+	for page in pages:
+		for child in page.get_children():
+			if is_instance_valid(child.villager_node):
+				for job_name in jobs.keys():
+					if jobs[job_name] == child.villager_node.job:
+						child.get_node("LabelContainer/JobLabel").text = "Job: " + str(job_name).to_lower().capitalize()
+				child.get_node("LabelContainer/HungerLabel").text = "Hunger: " + str(child.villager_node.hunger)
+				child.get_node("LabelContainer/AgeLabel").text = "Age: " + str(child.villager_node.age)
