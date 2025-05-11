@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://brws51pnyu33n"]
+
+[ext_resource type="Script" uid="uid://dimx1dwq247p6" path="res://NPC/Scripts/npc_stats.gd" id="1_ummu8"]
+
+[node name="Villager_stats" type="CanvasLayer"]
+script = ExtResource("1_ummu8")
+
+[node name="Stat_Container" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_right = 0.11
+anchor_bottom = 0.537
+offset_right = 0.279991
+offset_bottom = 0.0239868
+grow_horizontal = 0
+scale = Vector2(1.28, 1)
+
+[node name="Page_Container" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_top = 0.537
+anchor_right = 0.11
+anchor_bottom = 0.599
+offset_top = 0.0239868
+offset_right = 0.279991
+offset_bottom = -0.152039
+grow_horizontal = 0

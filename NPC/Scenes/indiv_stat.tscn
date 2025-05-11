@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4cxil70wqd57"]
+
+[ext_resource type="Script" uid="uid://danxy040wxjy7" path="res://NPC/Scripts/indiv_stat.gd" id="1_byb7q"]
+[ext_resource type="Texture2D" uid="uid://47an08dj67su" path="res://NPC/Assets/VillagerMale.png" id="2_sync2"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1055.0
+offset_bottom = -457.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_byb7q")
+
+[node name="VillagerSprite" type="Sprite2D" parent="."]
+position = Vector2(113, 59.185)
+scale = Vector2(2.54766, 3.61343)
+texture = ExtResource("2_sync2")
+region_enabled = true
+region_rect = Rect2(8, 0, 16, 32)
+
+[node name="LabelContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameInput" type="LineEdit" parent="LabelContainer"]
+layout_mode = 2
+text = "Bob"
+max_length = 6
+
+[node name="JobLabel" type="Label" parent="LabelContainer"]
+layout_mode = 2
+
+[node name="HungerLabel" type="Label" parent="LabelContainer"]
+layout_mode = 2
+
+[node name="AgeLabel" type="Label" parent="LabelContainer"]
+layout_mode = 2

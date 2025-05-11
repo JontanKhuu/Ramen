@@ -93,6 +93,19 @@ position = Vector2(256, 546)
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
+job = 1
+
+[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+job = 1
+
+[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+job = 1
+
+[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+job = 1
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
