@@ -18,14 +18,16 @@ var south
 func _ready() -> void:
 	south = $south
 	deliveryPoint = grassTiles.local_to_map(south.global_position)
-	deliveryPoint += Vector2i(-4,0)
+	
+	deliveryPoint += Vector2i(-8,0)
 	bed = %bed
 	assign_homes()
 	
 func birth() -> void:
+	var randi = randi() % 8 - 5
 	var stork = STORK.instantiate()
 	stork.global_position = grassTiles.map_to_local(Vector2i(deliveryPoint.x,0))
-	stork.deliveryPoint = grassTiles.map_to_local(deliveryPoint)
+	stork.deliveryPoint = grassTiles.map_to_local(deliveryPoint + Vector2i(-2,randi))
 	stork.target = grassTiles.map_to_local(Vector2i(deliveryPoint.x,1000))
 	NPCs.add_child(stork)
 	pass

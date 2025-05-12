@@ -62,13 +62,21 @@ func _build_chosen_building():
 			place.type = Global.WORKPLACE.MINE
 		6:
 			place.type = Global.WORKPLACE.COOKERY
+		7:
+			place.type = Global.WORKPLACE.SMELTER
+		8:
+			place.type = Global.WORKPLACE.FORGE
 	place.global_position = global_position
 	get_parent().add_child(place)
 	Global.update_job_limits()
+	
+	if builder:
+		builder._target = null
 	queue_free()
 
 func remove_nav_under() -> void:
-	for point : Node2D in points.get_children():
-		var pos = grassTiles.local_to_map(point.global_position)
-		grassTiles.set_cell(pos,0,Vector2i(0,1),1)
+	for x in range(west.global_position.x,east.global_position.x):
+		for y in range(north.global_position.y,south.global_position.y):
+			var pos = grassTiles.local_to_map(Vector2(x,y))
+			grassTiles.set_cell(pos,0,Vector2i(0,1),1)
 	pass

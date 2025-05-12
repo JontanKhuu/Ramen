@@ -12,7 +12,7 @@ func birth_chance() -> void:
 func calculate_housing_crisis() -> int:
 	var beds : int = 0
 	beds += get_tree().get_nodes_in_group("HOUSE").size() * 2
-	beds += get_tree().get_nodes_in_group("TENT").size() * 2
+	beds += get_tree().get_nodes_in_group("TENT").size() * 4
 	var people : int = get_tree().get_nodes_in_group("VILLAGER").size()
 	var surplus = beds - people
 	return surplus
@@ -29,5 +29,7 @@ func run_birth_chance(home : House) -> void:
 	# run chance for birth
 	var rand : int = randi() % 10 + 1
 	if rand >= 1:
+		var randf = randf_range(0,2.5)
+		await get_tree().create_timer(randf).timeout
 		home.birth()
 		surplus -= 1

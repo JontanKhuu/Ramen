@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ko2a6yyvo27y"]
+[gd_scene load_steps=11 format=3 uid="uid://ko2a6yyvo27y"]
 
 [ext_resource type="Script" uid="uid://c6kvxi55mxvcw" path="res://Buildings/Scripts/work_building.gd" id="1_b08ig"]
 [ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="2_ybfpe"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ds3cm31xh6g85" path="res://addons/utility_ai/considerations/consideration.gd" id="5_8672i"]
 [ext_resource type="Script" uid="uid://b2f8vq1st70r0" path="res://addons/utility_ai/considerations/aggregation.gd" id="5_refxb"]
 [ext_resource type="Script" uid="uid://dojkyt7skh8fh" path="res://addons/utility_ai/considerations/consideration_from_node.gd" id="6_qj16j"]
+[ext_resource type="PackedScene" uid="uid://d0dhe2lv3x4u3" path="res://NPC/Debug/utility_debug.tscn" id="8_refxb"]
 
 [sub_resource type="Curve" id="Curve_refxb"]
 _data = [Vector2(0, 0.449438), 0.0, 0.0, 0, 0]
@@ -23,8 +24,8 @@ productAmount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ybfpe")
-offset = Vector2(0, -8)
-hframes = 4
+offset = Vector2(16, -8)
+hframes = 2
 
 [node name="Entrance" type="Node2D" parent="."]
 position = Vector2(9, 23)
@@ -78,6 +79,9 @@ node = NodePath("../../../..")
 property_name = "prereq2_amt"
 curve = SubResource("Curve_8672i")
 metadata/_custom_type_script = "uid://dojkyt7skh8fh"
+
+[node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("8_refxb")]
+utility_agent = NodePath("../UtilityAiAgent")
 
 [connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]

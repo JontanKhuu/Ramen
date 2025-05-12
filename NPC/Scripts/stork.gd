@@ -12,7 +12,7 @@ var delivered : bool = false
 func _process(delta: float) -> void:
 	sprite.play("default")
 	velocity = global_position.direction_to(target) * 200
-	if global_position.distance_to(deliveryPoint) < 10 and !delivered:
+	if global_position.distance_to(deliveryPoint) < 30 and !delivered:
 		var npc = NPC.instantiate()
 		NPCs.add_child(npc)
 		npc.global_position = deliveryPoint

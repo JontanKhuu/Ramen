@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	match trackedResource:
 		Global.RESOURCES_TRACKED.WOOD:
 			icon.frame = 5
-		Global.RESOURCES_TRACKED.FOOD:
+		Global.RESOURCES_TRACKED.BERRIES:
 			icon.frame = 19
 		Global.RESOURCES_TRACKED.COINS:
 			icon.frame = 14

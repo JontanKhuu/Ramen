@@ -7,7 +7,7 @@ const villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
-	TAN, HAUL, FILL, MINE, COOK
+	TAN, HAUL, FILL, MINE, COOK, EAT, SMELT, FORGE
 }
 
 @export var speed := 100
@@ -22,6 +22,7 @@ enum LOOKING_FOR{
 @export var state : Global.VILLAGER_STATE
 @export var bed : Node2D
 @export var workplace : Workplace
+@export var hunger : int = 1
 
 @onready var wander_timer: Timer = %WanderTimer
 @onready var tiles : BuildMap = get_node("/root/World/TileMap")
@@ -29,7 +30,7 @@ enum LOOKING_FOR{
 @onready var treeTiles : TileMapLayer = tiles.get_child(1)
 @onready var nav: NavigationAgent2D = %NavigationAgent2D
 @onready var utilAI: UtilityAiAgent = $UtilityAiAgent
-@onready var resource_hold: Sprite2D = $ResourceHold
+@onready var resource_hold: Sprite2D = %ResourceHold
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var birthTimer : Timer = $BirthTimer
 
@@ -48,6 +49,7 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
+	print(velocity)
 	if birthTimer.time_left > 0:
 		age = 1
 		day_passed()
@@ -55,13 +57,14 @@ func _process(delta: float) -> void:
 		velocity = Vector2(0,200)
 		move_and_slide()
 		return
+	
 	_handle_target(delta)
 	
 	if is_child:
 		return
 	if velocity != Vector2.ZERO:
 		anim.play("walk")
-	if nav.is_navigation_finished():
+	elif nav.is_navigation_finished():
 		anim.play("idle")
 	
 	if current_job != job: 
@@ -82,6 +85,7 @@ func _handle_target(delta: float):
 	# if no target, find one according to job
 	if !_target:
 		_target = null
+		velocity = Vector2.ZERO
 		match task:
 			LOOKING_FOR.WOOD:
 				find_wood()
@@ -115,6 +119,13 @@ func _handle_target(delta: float):
 				find_workplace(Global.WORKPLACE.MINE)
 			LOOKING_FOR.COOK:
 				find_workplace(Global.WORKPLACE.COOKERY)
+			LOOKING_FOR.EAT:
+				wander_timer.stop()
+				find_eat()
+			LOOKING_FOR.SMELT:
+				find_workplace(Global.WORKPLACE.SMELTER)
+			LOOKING_FOR.FORGE:
+				find_workplace(Global.WORKPLACE.FORGE)
 		return
 	
 	_handle_navigation_path()
@@ -162,12 +173,8 @@ func _handle_target(delta: float):
 			else:
 				find_hunt()
 		LOOKING_FOR.TAN:
-			if to_target < 8:
-				visible = false
-				workplace.has_worker = true
+			if normal_production(to_target):
 				return
-			else:
-				workplace.has_worker = false
 		LOOKING_FOR.HAUL:
 			if to_target < 5 and currentDrop == null:
 				haul()
@@ -186,6 +193,19 @@ func _handle_target(delta: float):
 		LOOKING_FOR.MINE:
 			if normal_production(to_target):
 				return
+		LOOKING_FOR.COOK:
+			if normal_production(to_target):
+				return
+		LOOKING_FOR.EAT:
+			if to_target < 5:
+				eat()
+				return
+		LOOKING_FOR.SMELT:
+			if normal_production(to_target):
+				return
+		LOOKING_FOR.FORGE:
+			if normal_production(to_target):
+				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -201,13 +221,10 @@ func normal_production(dis) -> bool:
 # Movement 
 
 func move_to(direction, _delta):
-	#if direction.x > 0:
-		#$Flip.scale.x = 1
-		#turn right
-	#else:
-		# turn left
-		#$Flip.scale.x = -1
-	# warning-ignore:return_value_discarded
+	if direction.x > 0:
+		$Flip.scale.x = -1
+	else:
+		$Flip.scale.x = 1
 		
 	var new_velocity = direction * speed
 	velocity = new_velocity
@@ -300,8 +317,8 @@ func find_bed() -> void:
 var plant : Crop
 
 func find_plant() -> void:
-	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
-		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+	if find_drops(Global.RESOURCES_TRACKED.BERRIES,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.BERRIES,Global.RESOURCES_TRACKED.NONE)
 		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for already planted crops
@@ -325,8 +342,8 @@ func plant_seed() -> void:
 
 # Harvesting
 func find_harvest() -> void:
-	if find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE):
-		find_drops(Global.RESOURCES_TRACKED.FOOD,Global.RESOURCES_TRACKED.NONE)
+	if find_drops(Global.RESOURCES_TRACKED.BERRIES,Global.RESOURCES_TRACKED.NONE):
+		find_drops(Global.RESOURCES_TRACKED.BERRIES,Global.RESOURCES_TRACKED.NONE)
 		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for only fully grown crops
@@ -344,7 +361,7 @@ func harvest_plant() -> void:
 		return
 	for i in range(plant.amount):
 		var pos = grassTiles.local_to_map(plant.global_position)
-		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.FOOD)
+		tiles.spawn_resource(pos,Global.RESOURCES_TRACKED.BERRIES)
 	plant.time = 0.0
 	plant.planted = false
 	plant.grown = false
@@ -390,7 +407,7 @@ func find_storage():
 	if closest is Workplace:
 		_target = closest.entrance.global_position
 	else:
-		_target = closest.global_position
+		_target = closest.bed.global_position
 	storageBuilding = closest
 	#
 func store_resource(type : Global.RESOURCES_TRACKED,amt : int):
@@ -473,7 +490,7 @@ func find_fill(wp : Workplace) -> void:
 	if storageBuilding is Workplace or storageBuilding is Tent:
 		_target = storageBuilding.entrance.global_position
 	else:
-		_target = storageBuilding.global_position
+		_target = storageBuilding.bed.global_position
 func has_resource(node):
 	if node == workplace:
 		return false
@@ -491,6 +508,33 @@ func haul_fill() -> void:
 	storageBuilding.storage[currentDrop.type] -= currentDrop.amount
 	Global.update_storages()
 	
+var foods : Array = []
+func find_eat() -> void:
+	var cookeries = get_tree().get_nodes_in_group("WORKPLACE")
+	cookeries = cookeries.filter(func(element):return element.type == Global.WORKPLACE.COOKERY)
+	var eatSpots = get_tree().get_nodes_in_group("STORAGE")
+	eatSpots.append_array(get_tree().get_nodes_in_group("TENT"))
+	eatSpots.append_array(cookeries)
+	eatSpots = eatSpots.filter(func(element):return !element.has_food().is_empty())
+	
+	storageBuilding = find_closest(eatSpots)
+	if !storageBuilding:
+		hunger -= 1
+		_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+		return
+	if storageBuilding is Tent or storageBuilding is Workplace:
+		_target = storageBuilding.entrance.global_position
+	else:
+		_target = storageBuilding.bed.global_position
+	foods = storageBuilding.has_food()
+	
+func eat() -> void:
+	var randi = randi() % foods.size()
+	storageBuilding.storage[foods[randi]] -= 1
+	storageBuilding = null
+	Global.update_storages()
+	_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
+
 # Utility AI
 func find_closest(nodeArray : Array):
 	if nodeArray.is_empty():
@@ -533,24 +577,32 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.MINE
 		"cook":
 			task = LOOKING_FOR.COOK
+		"smelt":
+			task = LOOKING_FOR.SMELT
+		"forge":
+			task = LOOKING_FOR.FORGE
+		
 
 # Days
 func day_passed() -> void:
+	if hunger <= -2:
+		queue_free()
 	age += 1
 	if age < 6:
 		is_child = true
-		$Sprite2D.texture = kidSprite
-		$Sprite2D.hframes = 1
+		%Sprite2D.texture = kidSprite
+		%Sprite2D.hframes = 1
 	else:
 		is_child = false
-		$Sprite2D.hframes = 6
-		$Sprite2D.texture = manSprite
+		job = Global.JOB.NONE
+		%Sprite2D.hframes = 6
+		%Sprite2D.texture = manSprite
 		# is adult and work
 	if age > 21:
 		var diff = age_limit - age
 		var rand : int = randi() % 10 + 1
 		if rand >= 1 + diff:
-			pass
+			queue_free()
 
 func _on_birth_timer_timeout() -> void:
 	z_index = 1

@@ -15,7 +15,7 @@
 script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 20
-hours = 2
+hours = 3
 days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
@@ -50,7 +50,7 @@ script = ExtResource("1_flw8f")
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 25000
+ticks_per_second = 2000
 
 [node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 
@@ -106,6 +106,15 @@ job = 1
 [node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 job = 1
+
+[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+
+[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+
+[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)

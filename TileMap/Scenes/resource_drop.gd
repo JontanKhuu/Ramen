@@ -16,7 +16,7 @@ var launching : bool = false :
 
 func _ready() -> void:
 	match type:
-		Global.RESOURCES_TRACKED.FOOD:
+		Global.RESOURCES_TRACKED.BERRIES:
 			frame = 0
 		Global.RESOURCES_TRACKED.HIDES:
 			frame = 1

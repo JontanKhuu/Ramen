@@ -71,7 +71,6 @@ func sort_events(a,b):
 		return false
 
 func day_passed() -> void:
-	await get_tree().create_timer(.5)
 	for vil : Villager in get_tree().get_nodes_in_group("VILLAGER"):
 		if date_time.day_passed.is_connected(Callable(vil,"day_passed")):
 			continue
