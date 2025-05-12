@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bywcyib0sd7ve" path="res://UI/BuildMenu/Assets/IconTannery.png" id="10_4hn2f"]
 [ext_resource type="Texture2D" uid="uid://d3cwtj7epjvi7" path="res://UI/BuildMenu/Assets/IconCookery.png" id="11_dit66"]
 [ext_resource type="Texture2D" uid="uid://bg70alfn0txko" path="res://UI/BuildMenu/Assets/IconFishHut.png" id="12_xvxih"]
+[ext_resource type="PackedScene" uid="uid://brws51pnyu33n" path="res://NPC/Scenes/npc_stats.tscn" id="15_letf7"]
 
 [node name="MainUI" type="CanvasLayer"]
 
@@ -200,3 +201,5 @@ mouse_filter = 2
 [node name="JobManager" parent="." instance=ExtResource("7_pg31w")]
 
 [node name="TributePayment" parent="." instance=ExtResource("9_bwhks")]
+
+[node name="Villager_stats" parent="." instance=ExtResource("15_letf7")]
