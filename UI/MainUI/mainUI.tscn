@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=17 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://3oagii5sdt8l" path="res://UI/BuildMenu/Assets/IconHuntCamp.png" id="9_164ei"]
 [ext_resource type="PackedScene" uid="uid://bsbd0byrto3fe" path="res://UI/Tribute/tribute_payment.tscn" id="9_bwhks"]
 [ext_resource type="Texture2D" uid="uid://bywcyib0sd7ve" path="res://UI/BuildMenu/Assets/IconTannery.png" id="10_4hn2f"]
+[ext_resource type="Texture2D" uid="uid://d3cwtj7epjvi7" path="res://UI/BuildMenu/Assets/IconCookery.png" id="11_dit66"]
+[ext_resource type="Texture2D" uid="uid://bg70alfn0txko" path="res://UI/BuildMenu/Assets/IconFishHut.png" id="12_xvxih"]
 
 [node name="MainUI" type="CanvasLayer"]
 
@@ -81,6 +83,18 @@ trackedResource = 7
 layout_mode = 2
 trackedResource = 9
 
+[node name="IronOre" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 10
+
+[node name="Iron" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 11
+
+[node name="Tools" parent="GUI/Resources/ResourceBox/Separation" instance=ExtResource("4_lvtto")]
+layout_mode = 2
+trackedResource = 12
+
 [node name="MarginContainer2" type="MarginContainer" parent="GUI/Resources"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
@@ -105,7 +119,8 @@ grow_vertical = 0
 theme_override_constants/separation = 1
 
 [node name="IconHotbar" type="Sprite2D" parent="GUI/BuildingOptions"]
-position = Vector2(110, 12)
+position = Vector2(222.5, 12)
+scale = Vector2(1.9375, 1)
 texture = ExtResource("8_dwcca")
 
 [node name="HouseAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
@@ -156,7 +171,22 @@ icon = ExtResource("10_4hn2f")
 [node name="CookeryAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
 layout_mode = 2
 building = 6
+icon = ExtResource("11_dit66")
+
+[node name="SmelterAction2" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 7
 icon = ExtResource("10_4hn2f")
+
+[node name="ForgeAction" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 8
+icon = ExtResource("10_4hn2f")
+
+[node name="FishHutAction2" parent="GUI/BuildingOptions" instance=ExtResource("2_t0uvf")]
+layout_mode = 2
+building = 9
+icon = ExtResource("12_xvxih")
 
 [node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
 offset_left = 0.0

@@ -6,7 +6,7 @@ const manSprite = preload("res://NPC/Assets/VillagerMale.png")
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
-	TAN, HAUL, FILL, MINE, COOK, EAT
+	TAN, HAUL, FILL, MINE, COOK, EAT, SMELT, FORGE
 }
 
 @export var speed := 100
@@ -40,6 +40,7 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
+	print(velocity)
 	if birthTimer.time_left > 0:
 		age = 1
 		day_passed()
@@ -61,6 +62,7 @@ func _handle_target(delta: float):
 	# if no target, find one according to job
 	if !_target:
 		_target = null
+		velocity = Vector2.ZERO
 		match task:
 			LOOKING_FOR.WOOD:
 				find_wood()
@@ -97,6 +99,10 @@ func _handle_target(delta: float):
 			LOOKING_FOR.EAT:
 				wander_timer.stop()
 				find_eat()
+			LOOKING_FOR.SMELT:
+				find_workplace(Global.WORKPLACE.SMELTER)
+			LOOKING_FOR.FORGE:
+				find_workplace(Global.WORKPLACE.FORGE)
 		return
 	
 	_handle_navigation_path()
@@ -171,6 +177,12 @@ func _handle_target(delta: float):
 			if to_target < 5:
 				eat()
 				return
+		LOOKING_FOR.SMELT:
+			if normal_production(to_target):
+				return
+		LOOKING_FOR.FORGE:
+			if normal_production(to_target):
+				return
 	
 	move_to(self.global_position.direction_to(nav.get_next_path_position()), delta)
 
@@ -187,9 +199,9 @@ func normal_production(dis) -> bool:
 
 func move_to(direction, _delta):
 	if direction.x > 0:
-		$Flip.scale.x = 1
-	else:
 		$Flip.scale.x = -1
+	else:
+		$Flip.scale.x = 1
 		
 	var new_velocity = direction * speed
 	velocity = new_velocity
@@ -542,6 +554,10 @@ func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 			task = LOOKING_FOR.MINE
 		"cook":
 			task = LOOKING_FOR.COOK
+		"smelt":
+			task = LOOKING_FOR.SMELT
+		"forge":
+			task = LOOKING_FOR.FORGE
 		
 
 # Days

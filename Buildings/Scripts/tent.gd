@@ -14,6 +14,7 @@ func _ready() -> void:
 	storage[Global.RESOURCES_TRACKED.WOOD] = 10
 	storage[Global.RESOURCES_TRACKED.BERRIES] = 0
 	storage[Global.RESOURCES_TRACKED.HIDES] = 2
+	storage[Global.RESOURCES_TRACKED.IRON] = 2
 	
 	bed = entrance
 	assign_homes()

@@ -33,7 +33,6 @@ func _ready() -> void:
 	Global.update_job_limits()
 	
 func _process(delta: float) -> void:
-	print(slot1)
 	_handle_slots()
 	_handle_hauling()
 	
@@ -44,6 +43,9 @@ func _process(delta: float) -> void:
 		prodTimer.paused = false
 	else:
 		prodTimer.paused = true
+		
+	prereq_amt = storage[prereq]
+	prereq2_amt = storage[prereq2]
 func _handle_hauling() -> void:
 	if !slot1:
 		return
@@ -102,6 +104,26 @@ func set_up_workplace() -> void:
 			productAmount = 1
 			prereq = Global.RESOURCES_TRACKED.VENISON
 			product = Global.RESOURCES_TRACKED.STEAK
+		Global.WORKPLACE.SMELTER:
+			job = Global.JOB.SMELTER
+			sprite.frame = 1 # 4
+			prodTimer.wait_time = 2
+			cost = 1
+			cost2 = 1
+			productAmount = 1
+			prereq = Global.RESOURCES_TRACKED.IRONORE
+			prereq2 = Global.RESOURCES_TRACKED.WOOD
+			product = Global.RESOURCES_TRACKED.IRON
+		Global.WORKPLACE.FORGE:
+			job = Global.JOB.BLACKSMITH
+			sprite.frame = 1 # 5
+			prodTimer.wait_time = 2
+			cost = 1
+			cost2 = 1
+			productAmount = 1
+			prereq = Global.RESOURCES_TRACKED.IRON
+			prereq2 = Global.RESOURCES_TRACKED.WOOD
+			product = Global.RESOURCES_TRACKED.TOOLS
 	set_limits()
 
 func _on_production_timer_timeout() -> void:
@@ -109,6 +131,7 @@ func _on_production_timer_timeout() -> void:
 		return
 	storage[product] += productAmount
 	storage[prereq] -= cost
+	storage[prereq2] -= cost
 	Global.update_storages()
 
 func set_limits() -> void:

@@ -142,13 +142,12 @@ unique_name_in_owner = true
 position = Vector2(0, -8)
 texture = ExtResource("2_jsb76")
 offset = Vector2(0, -8)
-flip_h = true
 hframes = 6
 
 [node name="ResourceHold" type="Sprite2D" parent="Flip"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(0, -21)
+position = Vector2(0, -32)
 texture = ExtResource("3_rydlk")
 hframes = 7
 
@@ -171,6 +170,14 @@ debug_enabled = true
 
 [node name="debugCam" type="Camera2D" parent="."]
 enabled = false
+
+[node name="BirthTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
+visible = false
+utility_agent = NodePath("../UtilityAiAgent")
 
 [node name="UtilityAiAgent" type="Node" parent="."]
 script = ExtResource("3_7mkhf")
@@ -359,15 +366,37 @@ job = 7
 curve = SubResource("Curve_n6yuv")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
-[node name="utility_debug" parent="." node_paths=PackedStringArray("utility_agent") instance=ExtResource("6_8wx6m")]
-visible = false
-utility_agent = NodePath("../UtilityAiAgent")
+[node name="Smelt" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "smelt"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
 
-[node name="BirthTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Smelt"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_smelter" type="Node" parent="UtilityAiAgent/Smelt/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 9
+curve = SubResource("Curve_n6yuv")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
+
+[node name="Forge" type="Node" parent="UtilityAiAgent"]
+script = ExtResource("4_8wx6m")
+_action_id = "forge"
+metadata/_custom_type_script = "uid://bpvkdlp8jw4sj"
+
+[node name="UtilityAiAggregation" type="Node" parent="UtilityAiAgent/Forge"]
+script = ExtResource("5_83rtv")
+metadata/_custom_type_script = "uid://b2f8vq1st70r0"
+
+[node name="is_smith" type="Node" parent="UtilityAiAgent/Forge/UtilityAiAggregation"]
+script = ExtResource("6_83rtv")
+job = 10
+curve = SubResource("Curve_n6yuv")
+metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
-[connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
 [connection signal="timeout" from="BirthTimer" to="." method="_on_birth_timer_timeout"]
+[connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]

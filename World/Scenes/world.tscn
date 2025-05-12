@@ -50,7 +50,7 @@ script = ExtResource("1_flw8f")
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 60000
+ticks_per_second = 2000
 
 [node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 
@@ -92,6 +92,15 @@ position = Vector2(256, 546)
 [node name="NPCs" type="Node" parent="."]
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+
+[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+
+[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+
+[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
