@@ -27,7 +27,7 @@ var stepY
 
 func _input(event: InputEvent) -> void:
 	# right clickt to cancel, left click to start drawing
-	if Input.is_action_just_pressed("confirm") && (type >= 3):
+	if Input.is_action_just_pressed("confirm") && (type >= Global.BUILDINGS.FARM):
 		selectionStartPoint = get_global_mouse_position()
 		is_drawing = true
 	if Input.is_action_just_pressed("cancel"):

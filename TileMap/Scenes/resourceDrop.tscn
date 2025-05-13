@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfcy8dr1pjlfg"]
 
-[ext_resource type="Script" uid="uid://bydn42rikf8hk" path="res://TileMap/Scripts/resource_drop.gd" id="1_14d2t"]
+[ext_resource type="Script" uid="uid://fq55paamobx8" path="res://TileMap/Scenes/resource_drop.gd" id="1_14d2t"]
 [ext_resource type="Texture2D" uid="uid://coaukxu713jcj" path="res://TileMap/Assets/ResourceDroppedIcons.png" id="2_w0dqm"]
 
 [node name="ResourceDrop" type="StaticBody2D" groups=["DROPS"]]

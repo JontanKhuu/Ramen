@@ -85,7 +85,7 @@ var job_name_dict : Dictionary = {
 	JOB.BLACKSMITH : "BLACKSMITH",
 }
 var job_limit_dict : Dictionary = {
-	JOB.FARMER : 1000,
+	JOB.FARMER : 0,
 	JOB.HUNTER : 0,
 	JOB.TANNER : 0,
 	JOB.MINER : 0,

@@ -303,6 +303,8 @@ func find_hunt():
 	var camps = get_tree().get_nodes_in_group("WORKPLACE")
 	camps = camps.filter(func(element):return element.type == Global.WORKPLACE.HUNT)
 	workplace = find_closest(camps)
+	if !workplace:
+		return
 	
 	var types = [Global.RESOURCES_TRACKED.VENISON,
 	Global.RESOURCES_TRACKED.HIDES]
