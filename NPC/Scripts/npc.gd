@@ -133,12 +133,20 @@ func find_wood() -> void:
 	Global.RESOURCES_TRACKED.STONE,
 	Global.RESOURCES_TRACKED.IRONORE]
 	if find_drops(types):
-		find_drops(types)
+		find_drops(types,true)
 		return
 	
 	var trees = get_tree().get_nodes_in_group("HARVESTABLES")
 	trees = trees.filter(func(element):return element.marked)
-	var closest = find_closest(trees)
+	Global.job_queues[job] = trees
+	
+	var jobMates = get_tree().get_nodes_in_group("VILLAGER")
+	jobMates = jobMates.filter(func(element):return element.job == job)
+	for j in jobMates:
+		if Global.job_queues[job].has(j.harvestable):
+			Global.job_queues[job].remove_at(Global.job_queues[job].find(j.harvestable))
+	
+	var closest = find_closest(Global.job_queues[job])
 	if !closest:
 		return
 
@@ -180,7 +188,7 @@ var plant : Crop
 func find_plant() -> void:
 	var types = [Global.RESOURCES_TRACKED.BERRIES]
 	if find_drops(types):
-		find_drops(types)
+		find_drops(types,true)
 		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for already planted crops
@@ -206,7 +214,7 @@ func plant_seed() -> void:
 func find_harvest() -> void:
 	var types = [Global.RESOURCES_TRACKED.BERRIES]
 	if find_drops(types):
-		find_drops(types)
+		find_drops(types,true)
 		return
 	var crops = get_tree().get_nodes_in_group("CROP")
 	# filter for only fully grown crops
@@ -234,9 +242,9 @@ func harvest_plant() -> void:
 # Pick up and transport resources          
 var currentDrop : Drops
 var storageBuilding
-func find_drops(types : Array) -> bool:
+func find_drops(types : Array, finding : bool = false) -> bool:
 	# check if there is drops
-	var preDrops = get_tree().get_nodes_in_group("DROPS")
+	var preDrops = Global.drop_queue
 	var drops = []
 	#if type2 != Global.RESOURCES_TRACKED.NONE:
 		#drops.append_array(preDrops.filter(func(element): return element.type == type2))
@@ -253,6 +261,10 @@ func find_drops(types : Array) -> bool:
 	_target = closest.global_position
 	currentDrop = closest
 	task = LOOKING_FOR.PICKDROPS
+	
+	if finding:
+		Global.drop_queue.remove_at(Global.drop_queue.find(currentDrop))
+	
 	return true
 func pick_up_resource():
 	resource_hold.visible = true
@@ -295,7 +307,7 @@ func find_hunt():
 	var types = [Global.RESOURCES_TRACKED.VENISON,
 	Global.RESOURCES_TRACKED.HIDES]
 	if find_drops(types):
-		find_drops(types)
+		find_drops(types,true)
 		return
 		
 	var deer = get_tree().get_nodes_in_group("DEERMEN")

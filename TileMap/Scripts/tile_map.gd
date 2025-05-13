@@ -110,6 +110,7 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	var launch_speed = 100
 	var launch_time = .25
 	drop_instance.type = resourcetype
+	Global.drop_queue.append(drop_instance)
 	add_child(drop_instance)
 	
 	var pos = grass.map_to_local(initPos)

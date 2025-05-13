@@ -95,6 +95,8 @@ func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
 		for harvs in harvestables:
 			if harvs.tile == startPos:
 				h = harvs
+		if !h:
+			return
 		h.sprite.modulate.g8 = 159
 		h.marked = true
 		
