@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxw10u0i2gy2c"]
+[gd_scene load_steps=6 format=3 uid="uid://dxw10u0i2gy2c"]
 
 [ext_resource type="Script" uid="uid://c1oidv5xtkwap" path="res://UI/Calendar/Scripts/Calendar/calendar.gd" id="1_hrbdr"]
-[ext_resource type="Texture2D" uid="uid://8y487xspadw6" path="res://UI/Calendar/Assets/Gravestone Timer.png" id="1_t1okh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ipenb"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdqyt"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_flro5"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3mjf0"]
+font_color = Color(0, 0, 0, 1)
 
 [node name="Calendar" type="Control"]
 z_index = 1
@@ -9,38 +20,13 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.0
-offset_right = 4.0
-offset_bottom = 2.0
+offset_left = 1112.0
+offset_top = 5.0
+offset_right = -40.0
+offset_bottom = -643.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hrbdr")
-
-[node name="calendar sprite" type="NinePatchRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.816
-anchor_top = 0.443
-anchor_right = 1.113
-anchor_bottom = 1.057
-offset_left = 109.968
-offset_top = -287.064
-offset_right = -132.176
-offset_bottom = -564.936
-texture = ExtResource("1_t1okh")
-
-[node name="Button" type="Button" parent="calendar sprite"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.038
-anchor_bottom = 1.003
-offset_left = -1.0
-offset_top = -1.0
-offset_right = -2.99609
-offset_bottom = -0.194
 
 [node name="DayControl" type="Control" parent="."]
 layout_mode = 1
@@ -53,11 +39,12 @@ offset_bottom = -21.152
 
 [node name="days" type="Label" parent="DayControl"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 95.0
-offset_right = 110.0
-offset_bottom = 118.0
+offset_left = -1012.0
+offset_top = 25.0
+offset_right = -984.0
+offset_bottom = 48.0
 text = "999"
+label_settings = SubResource("LabelSettings_ipenb")
 
 [node name="Replace with days icon" type="Sprite2D" parent="DayControl"]
 
@@ -70,29 +57,30 @@ offset_bottom = 124.0
 
 [node name="hours" type="Label" parent="ClockControl"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = -47.0
-offset_right = 52.0
-offset_bottom = -24.0
+offset_left = -1065.0
+offset_top = -80.0
+offset_right = -1042.0
+offset_bottom = -57.0
 text = "23"
+label_settings = SubResource("LabelSettings_hdqyt")
 
 [node name="space" type="Label" parent="ClockControl"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = -49.0
-offset_right = 67.0
-offset_bottom = -26.0
+offset_left = -1046.0
+offset_top = -82.0
+offset_right = -1027.0
+offset_bottom = -59.0
 text = ":"
+label_settings = SubResource("LabelSettings_flro5")
 
 [node name="minutes" type="Label" parent="ClockControl"]
 layout_mode = 0
-offset_left = 53.0
-offset_top = -47.0
-offset_right = 72.0
-offset_bottom = -24.0
+offset_left = -1041.0
+offset_top = -80.0
+offset_right = -1022.0
+offset_bottom = -57.0
 text = "59"
+label_settings = SubResource("LabelSettings_3mjf0")
 
 [node name="Replace with Clock or Timer" type="Sprite2D" parent="ClockControl"]
-
-[connection signal="mouse_entered" from="calendar sprite/Button" to="." method="calendar_entered"]
-[connection signal="pressed" from="calendar sprite/Button" to="." method="Calendar_Pressed"]
+position = Vector2(-12, -20)

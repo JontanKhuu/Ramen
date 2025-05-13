@@ -28,6 +28,8 @@ enum VILLAGER_STATE{
 var build_queue = []
 var tribute_payment : float
 
+signal adult_count_increased
+
 var value_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : 1,
 	RESOURCES_TRACKED.BERRIES : 2,
@@ -101,7 +103,7 @@ func update_storages() -> void:
 			inventory_dict[key] += storage.storage[key]
 
 func set_villagers_state(state : VILLAGER_STATE) -> void:
-	for villager : Villager in get_tree().get_nodes_in_group("VILLAGER"):
+	for villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
 		if state == Global.VILLAGER_STATE.RESTING:
 			villager.task = villager.LOOKING_FOR.EAT
@@ -127,4 +129,7 @@ func update_job_limits() -> void:
 	# farm
 	var farm_tiles = get_tree().get_nodes_in_group("CROP").size()
 	job_limit_dict[JOB.FARMER] =  1000 #int(farm_tiles / 8)
+	
+func update_villager_count() -> void:
+	adult_count_increased.emit()
 	

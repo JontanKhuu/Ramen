@@ -3,7 +3,6 @@ class_name Villager
 
 const kidSprite = preload("res://NPC/Assets/VillagerKidMale.png")
 const manSprite = preload("res://NPC/Assets/VillagerMale.png")
-const villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
@@ -15,7 +14,6 @@ enum LOOKING_FOR{
 @export var age_limit : int = 25
 @export var is_child : bool
 @export var villager_name: String = "Bob"
-@export var hunger: int = 100
 
 @export var task : LOOKING_FOR
 @export var job : Global.JOB
@@ -49,7 +47,7 @@ func _ready() -> void:
 	aStar = tiles.aStar
 
 func _process(delta: float) -> void:
-	print(velocity)
+	#print(velocity)
 	if birthTimer.time_left > 0:
 		age = 1
 		day_passed()
@@ -77,7 +75,7 @@ func _process(delta: float) -> void:
 		current_name = name 
 		stat_changed.emit()
 	if current_age != age: 
-		current_age = age	
+		current_age = age
 		stat_changed.emit()
 		
 func _handle_target(delta: float):
@@ -552,7 +550,7 @@ func find_closest(nodeArray : Array):
 func _on_utility_ai_agent_top_score_action_changed(top_action_id) -> void:
 	_target = null
 	wander_timer.stop()
-	print("Action changed: %s" % top_action_id)
+	#print("Action changed: %s" % top_action_id)
 	match top_action_id:
 		"idle":
 			task = LOOKING_FOR.NONE
@@ -597,6 +595,7 @@ func day_passed() -> void:
 		job = Global.JOB.NONE
 		%Sprite2D.hframes = 6
 		%Sprite2D.texture = manSprite
+		Global.update_villager_count
 		# is adult and work
 	if age > 21:
 		var diff = age_limit - age
@@ -606,6 +605,4 @@ func day_passed() -> void:
 
 func _on_birth_timer_timeout() -> void:
 	z_index = 1
-	
-
 	
