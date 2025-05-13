@@ -14,6 +14,8 @@ var selected_villager = null  # Store the currently selected villager
 
 func _ready():
 	villagers = get_tree().get_nodes_in_group("VILLAGER")
+	Global.connect("adult_count_increased",_create_pages)
+	Global.connect("adult_count_increased",_connect_villagers)
 	_create_pages()
 	_show_page(current_page)
 	_connect_navigation_buttons()
@@ -21,6 +23,7 @@ func _ready():
 	
 func _connect_villagers(villagers):
 	for villager in villagers:
+		villager.disconnect("stat_changed",update_selected_villager_display)
 		villager.connect("stat_changed",update_selected_villager_display)
 
 func _create_pages():
@@ -64,12 +67,12 @@ func _create_pages():
 			var empty_style = StyleBoxEmpty.new()
 			button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			button.size_flags_vertical = Control.SIZE_EXPAND_FILL
-			button.set("custom_styles/focus", empty_style)
-			button.set("custom_styles/normal", empty_style)
-			button.set("custom_styles/hover", empty_style)
-			button.set("custom_styles/pressed", empty_style)
 			button.flat = true
 			button.connect("pressed", _on_villager_display_clicked.bind(villager_display))
+			button.add_theme_stylebox_override("focus", empty_style)
+			button.add_theme_stylebox_override("normal", empty_style)
+			button.add_theme_stylebox_override("hover", empty_style)
+			button.add_theme_stylebox_override("pressed", empty_style)
 			villager_display.add_child(button)
 			new_page.add_child(villager_display)
 

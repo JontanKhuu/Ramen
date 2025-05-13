@@ -56,6 +56,7 @@ ticks_per_second = 2000
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
 position = Vector2(576, 281)
+color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
 script = ExtResource("5_cc6rb")
 day_color = Color(1, 1, 1, 1)
@@ -95,14 +96,6 @@ position = Vector2(323, 606)
 job = 1
 
 [node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 job = 1
 
