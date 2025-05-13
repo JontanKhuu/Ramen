@@ -55,7 +55,6 @@ func _create_pages():
 					villager_display.get_node("LabelContainer/JobLabel").text = "Job: " + str(job_name).to_lower().capitalize()
 			villager_display.get_node("LabelContainer/HungerLabel").text = "Hunger: " + str(villager.hunger)
 			villager_display.get_node("LabelContainer/AgeLabel").text = "Age: " + str(villager.age)
-
 			# Get the LineEdit from the instantiated scene
 			var name_input = villager_display.get_node("LabelContainer/NameInput") 
 			name_input.text = villager.villager_name
