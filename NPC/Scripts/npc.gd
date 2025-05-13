@@ -15,7 +15,6 @@ enum LOOKING_FOR{
 @export var age_limit : int = 25
 @export var is_child : bool
 @export var villager_name: String = "Bob"
-@export var hunger: int = 100
 
 @export var task : LOOKING_FOR
 @export var job : Global.JOB
