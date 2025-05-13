@@ -88,32 +88,15 @@ y_sort_enabled = true
 [node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]
 position = Vector2(256, 546)
 
-[node name="NPCs" type="Node" parent="."]
+[node name="NPCs" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 job = 1
 
-[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC5" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-
-[node name="NPC6" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-
 [node name="NPC7" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
+position = Vector2(376, 578)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
@@ -122,3 +105,6 @@ position = Vector2(-481, 264)
 
 [node name="HuntingGround" parent="HuntAreas" instance=ExtResource("10_6j0en")]
 position = Vector2(-51, 237)
+
+[node name="Harvestables" type="Node2D" parent="." groups=["HARVESTABLES_NODE"]]
+y_sort_enabled = true

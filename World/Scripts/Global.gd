@@ -27,6 +27,9 @@ enum VILLAGER_STATE{
 
 var build_queue = []
 var tribute_payment : float
+#var job_queues : Dictionary = {
+	#
+#}
 
 var value_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : 1,
