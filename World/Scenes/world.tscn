@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=15 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://f5suv8agt6wb" path="res://World/Scripts/world.gd" id="1_flw8f"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_6j0en"]
@@ -124,7 +124,6 @@ position = Vector2(-481, 264)
 
 [node name="HuntingGround" parent="HuntAreas" instance=ExtResource("10_6j0en")]
 position = Vector2(-51, 237)
-script = ExtResource("11_pr1x1")
 
 [node name="Harvestables" type="Node2D" parent="." groups=["HARVESTABLES_NODE"]]
 y_sort_enabled = true
