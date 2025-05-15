@@ -27,7 +27,7 @@ var stepY
 
 func _input(event: InputEvent) -> void:
 	# right clickt to cancel, left click to start drawing
-	if Input.is_action_just_pressed("confirm") && (type >= Global.BUILDINGS.FARM):
+	if Input.is_action_just_pressed("confirm") && (type >= 3):
 		selectionStartPoint = get_global_mouse_position()
 		is_drawing = true
 	if Input.is_action_just_pressed("cancel"):
@@ -89,24 +89,21 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 	pass
 
 func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
-	var harvestables = get_tree().get_nodes_in_group("HARVESTABLES")
-	var h
+	# Marking resources for demolish
+	var treeTiles = tree.get_used_cells_by_id(0,Vector2i(0,0))
+	var stoneTiles = tree.get_used_cells_by_id(1,Vector2i(0,0))
 	if startPos == endPos:
-		for harvs in harvestables:
-			if harvs.tile == startPos:
-				h = harvs
-		if !h:
-			return
-		h.sprite.modulate.g8 = 159
-		h.marked = true
+		if treeTiles.has(startPos):
+			tree.set_cell(startPos,0,Vector2i(0,0),1)
+		elif stoneTiles.has(startPos):
+			tree.set_cell(startPos,1,Vector2i(0,0),1)
 		
 	for x in range(startPos.x ,endPos.x, stepX):
 		for y in range(startPos.y ,endPos.y , stepY):
-			for harvs in harvestables:
-				if harvs.tile == Vector2i(x,y):
-					h = harvs
-					h.sprite.modulate.g8 = 159
-					h.marked = true
+			if treeTiles.has(Vector2i(x,y)):
+				tree.set_cell(Vector2i(x,y),0,Vector2i(0,0),1)
+			elif stoneTiles.has(Vector2i(x,y)):
+				tree.set_cell(Vector2i(x,y),1,Vector2i(0,0),1)
 
 func hover_roads(selectPos,mousePos,stepX,stepY) -> Array:
 	var arr : Array = []
