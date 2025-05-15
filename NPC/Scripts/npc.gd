@@ -3,7 +3,7 @@ class_name Villager
 
 const kidSprite = preload("res://NPC/Assets/VillagerKidMale.png")
 const manSprite = preload("res://NPC/Assets/VillagerMale.png")
-const villager_display_prefab = preload("res://NPC/Scenes/indiv_stat.tscn")
+const individual_stats= preload("res://NPC/Scenes/indiv_stat.tscn")
 
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
