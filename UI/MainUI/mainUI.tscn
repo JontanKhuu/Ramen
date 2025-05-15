@@ -1,6 +1,4 @@
-
 [gd_scene load_steps=16 format=3 uid="uid://dw0nf8qpq5dkg"]
-
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
 [ext_resource type="Texture2D" uid="uid://kdshdbkr7m1u" path="res://UI/BuildMenu/Assets/IconHouseBuild.png" id="3_wec40"]

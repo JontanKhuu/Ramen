@@ -43,7 +43,28 @@ var value_dict : Dictionary = {
 	RESOURCES_TRACKED.TOOLS : 5,
 	
 }
-var inventory_dict : Dictionary # for overall storage
+var inventory_dict : Dictionary # for overall storage 
+
+var player_inventory = {
+	"Usable Item 1": {
+		"total_items": 11,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test item",
+		"action": Callable(self, "item_1_function")
+	},
+	"Test Item 2": {
+		"total_items": 2,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test item that can be used",
+		"action": Callable(self, "item_2_function")
+	},
+	"Test Item 3": {
+		"total_items": 5,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test item that can be used",
+		"action": Callable(self, "item_3_function")
+	},
+}
 var building_inventory_dict : Dictionary = { # for individual storages
 	RESOURCES_TRACKED.NONE : 0,
 	RESOURCES_TRACKED.WOOD : 0,
