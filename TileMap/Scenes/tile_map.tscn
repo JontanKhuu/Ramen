@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://diuxg5omwl2tu"]
+[gd_scene load_steps=32 format=4 uid="uid://diuxg5omwl2tu"]
 
 [ext_resource type="Script" uid="uid://bglqddxhcnin1" path="res://TileMap/Scripts/tile_map.gd" id="1_i1uvu"]
 [ext_resource type="Texture2D" uid="uid://cmun518ew75th" path="res://TileMap/Assets/tile.png" id="1_u7vds"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://iou72nbgk7rl" path="res://TileMap/Assets/Hover.png" id="4_6c6d2"]
 [ext_resource type="Texture2D" uid="uid://dympofq0mlwtv" path="res://TileMap/Assets/Stone.png" id="4_ha3ia"]
 [ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://Buildings/Assets/BuildingHouse.png" id="5_4buhr"]
-[ext_resource type="Texture2D" uid="uid://bc3qtxnn5tw5f" path="res://TileMap/Assets/IronOre.png" id="5_y25y6"]
 [ext_resource type="Texture2D" uid="uid://kfqml2vqpir" path="res://Buildings/Assets/BuildingStorage.png" id="7_g6klr"]
 [ext_resource type="Script" uid="uid://ct5tgd4e0l2jc" path="res://TileMap/Scripts/drawing_node.gd" id="7_j7i0r"]
 [ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="8_1fu5r"]
@@ -189,12 +188,6 @@ texture_region_size = Vector2i(32, 32)
 0:0/1/custom_data_0 = "STONE"
 0:0/1/custom_data_1 = 3
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uru7d"]
-texture = ExtResource("5_y25y6")
-texture_region_size = Vector2i(32, 16)
-0:0/0 = 0
-0:1/0 = 0
-
 [sub_resource type="TileSet" id="TileSet_6c6d2"]
 tile_shape = 1
 tile_layout = 5
@@ -206,7 +199,6 @@ custom_data_layer_1/name = "Amount"
 custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_i1uvu")
 sources/1 = SubResource("TileSetAtlasSource_1fu5r")
-sources/2 = SubResource("TileSetAtlasSource_uru7d")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c6d2"]
 texture = ExtResource("4_6c6d2")
@@ -358,7 +350,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAE
 tile_set = SubResource("TileSet_ita36")
 
 [node name="Tree" type="TileMapLayer" parent="."]
-visible = false
 z_index = 1
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAiAAMAAAAAAAAAAAAlACAAAAAAAAAAAAA2AAsAAAAAAAAAAAAUAAgAAAAAAAAAAAAaABUAAAAAAAAAAAAoABEAAAAAAAAAAAAtAAwAAQAAAAAAAAAtAAsAAQAAAAAAAAA=")

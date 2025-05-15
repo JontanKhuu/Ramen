@@ -26,11 +26,7 @@ enum VILLAGER_STATE{
 }
 
 var build_queue = []
-var drop_queue = []
 var tribute_payment : float
-var job_queues : Dictionary = {
-	JOB.LABORER : []
-}
 
 signal adult_count_increased
 
@@ -108,7 +104,7 @@ var job_name_dict : Dictionary = {
 	JOB.BLACKSMITH : "BLACKSMITH",
 }
 var job_limit_dict : Dictionary = {
-	JOB.FARMER : 0,
+	JOB.FARMER : 1000,
 	JOB.HUNTER : 0,
 	JOB.TANNER : 0,
 	JOB.MINER : 0,
