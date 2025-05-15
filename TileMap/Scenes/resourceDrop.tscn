@@ -6,7 +6,6 @@
 [node name="ResourceDrop" type="StaticBody2D" groups=["DROPS"]]
 z_index = 3
 script = ExtResource("1_14d2t")
-type = null
 amount = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
