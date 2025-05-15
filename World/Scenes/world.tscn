@@ -1,4 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7j3lm2yhyfp8"]
+
+[gd_scene load_steps=16 format=3 uid="uid://b7j3lm2yhyfp8"]
+
 
 [ext_resource type="Script" uid="uid://f5suv8agt6wb" path="res://World/Scripts/world.gd" id="1_flw8f"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_6j0en"]
@@ -10,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="8_wg14y"]
 [ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_jq823"]
 [ext_resource type="PackedScene" uid="uid://dvp4oq2sn7gru" path="res://World/Scenes/hunting_ground.tscn" id="10_6j0en"]
+[ext_resource type="Script" path="res://World/Scenes/hunting_ground.gd" id="11_pr1x1"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_pr1x1")
@@ -108,23 +111,13 @@ y_sort_enabled = true
 [node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]
 position = Vector2(256, 546)
 
-[node name="NPCs" type="Node" parent="."]
+[node name="NPCs" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 job = 1
 
-[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC3" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
-
-[node name="NPC4" parent="NPCs" instance=ExtResource("8_wg14y")]
-position = Vector2(323, 606)
-job = 1
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
@@ -133,3 +126,7 @@ position = Vector2(-481, 264)
 
 [node name="HuntingGround" parent="HuntAreas" instance=ExtResource("10_6j0en")]
 position = Vector2(-51, 237)
+script = ExtResource("11_pr1x1")
+
+[node name="Harvestables" type="Node2D" parent="." groups=["HARVESTABLES_NODE"]]
+y_sort_enabled = true
