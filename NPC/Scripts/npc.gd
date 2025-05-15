@@ -5,6 +5,7 @@ const kidSprite = preload("res://NPC/Assets/VillagerKidMale.png")
 const manSprite = preload("res://NPC/Assets/VillagerMale.png")
 const individual_stats= preload("res://NPC/Scenes/indiv_stat.tscn")
 
+var stat_instance
 enum LOOKING_FOR{
 	NONE, WOOD, BUILDING, BED, PLANT, HARVEST, PICKDROPS, STORAGE, HUNT, 
 	TAN, HAUL, FILL, MINE, COOK, EAT, SMELT, FORGE
