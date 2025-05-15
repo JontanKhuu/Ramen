@@ -31,8 +31,21 @@ func _input(event: InputEvent) -> void:
 		selectionStartPoint = get_global_mouse_position()
 		is_drawing = true
 	if Input.is_action_just_pressed("cancel"):
+		tiles.building = false
 		is_drawing = false
-
+	# if dragged area is released, build
+	if event.is_action_released("confirm") and is_drawing:
+		used_tiles = grass.get_used_cells_by_id(0,Vector2i(0,1),1)
+		match type:
+			Global.BUILDINGS.FARM:
+				create_building(selectPos,mousePos,stepX,stepY)
+			Global.BUILDINGS.HARVEST:
+				mark_for_demolish(selectPos,mousePos,stepX,stepY)
+			Global.BUILDINGS.ROAD:
+				build_roads(road_tiles)
+		type = Global.BUILDINGS.NONE
+		is_drawing = false
+		
 func _process(delta: float) -> void:
 	if is_drawing:
 		_handle_drawing()
@@ -53,18 +66,7 @@ func _handle_drawing() -> void:
 			hover.set_cell(Vector2i(x,y),0,Vector2i(0,0))
 	
 func _unhandled_input(event: InputEvent) -> void:
-	# if dragged area is released, build
-	if event.is_action_released("confirm") and is_drawing:
-		used_tiles = grass.get_used_cells_by_id(0,Vector2i(0,1),1)
-		match type:
-			Global.BUILDINGS.FARM:
-				create_building(selectPos,mousePos,stepX,stepY)
-			Global.BUILDINGS.HARVEST:
-				mark_for_demolish(selectPos,mousePos,stepX,stepY)
-			Global.BUILDINGS.ROAD:
-				build_roads(road_tiles)
-		type = Global.BUILDINGS.NONE
-		is_drawing = false
+	pass
 
 func create_building(startPos, endPos, stepX, stepY) -> void:
 	# if no area is drawn then make one tile
