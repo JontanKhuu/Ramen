@@ -24,6 +24,9 @@ enum JOB{
 enum VILLAGER_STATE{
 	WORKING, RESTING, SLEEPING
 }
+enum EVENTS{
+	NONE,MERCHANT,AMBASSADOR,SHAMAN
+}
 
 var build_queue = []
 var drop_queue = []

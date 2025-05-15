@@ -45,7 +45,7 @@ func _handle_drawing() -> void:
 	stepY = 1 if selectPos.y < mousePos.y else -1
 	
 	if type == Global.BUILDINGS.ROAD:
-		road_tiles = hover_roads(selectPos,mousePos,stepX,stepY)
+		road_tiles = hover_roads(selectPos,mousePos)
 		return
 	
 	for x in range(selectPos.x ,mousePos.x, stepX):
@@ -58,15 +58,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		used_tiles = grass.get_used_cells_by_id(0,Vector2i(0,1),1)
 		match type:
 			Global.BUILDINGS.FARM:
-				create_building(selectPos,mousePos,stepX,stepY)
+				create_building(selectPos,mousePos)
 			Global.BUILDINGS.HARVEST:
-				mark_for_demolish(selectPos,mousePos,stepX,stepY)
+				mark_for_demolish(selectPos,mousePos)
 			Global.BUILDINGS.ROAD:
 				build_roads(road_tiles)
 		type = Global.BUILDINGS.NONE
 		is_drawing = false
 
-func create_building(startPos, endPos, stepX, stepY) -> void:
+func create_building(startPos, endPos) -> void:
 	# if no area is drawn then make one tile
 	if startPos == endPos and !used_tiles.has(startPos):
 		var pos = grass.map_to_local(startPos)
@@ -88,7 +88,7 @@ func create_building(startPos, endPos, stepX, stepY) -> void:
 	Global.update_job_limits()
 	pass
 
-func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
+func mark_for_demolish(startPos, endPos) -> void:
 	var harvestables = get_tree().get_nodes_in_group("HARVESTABLES")
 	var h
 	if startPos == endPos:
@@ -108,7 +108,7 @@ func mark_for_demolish(startPos, endPos, stepX, stepY) -> void:
 					h.sprite.modulate.g8 = 159
 					h.marked = true
 
-func hover_roads(selectPos,mousePos,stepX,stepY) -> Array:
+func hover_roads(selectPos,mousePos) -> Array:
 	var arr : Array = []
 	if selectPos == mousePos:
 		hover.set_cell(selectPos,0,Vector2i(0,0))

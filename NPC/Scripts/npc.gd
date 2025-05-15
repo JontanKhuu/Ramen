@@ -332,7 +332,7 @@ func hunt():
 	_target = null
 	
 # Tan
-func find_workplace(worktype : Global.WORKPLACE) -> void:
+func find_workplace() -> void:
 	if workplace == null :
 		return
 	
@@ -518,7 +518,7 @@ func _handle_target(delta: float):
 			LOOKING_FOR.HUNT:
 				find_hunt()
 			LOOKING_FOR.TAN:
-				find_workplace(Global.WORKPLACE.CLOTH)
+				find_workplace()
 			LOOKING_FOR.HAUL:
 				if workplace and currentDrop == null:
 					haul()
@@ -530,16 +530,16 @@ func _handle_target(delta: float):
 				else:
 					_on_utility_ai_agent_top_score_action_changed(utilAI._current_top_action)
 			LOOKING_FOR.MINE:
-				find_workplace(Global.WORKPLACE.MINE)
+				find_workplace()
 			LOOKING_FOR.COOK:
-				find_workplace(Global.WORKPLACE.COOKERY)
+				find_workplace()
 			LOOKING_FOR.EAT:
 				wander_timer.stop()
 				find_eat()
 			LOOKING_FOR.SMELT:
-				find_workplace(Global.WORKPLACE.SMELTER)
+				find_workplace()
 			LOOKING_FOR.FORGE:
-				find_workplace(Global.WORKPLACE.FORGE)
+				find_workplace()
 		return
 	
 	_handle_navigation_path()

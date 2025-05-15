@@ -35,15 +35,18 @@ func _display_event_buttons():
 		var day_button = day_container.get_child(i) as Button
 		var day = i + 1
 		if events_by_day.has(day):
-			if event_indicator_scene:
-				var event_button_instance = event_indicator_scene.instantiate()
-				if event_button_instance is Button:
-					event_button_instance.connect("pressed", _on_show_day_events.bind(day))
-					day_button.add_child(event_button_instance)
-					# Adjust position to place the "Events" button appropriately within the day button
-					event_button_instance.position = Vector2(50, 0) 
+			if !event_indicator_scene:
+				return
+			var event_button_instance = event_indicator_scene.instantiate()
+			if event_button_instance is Button:
+				event_button_instance.connect("pressed", _on_show_day_events.bind(day))
+				day_button.add_child(event_button_instance)
+				# Adjust position to place the "Events" button appropriately within the day button
+				event_button_instance.position = Vector2(50, 0) 
+				event_button_instance.type = time_system.events[0]
 
 func _on_show_day_events(day: int):
+	return
 	if is_instance_valid(current_event_details_panel):
 		current_event_details_panel.queue_free()
 		
@@ -55,7 +58,8 @@ func _on_show_day_events(day: int):
 					events_for_day.append({
 						"name": event_name,
 						"hour": time_system.events[event_name]["hours"],
-						"minute": time_system.events[event_name]["minutes"]
+						"minute": time_system.events[event_name]["minutes"],
+						"type" : time_system.events[event_name]["type"]
 					})
 					
 	events_for_day.sort_custom(func(a, b):

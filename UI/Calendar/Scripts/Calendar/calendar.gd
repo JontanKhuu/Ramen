@@ -9,7 +9,7 @@ var calendar_sprite = preload("res://UI/Calendar/Calendar_Menu.tscn")
 @onready var instance
 
 func _ready() -> void:
-	time_system.updated.connect(_on_time_system_updated)
+	time_system.updated.connect(Callable(_on_time_system_updated))
 	pass
 
 # Updates the labels on the canvas to show time in game.

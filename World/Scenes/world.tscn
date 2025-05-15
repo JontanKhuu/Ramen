@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7j3lm2yhyfp8"]
+[gd_scene load_steps=16 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://f5suv8agt6wb" path="res://World/Scripts/world.gd" id="1_flw8f"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_6j0en"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="8_wg14y"]
 [ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_jq823"]
 [ext_resource type="PackedScene" uid="uid://dvp4oq2sn7gru" path="res://World/Scenes/hunting_ground.tscn" id="10_6j0en"]
+[ext_resource type="Script" uid="uid://y0hqsffc5gpy" path="res://World/Scenes/hunting_ground.gd" id="11_pr1x1"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_pr1x1")
@@ -70,6 +71,7 @@ time_system = NodePath("../TimeSystem")
 y_sort_enabled = true
 
 [node name="TileMap" parent="." instance=ExtResource("6_3ghsa")]
+visible = false
 z_index = -1
 
 [node name="Player_Camera" type="Camera2D" parent="."]
@@ -82,6 +84,7 @@ min_zoom = 0.75
 max_zoom = 1.5
 
 [node name="Buildings" type="Node2D" parent="." groups=["BUILDINGS_NODE"]]
+visible = false
 z_index = 1
 y_sort_enabled = true
 
@@ -89,6 +92,7 @@ y_sort_enabled = true
 position = Vector2(256, 546)
 
 [node name="NPCs" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
@@ -99,13 +103,15 @@ job = 1
 position = Vector2(376, 578)
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
+visible = false
 position = Vector2(-481, 264)
 
 [node name="HuntAreas" type="Node" parent="."]
 
 [node name="HuntingGround" parent="HuntAreas" instance=ExtResource("10_6j0en")]
 position = Vector2(-51, 237)
-script = null
+script = ExtResource("11_pr1x1")
 
 [node name="Harvestables" type="Node2D" parent="." groups=["HARVESTABLES_NODE"]]
+visible = false
 y_sort_enabled = true

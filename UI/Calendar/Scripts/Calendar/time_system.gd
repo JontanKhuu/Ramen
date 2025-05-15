@@ -11,18 +11,18 @@ signal updated
 @onready var eventSpawn = get_tree().get_first_node_in_group("EVENTSPAWN")
 # Add event and check what time of date it should trigger.
 var events = {
-	"Trader Spawn": {"days": 1,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
-	"Money Checkin": {"days": 2,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
-	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
-	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
-	"Trader Spawn2": {"days": 3,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
-	"Money Checkin2": {"days": 6,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
-	"Queue Sort Test2": {"days": 7,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
-	"Queue Sort Tes3t": {"days": 4,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
-	"Test Eve3nt2": {"days": 5,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
-	"Trader Sp3awn2": {"days": 18,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
-	"Test Event22": {"days": 12,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
-	"Test Event222": {"days": 26,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
+	"Trader Spawn": {"days": 1,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn"), "type" : Global.EVENTS.MERCHANT},
+	"Money Checkin": {"days": 2,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin"), "type" : Global.EVENTS.AMBASSADOR},
+	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one"), "type" : Global.EVENTS.NONE},
+	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two"), "type" : Global.EVENTS.NONE},
+	"Trader Spawn2": {"days": 3,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn"), "type" : Global.EVENTS.MERCHANT},
+	"Money Checkin2": {"days": 6,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin"), "type" : Global.EVENTS.AMBASSADOR},
+	"Queue Sort Test2": {"days": 7,"hours": 2,"minutes": 59,"action": Callable(self,"test_one"), "type" : Global.EVENTS.NONE},
+	"Queue Sort Tes3t": {"days": 4,"hours": 2,"minutes": 59,"action": Callable(self,"test_one"), "type" : Global.EVENTS.NONE},
+	"Test Eve3nt2": {"days": 5,"hours": 16,"minutes": 4,"action": Callable(self,"test_two"), "type" : Global.EVENTS.NONE},
+	"Trader Sp3awn2": {"days": 18,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn"), "type" : Global.EVENTS.MERCHANT},
+	"Test Event22": {"days": 12,"hours": 16,"minutes": 4,"action": Callable(self,"test_two"), "type" : Global.EVENTS.NONE},
+	"Test Event222": {"days": 26,"hours": 16,"minutes": 4,"action": Callable(self,"test_two"), "type" : Global.EVENTS.NONE},
 }
 	
 var previous_day = -1

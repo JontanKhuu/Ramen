@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://kr3n75gvh1mv"]
+[gd_scene load_steps=3 format=3 uid="uid://kr3n75gvh1mv"]
 
-[ext_resource type="Texture2D" uid="uid://ed3wtbvhwcct" path="res://NPC/Assets/npc.png" id="1_7r5qq"]
+[ext_resource type="Script" uid="uid://c4bd64tgom8n1" path="res://UI/Calendar/Scripts/Calendar/day_cell.gd" id="1_pr28y"]
+[ext_resource type="Texture2D" uid="uid://bvuk0na6s6x6q" path="res://UI/Calendar/Assets/eventIcons.png" id="2_pr28y"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(80, 80)
@@ -10,7 +11,10 @@ anchor_bottom = 0.105
 offset_right = -0.311996
 offset_bottom = -0.0400009
 flat = true
+script = ExtResource("1_pr28y")
 
 [node name="EventToday" type="Sprite2D" parent="."]
 position = Vector2(67, 58)
-texture = ExtResource("1_7r5qq")
+scale = Vector2(2, 2)
+texture = ExtResource("2_pr28y")
+hframes = 2

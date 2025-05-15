@@ -117,8 +117,8 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	drop_instance.global_position = pos
 	
 	var direction : Vector2 = Vector2(
-		randi_range(-1.0,1.0),
-		randi_range(-1.0,1.0)
+		randi_range(-1,1),
+		randi_range(-1,1)
 	).normalized()
 	
 	drop_instance.launch(direction * launch_speed, launch_time)
@@ -132,13 +132,13 @@ func initialize_resources() -> void:
 	init_helper(ores,3)
 	
 	
-func init_helper(arr : Array, type : int) -> void:
+func init_helper(arr : Array, ntype : int) -> void:
 	# arr of vector2i or tiles 
 	var parent = get_tree().get_first_node_in_group("HARVESTABLES_NODE")
 	for tile in arr:
 		var pos = tree.map_to_local(tile)
 		var node : Harvestable = HARVESTABLE.instantiate()
-		node.type = type
+		node.type = ntype
 		node.global_position = pos
 		node.tile = tile
 		parent.add_child(node)

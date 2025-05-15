@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dimx1dwq247p6" path="res://NPC/Scripts/npc_stats.gd" id="1_ummu8"]
 
 [node name="Villager_stats" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_ummu8")
 
 [node name="Stat_Container" type="VBoxContainer" parent="."]
