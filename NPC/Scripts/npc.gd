@@ -241,7 +241,7 @@ func harvest_plant() -> void:
 	plant = null
 
 # Pick up and transport resources          
-var currentDrop : Drops
+var currentDrop : Drop
 var storageBuilding
 func find_drops(types : Array, finding : bool = false) -> bool:
 	# check if there is drops
@@ -346,7 +346,7 @@ func haul() -> void:
 	if workplace.storage[workplace.product] <= 0 and workplace.storage[workplace.product2] <= 0 :
 		return
 	
-	currentDrop = Drops.new()
+	currentDrop = Drop.new()
 	currentDrop.visible = false
 	if workplace.storage[workplace.product] > 0:
 		currentDrop.type = workplace.product 
@@ -383,7 +383,7 @@ func has_resource(node):
 	return node.storage[workplace.need] > 0
 
 func haul_fill() -> void:
-	currentDrop = Drops.new()
+	currentDrop = Drop.new()
 	currentDrop.visible = false
 	currentDrop.type = workplace.need
 	currentDrop.amount = 1
@@ -575,7 +575,7 @@ func _handle_target(delta: float):
 		LOOKING_FOR.PICKDROPS:
 			if to_target < 10:
 				pick_up_resource()
-				return
+				
 		LOOKING_FOR.STORAGE:
 			if to_target < 10:
 				store_resource(currentDrop.type,currentDrop.amount)
