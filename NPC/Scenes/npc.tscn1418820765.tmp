@@ -396,8 +396,18 @@ job = 10
 curve = SubResource("Curve_n6yuv")
 metadata/_custom_type_script = "uid://ds3cm31xh6g85"
 
+[node name="Button" type="Button" parent="."]
+show_behind_parent = true
+offset_left = -10.0
+offset_top = -36.0
+offset_right = 10.0
+offset_bottom = -2.0
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="BirthTimer" to="." method="_on_birth_timer_timeout"]
 [connection signal="top_score_action_changed" from="UtilityAiAgent" to="." method="_on_utility_ai_agent_top_score_action_changed"]
+[connection signal="focus_entered" from="Button" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
