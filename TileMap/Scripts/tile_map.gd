@@ -5,6 +5,7 @@ const HOUSE = preload("res://Buildings/Scenes/house.tscn")
 const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
 const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
 const DROP = preload("res://TileMap/Scenes/resourceDrop.tscn")
+const HARVESTABLE = preload("res://TileMap/Scenes/harvestable.tscn")
 
 @onready var grass: TileMapLayer = $Grass
 @onready var tree: TileMapLayer = $Tree
@@ -24,7 +25,9 @@ var type : Global.BUILDINGS
 var aStar : AStarGrid2D = AStarGrid2D.new()
 
 func _ready() -> void:
+	tree.visible = false
 	_set_road_weights()
+	initialize_resources()
 	_remove_tree_nav()
 	
 	
@@ -97,8 +100,9 @@ func _set_road_weights() -> void:
 	pass
 
 func _remove_tree_nav() -> void:
-	var trees = tree.get_used_cells()
-	for cell in trees:
+	var harvestables = get_tree().get_nodes_in_group("HARVESTABLES")
+	harvestables = harvestables.map(func(element):return tree.local_to_map(element.global_position))
+	for cell in harvestables:
 		grass.set_cell(cell,0,Vector2i(0,1),1)
 
 func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED):
@@ -106,6 +110,7 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	var launch_speed = 100
 	var launch_time = .25
 	drop_instance.type = resourcetype
+	Global.drop_queue.append(drop_instance)
 	add_child(drop_instance)
 	
 	var pos = grass.map_to_local(initPos)
@@ -117,3 +122,25 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	).normalized()
 	
 	drop_instance.launch(direction * launch_speed, launch_time)
+
+func initialize_resources() -> void:
+	var trees = tree.get_used_cells_by_id(0,Vector2i(0,0))
+	var stones = tree.get_used_cells_by_id(1,Vector2i(0,0))
+	var ores = tree.get_used_cells_by_id(2,Vector2i(0,0))
+	init_helper(trees,1)
+	init_helper(stones,2)
+	init_helper(ores,3)
+	
+	
+func init_helper(arr : Array, type : int) -> void:
+	# arr of vector2i or tiles 
+	var parent = get_tree().get_first_node_in_group("HARVESTABLES_NODE")
+	for tile in arr:
+		var pos = tree.map_to_local(tile)
+		var node : Harvestable = HARVESTABLE.instantiate()
+		node.type = type
+		node.global_position = pos
+		node.tile = tile
+		parent.add_child(node)
+		
+	
