@@ -5,7 +5,26 @@ extends Control
 
 @onready var IDContainer = get_node("ItemDescriptionContainer")
 
-var inventory = Global.player_inventory
+var inventory = {
+	"Usable Item 1": {
+		"total_items": 11,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test item",
+		"action": Callable(self, "item_1_function")
+	},
+	"Test Item 2": {
+		"total_items": 2,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test item that can be used",
+		"action": Callable(self, "item_2_function")
+	},
+	"Test Item 3": {
+		"total_items": 5,
+		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
+		"description": "this is a test item that can be used",
+		"action": Callable(self, "item_3_function")
+	},
+}
 
 func _ready():
 	_populate_inventory()
@@ -53,21 +72,15 @@ func _populate_inventory():
 		else:
 			printerr("Warning: ItemCell instance does not have an attached script.")
 
+
+
 func update_inventory(new_inventory: Dictionary):
-	inventory = Global.player_inventory
+	inventory = new_inventory
 	_populate_inventory()
 	
 func clear_idContainer():
 	for child in IDContainer.get_children():
 		child.queue_free()
-
-func decrease_item_count(inventory: Dictionary, item_name: String):
-		Global.player_inventory[item_name]["total_items"] -= 1
-		print(Global.player_inventory[item_name]["total_items"])
-		if Global.player_inventory[item_name]["total_items"] == 0:
-			clear_idContainer()
-			inventory.erase("Usable Item 1")
-			update_inventory(inventory)
 
 # Example item functions (these are still here but not directly used by Inventory)
 func item_1_function():
@@ -77,7 +90,7 @@ func item_1_function():
 		inventory.erase("Usable Item 1")
 		update_inventory(inventory)
 	else:
-		decrease_item_count(inventory, "Usable Item 1")
+		inventory["Usable Item 1"]["total_items"] -= 1
 
 func item_2_function():
 	print("Used Usable Item 2")

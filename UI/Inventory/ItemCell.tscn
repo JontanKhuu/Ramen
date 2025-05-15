@@ -8,7 +8,6 @@
 [node name="ItemCell" type="Control"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -1120.0
@@ -27,8 +26,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 flat = true
 
 [node name="ItemCount" type="Label" parent="."]

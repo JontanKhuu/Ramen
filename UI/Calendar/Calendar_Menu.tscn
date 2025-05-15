@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://fi5fgsdv4q10" path="res://UI/Calendar/Event_Detail_Panel.tscn" id="3_fd1py"]
 
 [node name="Calendar_Menu" type="Control"]
-z_index = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

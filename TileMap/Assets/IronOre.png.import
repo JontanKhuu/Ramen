@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cldag4twxt8p8"
-path="res://.godot/imported/Button-Placeholder.png-fc9632904acdad905c960ab1f54c1355.ctex"
+uid="uid://bc3qtxnn5tw5f"
+path="res://.godot/imported/IronOre.png-74bab8f91bf900233d894c467559c667.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/MainUI/Assets/Button-Placeholder.png"
-dest_files=["res://.godot/imported/Button-Placeholder.png-fc9632904acdad905c960ab1f54c1355.ctex"]
+source_file="res://TileMap/Assets/IronOre.png"
+dest_files=["res://.godot/imported/IronOre.png-74bab8f91bf900233d894c467559c667.ctex"]
 
 [params]
 

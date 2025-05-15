@@ -1,5 +1,5 @@
 extends StaticBody2D
-class_name Drop
+class_name Drops
 
 @onready var sprite: Sprite2D = $Sprite2D
 var frame : int

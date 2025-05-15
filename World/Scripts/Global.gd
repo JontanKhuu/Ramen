@@ -26,9 +26,11 @@ enum VILLAGER_STATE{
 }
 
 var build_queue = []
+var drop_queue = []
 var tribute_payment : float
-
-signal adult_count_increased
+var job_queues : Dictionary = {
+	JOB.LABORER : []
+}
 
 var value_dict : Dictionary = {
 	RESOURCES_TRACKED.WOOD : 1,
@@ -43,28 +45,7 @@ var value_dict : Dictionary = {
 	RESOURCES_TRACKED.TOOLS : 5,
 	
 }
-var inventory_dict : Dictionary # for overall storage 
-
-var player_inventory = {
-	"Usable Item 1": {
-		"total_items": 11,
-		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
-		"description": "this is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test itemthis is a test item",
-		"action": Callable(self, "item_1_function")
-	},
-	"Test Item 2": {
-		"total_items": 2,
-		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
-		"description": "this is a test item that can be used",
-		"action": Callable(self, "item_2_function")
-	},
-	"Test Item 3": {
-		"total_items": 5,
-		"sprite_path": "res://UI/Inventory/Assets/Test_Item.png",
-		"description": "this is a test item that can be used",
-		"action": Callable(self, "item_3_function")
-	},
-}
+var inventory_dict : Dictionary # for overall storage
 var building_inventory_dict : Dictionary = { # for individual storages
 	RESOURCES_TRACKED.NONE : 0,
 	RESOURCES_TRACKED.WOOD : 0,
@@ -104,7 +85,7 @@ var job_name_dict : Dictionary = {
 	JOB.BLACKSMITH : "BLACKSMITH",
 }
 var job_limit_dict : Dictionary = {
-	JOB.FARMER : 1000,
+	JOB.FARMER : 0,
 	JOB.HUNTER : 0,
 	JOB.TANNER : 0,
 	JOB.MINER : 0,
@@ -124,7 +105,7 @@ func update_storages() -> void:
 			inventory_dict[key] += storage.storage[key]
 
 func set_villagers_state(state : VILLAGER_STATE) -> void:
-	for villager in get_tree().get_nodes_in_group("VILLAGER"):
+	for villager : Villager in get_tree().get_nodes_in_group("VILLAGER"):
 		villager.state = state
 		if state == Global.VILLAGER_STATE.RESTING:
 			villager.task = villager.LOOKING_FOR.EAT
@@ -150,7 +131,4 @@ func update_job_limits() -> void:
 	# farm
 	var farm_tiles = get_tree().get_nodes_in_group("CROP").size()
 	job_limit_dict[JOB.FARMER] =  1000 #int(farm_tiles / 8)
-	
-func update_villager_count() -> void:
-	adult_count_increased.emit()
 	

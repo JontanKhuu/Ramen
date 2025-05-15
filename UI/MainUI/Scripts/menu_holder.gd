@@ -6,7 +6,6 @@ extends Control
 @onready var job_manager_instance 
 @onready var npc_stats_instance
 @onready var inventory_instance
-@onready var event_log_instance
 
 
 @export var drag_sensitivity: float = 0.01 # Adjust for drag speed
@@ -23,7 +22,6 @@ const calendar_sprite = preload("res://UI/Calendar/Calendar_Menu.tscn")
 const npc_stats = preload("res://NPC/Scenes/npc_stats.tscn")
 const job_manager = preload("res://UI/Job_Manager/Job_Manager.tscn")
 const inventory = preload("res://UI/Inventory/Inventory.tscn")
-const event_log = preload("res://UI/Logs/LogInfo.tscn")
 
 func _ready():
 	main_button.connect("pressed", self._on_main_button_pressed)
@@ -89,9 +87,6 @@ func close_npc_stats() -> void:
 	
 func close_inventory() -> void:
 	inventory_instance.queue_free()
-	
-func close_event_log() -> void:
-	event_log_instance.queue_free()
 		
 func _unhandled_input(event: InputEvent) -> void: # Close all pop up instances
 	if event.is_action("ui_cancel"):
@@ -103,8 +98,6 @@ func _unhandled_input(event: InputEvent) -> void: # Close all pop up instances
 			close_npc_stats()
 		if is_instance_valid(inventory_instance):
 			close_inventory()
-		if is_instance_valid(event_log_instance):
-			close_event_log()
 		
 func _on_calendar_button_pressed() -> void:
 	if !is_instance_valid(calendar_instance):
@@ -140,11 +133,3 @@ func _on_inventory_button_pressed() -> void:
 	else:
 		print ("Inventory is already visible, closing")
 		close_inventory()
-
-func _on_logs_button_pressed() -> void:
-	if !is_instance_valid(event_log_instance):
-		event_log_instance = event_log.instantiate()
-		add_child(event_log_instance)
-	else:
-		print ("Event log is already visible, closing")
-		close_event_log()

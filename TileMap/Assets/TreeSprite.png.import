@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbechrcilflc1"
-path="res://.godot/imported/Button-Placeholder-Hovered.png-0ef871bb936b7f4ed287dae9d02cce59.ctex"
+uid="uid://dl32jt1nrwbjh"
+path="res://.godot/imported/TreeSprite.png-ae23925543f588581585d904185f0796.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/MainUI/Assets/Button-Placeholder-Hovered.png"
-dest_files=["res://.godot/imported/Button-Placeholder-Hovered.png-0ef871bb936b7f4ed287dae9d02cce59.ctex"]
+source_file="res://TileMap/Assets/TreeSprite.png"
+dest_files=["res://.godot/imported/TreeSprite.png-ae23925543f588581585d904185f0796.ctex"]
 
 [params]
 

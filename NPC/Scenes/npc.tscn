@@ -129,15 +129,6 @@ y_sort_enabled = true
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_056qb")
-speed = null
-age = null
-age_limit = null
-is_child = null
-villager_name = null
-task = null
-job = null
-state = null
-hunger = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

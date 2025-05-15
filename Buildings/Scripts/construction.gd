@@ -22,7 +22,7 @@ var villagers
 
 func _ready() -> void:
 	Global.build_queue.append(self)
-	#remove_nav_under()
+	remove_nav_under()
 
 func _process(delta: float) -> void:
 	villagers = area.get_overlapping_bodies()
