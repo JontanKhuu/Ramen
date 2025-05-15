@@ -241,7 +241,7 @@ func harvest_plant() -> void:
 	plant = null
 
 # Pick up and transport resources          
-var currentDrop : Drops
+var currentDrop : Drop
 var storageBuilding
 func find_drops(types : Array, finding : bool = false) -> bool:
 	# check if there is drops
@@ -346,7 +346,7 @@ func haul() -> void:
 	if workplace.storage[workplace.product] <= 0 and workplace.storage[workplace.product2] <= 0 :
 		return
 	
-	currentDrop = Drops.new()
+	currentDrop = Drop.new()
 	currentDrop.visible = false
 	if workplace.storage[workplace.product] > 0:
 		currentDrop.type = workplace.product 
@@ -383,7 +383,7 @@ func has_resource(node):
 	return node.storage[workplace.need] > 0
 
 func haul_fill() -> void:
-	currentDrop = Drops.new()
+	currentDrop = Drop.new()
 	currentDrop.visible = false
 	currentDrop.type = workplace.need
 	currentDrop.amount = 1
@@ -492,7 +492,6 @@ func day_passed() -> void:
 
 func _on_birth_timer_timeout() -> void:
 	z_index = 1
-	
 	
 func _handle_target(delta: float):
 	visible = true
@@ -632,13 +631,14 @@ func normal_production(dis) -> bool:
 		workplace.has_worker = false
 	return false
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+func _input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event.is_action_released("confirm"):
 		show_stats()
 
 func show_stats(): # Showing individual villager stats
 	if is_instance_valid(stat_instance):
 		stat_instance.queue_free() # Close any existing instance
+		return
 
 	var indiv_stat = individual_stats.instantiate()
 	for job_name in Global.JOB.keys():
