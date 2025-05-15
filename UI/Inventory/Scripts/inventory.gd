@@ -72,15 +72,21 @@ func _populate_inventory():
 		else:
 			printerr("Warning: ItemCell instance does not have an attached script.")
 
-
-
 func update_inventory(new_inventory: Dictionary):
-	inventory = new_inventory
+	inventory = Global.player_inventory
 	_populate_inventory()
 	
 func clear_idContainer():
 	for child in IDContainer.get_children():
 		child.queue_free()
+
+func decrease_item_count(inventory: Dictionary, item_name: String):
+		Global.player_inventory[item_name]["total_items"] -= 1
+		print(Global.player_inventory[item_name]["total_items"])
+		if Global.player_inventory[item_name]["total_items"] == 0:
+			clear_idContainer()
+			inventory.erase("Usable Item 1")
+			update_inventory(inventory)
 
 # Example item functions (these are still here but not directly used by Inventory)
 func item_1_function():
@@ -90,7 +96,7 @@ func item_1_function():
 		inventory.erase("Usable Item 1")
 		update_inventory(inventory)
 	else:
-		inventory["Usable Item 1"]["total_items"] -= 1
+		decrease_item_count(inventory, "Usable Item 1")
 
 func item_2_function():
 	print("Used Usable Item 2")

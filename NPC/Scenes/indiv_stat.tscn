@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_byb7q")
 
 [node name="VillagerSprite" type="Sprite2D" parent="."]
-position = Vector2(113, 59.185)
+position = Vector2(113, 58)
 scale = Vector2(2.54766, 3.61343)
 texture = ExtResource("2_sync2")
 region_enabled = true
@@ -25,6 +25,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="NameInput" type="LineEdit" parent="LabelContainer"]
+custom_minimum_size = Vector2(97, 31)
 layout_mode = 2
 text = "Bob"
 max_length = 6

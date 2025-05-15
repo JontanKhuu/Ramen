@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dw0nf8qpq5dkg"]
+[gd_scene load_steps=16 format=3 uid="uid://dw0nf8qpq5dkg"]
 
 
 [ext_resource type="PackedScene" uid="uid://qxaw4x1rnktp" path="res://UI/BuildMenu/build_action.tscn" id="2_t0uvf"]
-[ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="3_kqecl"]
 [ext_resource type="Texture2D" uid="uid://kdshdbkr7m1u" path="res://UI/BuildMenu/Assets/IconHouseBuild.png" id="3_wec40"]
 [ext_resource type="PackedScene" uid="uid://dy750xbw85hp1" path="res://UI/MainUI/resource_tracka.tscn" id="4_lvtto"]
 [ext_resource type="Texture2D" uid="uid://det8icwdmvnuh" path="res://UI/BuildMenu/Assets/IconStorageBuild.png" id="4_q5o53"]
@@ -10,16 +9,17 @@
 [ext_resource type="Texture2D" uid="uid://n1hnbf6gu3rl" path="res://UI/BuildMenu/Assets/IconFarmBuild.png" id="5_jw022"]
 [ext_resource type="PackedScene" uid="uid://cwyk2c760n12i" path="res://UI/Trading/trade_ui.tscn" id="6_6j1t5"]
 [ext_resource type="Texture2D" uid="uid://b6mnsfcwrcjpk" path="res://UI/BuildMenu/Assets/IconRoadBuild.png" id="7_dwcca"]
-[ext_resource type="PackedScene" uid="uid://cvqkc652n5re2" path="res://UI/Job_Manager/Job_Manager.tscn" id="7_pg31w"]
 [ext_resource type="Texture2D" uid="uid://uxwmiju705tk" path="res://UI/BuildMenu/Assets/IconHotbar.png" id="8_dwcca"]
 [ext_resource type="Texture2D" uid="uid://3oagii5sdt8l" path="res://UI/BuildMenu/Assets/IconHuntCamp.png" id="9_164ei"]
 [ext_resource type="PackedScene" uid="uid://bsbd0byrto3fe" path="res://UI/Tribute/tribute_payment.tscn" id="9_bwhks"]
 [ext_resource type="Texture2D" uid="uid://bywcyib0sd7ve" path="res://UI/BuildMenu/Assets/IconTannery.png" id="10_4hn2f"]
 [ext_resource type="Texture2D" uid="uid://d3cwtj7epjvi7" path="res://UI/BuildMenu/Assets/IconCookery.png" id="11_dit66"]
 [ext_resource type="Texture2D" uid="uid://bg70alfn0txko" path="res://UI/BuildMenu/Assets/IconFishHut.png" id="12_xvxih"]
-[ext_resource type="PackedScene" uid="uid://brws51pnyu33n" path="res://NPC/Scenes/npc_stats.tscn" id="15_letf7"]
+[ext_resource type="PackedScene" uid="uid://ccdk43p76o4nw" path="res://UI/MainUI/Menu Holder.tscn" id="17_xvxih"]
 
 [node name="MainUI" type="CanvasLayer"]
+
+[node name="MenuHolder" parent="." instance=ExtResource("17_xvxih")]
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -190,18 +190,11 @@ layout_mode = 2
 building = 9
 icon = ExtResource("12_xvxih")
 
-[node name="Calendar" parent="." instance=ExtResource("3_kqecl")]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-mouse_filter = 2
-
 [node name="TradeUI" parent="." groups=["TRADEUI"] instance=ExtResource("6_6j1t5")]
+
 
 [node name="JobManager" parent="." instance=ExtResource("7_pg31w")]
 z_index = 2
 
-[node name="TributePayment" parent="." instance=ExtResource("9_bwhks")]
 
-[node name="Villager_stats" parent="." instance=ExtResource("15_letf7")]
+[node name="TributePayment" parent="." instance=ExtResource("9_bwhks")]
