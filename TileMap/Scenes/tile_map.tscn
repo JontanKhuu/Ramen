@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://iou72nbgk7rl" path="res://TileMap/Assets/Hover.png" id="4_6c6d2"]
 [ext_resource type="Texture2D" uid="uid://dympofq0mlwtv" path="res://TileMap/Assets/Stone.png" id="4_ha3ia"]
 [ext_resource type="Texture2D" uid="uid://cg3khy23je2bt" path="res://Buildings/Assets/BuildingHouse.png" id="5_4buhr"]
+[ext_resource type="Texture2D" uid="uid://bc3qtxnn5tw5f" path="res://TileMap/Assets/IronOre.png" id="5_y25y6"]
 [ext_resource type="Texture2D" uid="uid://kfqml2vqpir" path="res://Buildings/Assets/BuildingStorage.png" id="7_g6klr"]
 [ext_resource type="Script" uid="uid://ct5tgd4e0l2jc" path="res://TileMap/Scripts/drawing_node.gd" id="7_j7i0r"]
 [ext_resource type="Texture2D" uid="uid://25tel8abxdaq" path="res://Buildings/Assets/BuildingWorkplace.png" id="8_1fu5r"]
 [ext_resource type="Texture2D" uid="uid://kkln86wr3iew" path="res://TileMap/Assets/Roads.png" id="8_cwpcu"]
 [ext_resource type="Texture2D" uid="uid://54okulcvxyy0" path="res://TileMap/Assets/HoverTannery.png" id="9_dwfy6"]
-[ext_resource type="Texture2D" uid="uid://cngdvtet7dip2" path="res://TileMap/Assets/HoverTiles.png" id="9_y25y6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dwfy6"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
@@ -189,6 +189,12 @@ texture_region_size = Vector2i(32, 32)
 0:0/1/custom_data_0 = "STONE"
 0:0/1/custom_data_1 = 3
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uru7d"]
+texture = ExtResource("5_y25y6")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+0:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_6c6d2"]
 tile_shape = 1
 tile_layout = 5
@@ -200,6 +206,7 @@ custom_data_layer_1/name = "Amount"
 custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_i1uvu")
 sources/1 = SubResource("TileSetAtlasSource_1fu5r")
+sources/2 = SubResource("TileSetAtlasSource_uru7d")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c6d2"]
 texture = ExtResource("4_6c6d2")
@@ -229,105 +236,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/texture_origin = Vector2i(0, -8)
 0:0/0/modulate = Color(1, 1, 1, 0.619608)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uru7d"]
-texture = ExtResource("9_y25y6")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
-0:0/0/terrains_peering_bit/top_left_side = 0
-0:0/0/terrains_peering_bit/top_right_side = 0
-1:0/0 = 0
-1:0/0/terrain_set = 0
-1:0/0/terrain = 0
-1:0/0/terrains_peering_bit/bottom_left_side = 0
-1:0/0/terrains_peering_bit/top_right_side = 0
-2:0/0 = 0
-2:0/0/terrain_set = 0
-2:0/0/terrain = 0
-2:0/0/terrains_peering_bit/bottom_right_side = 0
-2:0/0/terrains_peering_bit/top_left_side = 0
-3:0/0 = 0
-3:0/0/terrain_set = 0
-3:0/0/terrain = 0
-3:0/0/terrains_peering_bit/top_left_side = 0
-4:0/0 = 0
-4:0/0/terrain_set = 0
-4:0/0/terrain = 0
-4:0/0/terrains_peering_bit/bottom_left_side = 0
-4:0/0/terrains_peering_bit/top_left_side = 0
-4:0/0/terrains_peering_bit/top_right_side = 0
-0:1/0 = 0
-0:1/0/terrain_set = 0
-0:1/0/terrain = 0
-0:1/0/terrains_peering_bit/bottom_right_side = 0
-0:1/0/terrains_peering_bit/bottom_left_side = 0
-1:1/0 = 0
-1:1/0/terrain_set = 0
-1:1/0/terrain = 0
-1:1/0/terrains_peering_bit/bottom_right_side = 0
-1:1/0/terrains_peering_bit/bottom_left_side = 0
-1:1/0/terrains_peering_bit/top_left_side = 0
-1:1/0/terrains_peering_bit/top_right_side = 0
-2:1/0 = 0
-3:1/0 = 0
-3:1/0/terrain_set = 0
-3:1/0/terrain = 0
-3:1/0/terrains_peering_bit/bottom_left_side = 0
-4:1/0 = 0
-4:1/0/terrain_set = 0
-4:1/0/terrain = 0
-4:1/0/terrains_peering_bit/bottom_right_side = 0
-4:1/0/terrains_peering_bit/bottom_left_side = 0
-4:1/0/terrains_peering_bit/top_left_side = 0
-0:2/0 = 0
-0:2/0/terrain_set = 0
-0:2/0/terrain = 0
-0:2/0/terrains_peering_bit/bottom_right_side = 0
-0:2/0/terrains_peering_bit/top_right_side = 0
-3:2/0 = 0
-3:2/0/terrain_set = 0
-3:2/0/terrain = 0
-3:2/0/terrains_peering_bit/bottom_right_side = 0
-4:2/0 = 0
-4:2/0/terrain_set = 0
-4:2/0/terrain = 0
-4:2/0/terrains_peering_bit/bottom_right_side = 0
-4:2/0/terrains_peering_bit/bottom_left_side = 0
-4:2/0/terrains_peering_bit/top_right_side = 0
-0:3/0 = 0
-0:3/0/terrain_set = 0
-0:3/0/terrain = 0
-0:3/0/terrains_peering_bit/bottom_left_side = 0
-0:3/0/terrains_peering_bit/top_left_side = 0
-3:3/0 = 0
-3:3/0/terrain_set = 0
-3:3/0/terrain = 0
-3:3/0/terrains_peering_bit/top_right_side = 0
-4:3/0 = 0
-4:3/0/terrain_set = 0
-4:3/0/terrain = 0
-4:3/0/terrains_peering_bit/bottom_right_side = 0
-4:3/0/terrains_peering_bit/top_left_side = 0
-4:3/0/terrains_peering_bit/top_right_side = 0
-0:4/0 = 0
-1:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-0:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-0:7/0 = 0
-3:7/0 = 0
-4:7/0 = 0
-1:2/0 = 0
-1:2/0/terrain_set = 0
-1:2/0/terrain = 0
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y25y6"]
 texture = ExtResource("9_dwfy6")
 texture_region_size = Vector2i(64, 64)
@@ -340,15 +248,11 @@ tile_shape = 1
 tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(32, 16)
-terrain_set_0/mode = 2
-terrain_set_0/terrain_0/name = "Terrain 0"
-terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_6c6d2")
 sources/1 = SubResource("TileSetAtlasSource_0pkeh")
 sources/2 = SubResource("TileSetAtlasSource_qke5h")
 sources/3 = SubResource("TileSetAtlasSource_dwfy6")
 sources/4 = SubResource("TileSetAtlasSource_y25y6")
-sources/35 = SubResource("TileSetAtlasSource_uru7d")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ha3ia"]
 texture = ExtResource("8_cwpcu")
@@ -454,6 +358,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAE
 tile_set = SubResource("TileSet_ita36")
 
 [node name="Tree" type="TileMapLayer" parent="."]
+visible = false
 z_index = 1
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAiAAMAAAAAAAAAAAAlACAAAAAAAAAAAAA2AAsAAAAAAAAAAAAUAAgAAAAAAAAAAAAaABUAAAAAAAAAAAAoABEAAAAAAAAAAAAtAAwAAQAAAAAAAAAtAAsAAQAAAAAAAAA=")
@@ -468,12 +373,6 @@ tile_set = SubResource("TileSet_0pkeh")
 [node name="DrawingNode" type="Node2D" parent="Hover"]
 unique_name_in_owner = true
 script = ExtResource("7_j7i0r")
-
-[node name="Hover2" type="TileMapLayer" parent="."]
-unique_name_in_owner = true
-z_index = 5
-y_sort_enabled = true
-tile_set = SubResource("TileSet_0pkeh")
 
 [node name="Roads" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
