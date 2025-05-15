@@ -1,6 +1,4 @@
-
-[gd_scene load_steps=16 format=3 uid="uid://b7j3lm2yhyfp8"]
-
+[gd_scene load_steps=15 format=3 uid="uid://b7j3lm2yhyfp8"]
 
 [ext_resource type="Script" uid="uid://f5suv8agt6wb" path="res://World/Scripts/world.gd" id="1_flw8f"]
 [ext_resource type="Script" uid="uid://cc7l2f6hcr6ka" path="res://UI/Calendar/Scripts/Calendar/time_system.gd" id="2_6j0en"]
@@ -12,14 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://dj3y6vnh3v28l" path="res://NPC/Scenes/npc.tscn" id="8_wg14y"]
 [ext_resource type="PackedScene" uid="uid://b4od6l5fg7xh0" path="res://Buildings/Scenes/tent.tscn" id="9_jq823"]
 [ext_resource type="PackedScene" uid="uid://dvp4oq2sn7gru" path="res://World/Scenes/hunting_ground.tscn" id="10_6j0en"]
-[ext_resource type="Script" path="res://World/Scenes/hunting_ground.gd" id="11_pr1x1"]
 
 [sub_resource type="Resource" id="Resource_bkhv4"]
 script = ExtResource("3_pr1x1")
 seconds = 0
-minutes = 0
-hours = 0
-days = 0
+minutes = 20
+hours = 3
+days = 1
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [sub_resource type="Resource" id="Resource_3f78f"]
@@ -43,23 +40,7 @@ script = ExtResource("3_pr1x1")
 seconds = 0
 minutes = 0
 hours = 20
-days = 1
-metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
-
-[sub_resource type="Resource" id="Resource_6j0en"]
-script = ExtResource("3_pr1x1")
-seconds = 0
-minutes = 0
-hours = 16
-days = 0
-metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
-
-[sub_resource type="Resource" id="Resource_pr1x1"]
-script = ExtResource("3_pr1x1")
-seconds = 0
-minutes = 0
-hours = 4
-days = 4
+days = 2
 metadata/_custom_type_script = "uid://cs3tjofpk4ng3"
 
 [node name="World" type="Node2D"]
@@ -69,24 +50,21 @@ script = ExtResource("1_flw8f")
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("2_6j0en")
 date_time = SubResource("Resource_bkhv4")
-ticks_per_second = 5000
+ticks_per_second = 2000
 
 [node name="MainUI" parent="." instance=ExtResource("4_nonhq")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." node_paths=PackedStringArray("time_system")]
 position = Vector2(576, 281)
+color = Color(0.140447, 0.140447, 0.140447, 1)
 blend_mode = 2
 script = ExtResource("5_cc6rb")
 day_color = Color(1, 1, 1, 1)
 afternoon_color = Color(0.788235, 0.72549, 0.498039, 1)
 night_color = Color(0.529412, 0.501961, 0.372549, 1)
-ash_storm_color = Color(0.947406, 3.77826e-06, 1.73271e-06, 1)
-rain_color = Color(0.522277, 0.677125, 1, 1)
 day_start = SubResource("Resource_3f78f")
 afternoon_start = SubResource("Resource_yf0ba")
 night_start = SubResource("Resource_k8do8")
-rain_start = SubResource("Resource_6j0en")
-ashstorm_start = SubResource("Resource_pr1x1")
 time_system = NodePath("../TimeSystem")
 
 [node name="Crops" type="Node2D" parent="."]
@@ -111,13 +89,15 @@ y_sort_enabled = true
 [node name="Tent" parent="Buildings" instance=ExtResource("9_jq823")]
 position = Vector2(256, 546)
 
-[node name="NPCs" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="NPCs" type="Node" parent="."]
 
 [node name="NPC" parent="NPCs" instance=ExtResource("8_wg14y")]
 position = Vector2(323, 606)
 job = 1
 
+[node name="NPC2" parent="NPCs" instance=ExtResource("8_wg14y")]
+position = Vector2(323, 606)
+job = 1
 
 [node name="EventSpawn" type="Node2D" parent="." groups=["EVENTSPAWN"]]
 position = Vector2(-481, 264)
@@ -126,7 +106,3 @@ position = Vector2(-481, 264)
 
 [node name="HuntingGround" parent="HuntAreas" instance=ExtResource("10_6j0en")]
 position = Vector2(-51, 237)
-script = ExtResource("11_pr1x1")
-
-[node name="Harvestables" type="Node2D" parent="." groups=["HARVESTABLES_NODE"]]
-y_sort_enabled = true

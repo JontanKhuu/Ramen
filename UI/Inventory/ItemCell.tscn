@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0fvjdc75rana"]
+
+[ext_resource type="Script" uid="uid://bfsb4wo1vlkda" path="res://UI/Inventory/Scripts/item_cell.gd" id="1_ptqyg"]
+[ext_resource type="PackedScene" uid="uid://cjrq0vcsavyb7" path="res://UI/Inventory/ItemDescription.tscn" id="2_tlbf5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tlbf5"]
+
+[node name="ItemCell" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1120.0
+offset_bottom = -616.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ptqyg")
+item_description_scene = ExtResource("2_tlbf5")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+centered = false
+
+[node name="CheckItem" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="ItemCount" type="Label" parent="."]
+custom_minimum_size = Vector2(5, 10)
+layout_mode = 0
+offset_left = 22.0
+offset_top = 20.0
+offset_right = 32.0
+offset_bottom = 32.0
+text = "0"
+label_settings = SubResource("LabelSettings_tlbf5")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[connection signal="pressed" from="CheckItem" to="." method="_on_check_item_pressed"]
