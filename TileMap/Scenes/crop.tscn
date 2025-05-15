@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbnbamy4encin"]
 
-[ext_resource type="Script" uid="uid://dno7ebl8ngvdt" path="res://TileMap/Scenes/crop.gd" id="1_p08hb"]
+[ext_resource type="Script" uid="uid://dno7ebl8ngvdt" path="res://TileMap/Scripts/crop.gd" id="1_p08hb"]
 [ext_resource type="Texture2D" uid="uid://dl5vjnc6m0no0" path="res://TileMap/Assets/CropBerryVenusflytrap.png" id="2_p08hb"]
 
 [node name="Crop" type="Node2D" groups=["CROP"]]
