@@ -46,10 +46,8 @@ func _create_job_spinboxes(initial_job_counts: Dictionary):
 			spinbox.max_value = total_villagers # Initial max is total villagers
 			spinbox.value = initial_job_counts.get(job_enum_value, 0) # Set initial value
 			spinbox.type = Global.job_name_dict.find_key(job_name)
-			spinbox.update_on_text_changed = true
 			job_container.add_child(spinbox)
 			current_job_counts[job_name] = spinbox.value # Initialize count
-	_update_spinbox_max_values()
 
 func _connect_spinbox_signals():
 	for child in job_container.get_children():
@@ -67,19 +65,17 @@ func _update_spinbox_max_values():
 		var current_assigned = current_job_counts.get(job_name, 0)
 		var altLim = current_assigned + unemployed_count
 		
-		if child.name == "NONE" or child.name == "CHILD":
-			continue
-		if child.name == "LABORER" or child.name == "BUILDER":
+		if child.name != "NONE" or child.name == "CHILD":
 			child.max_value = altLim
 			continue
-		if child.is_class("SpinBox"):
+		if child is JobBox:
 			var lim = Global.job_limit_dict[child.type]
-			if lim <= altLim:
-				child.max_value = lim	
+			if lim < altLim:
+				child.max_value = lim
 			else:
 				child.max_value = altLim
 
-func _on_job_spinbox_changed(new_value: float, spinbox : SpinBox):
+func _on_job_spinbox_changed(new_value: float, spinbox):
 	Global.update_job_limits()
 	var job_name = spinbox.name
 	var previous_value = current_job_counts.get(job_name, 0)
@@ -100,9 +96,7 @@ func _on_job_spinbox_changed(new_value: float, spinbox : SpinBox):
 			if not current_job_villagers.is_empty():
 				var current_villager = current_job_villagers.pop_front()
 				current_villager.job = jobs.NONE
-	
+
 	current_job_counts[job_name] = int(new_value)
 	available_workers.text = str(_get_villager_job(jobs.NONE).size())
 	_update_spinbox_max_values() # Update max values after each change
-	spinbox.editable = false
-	spinbox.editable = true

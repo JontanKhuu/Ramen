@@ -5,11 +5,11 @@ const HOUSE = preload("res://Buildings/Scenes/house.tscn")
 const STORAGE = preload("res://Buildings/Scenes/storage.tscn")
 const BUILDING = preload("res://Buildings/Scenes/construction.tscn")
 const DROP = preload("res://TileMap/Scenes/resourceDrop.tscn")
-const HARVESTABLE = preload("res://TileMap/Scenes/harvestable.tscn")
 
 @onready var grass: TileMapLayer = $Grass
 @onready var tree: TileMapLayer = $Tree
 @onready var hover: TileMapLayer = $Hover
+@onready var hover2: TileMapLayer = %Hover2
 @onready var drawingNode: Node2D = %DrawingNode
 @onready var roads: TileMapLayer = $Roads
 @onready var buildings_node : Node2D = get_tree().get_first_node_in_group("BUILDINGS_NODE")
@@ -25,15 +25,15 @@ var type : Global.BUILDINGS
 var aStar : AStarGrid2D = AStarGrid2D.new()
 
 func _ready() -> void:
-	tree.visible = false
 	_set_road_weights()
-	initialize_resources()
 	_remove_tree_nav()
 	
 	
 func _process(_delta: float) -> void:
 	for cell in hover.get_used_cells():
 		hover.set_cell(cell,-1)
+	for cell in hover2.get_used_cells():
+		hover2.set_cell(cell,-1)
 	
 	if is_building:
 		_handle_hover()
@@ -52,10 +52,11 @@ func _handle_hover() -> void:
 		is_building = false
 		drawingNode.type = type
 		return
-		
 	
 	var tile : Vector2i = hover.local_to_map(get_global_mouse_position() - Vector2(0,8))
 	hover.set_cell(tile,type,Vector2i(0,0))
+	var hoverTiles = hoverHelper(tile,2,3)
+	hover2.set_cells_terrain_connect(hoverTiles,0,0)
 	
 	if Input.is_action_just_pressed("confirm"):
 		if Global.inventory_dict[resource] < cost:
@@ -74,6 +75,13 @@ func _handle_hover() -> void:
 		is_building = false
 		type = 0
 	pass
+
+func hoverHelper(tile : Vector2i, xDim : int, yDim : int) -> Array:
+	var arr = []
+	for x in range(tile.x + 1, tile.x + xDim + 1):
+		for y in range(tile.y +1, tile.y + yDim + 1):
+			arr.append(Vector2i(x,y))
+	return arr
 
 func _set_road_weights() -> void:
 	# Astar algorithm setting
@@ -100,9 +108,8 @@ func _set_road_weights() -> void:
 	pass
 
 func _remove_tree_nav() -> void:
-	var harvestables = get_tree().get_nodes_in_group("HARVESTABLES")
-	harvestables = harvestables.map(func(element):return tree.local_to_map(element.global_position))
-	for cell in harvestables:
+	var trees = tree.get_used_cells()
+	for cell in trees:
 		grass.set_cell(cell,0,Vector2i(0,1),1)
 
 func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED):
@@ -110,7 +117,6 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	var launch_speed = 100
 	var launch_time = .25
 	drop_instance.type = resourcetype
-	Global.drop_queue.append(drop_instance)
 	add_child(drop_instance)
 	
 	var pos = grass.map_to_local(initPos)
@@ -122,25 +128,3 @@ func spawn_resource(initPos : Vector2i, resourcetype : Global.RESOURCES_TRACKED)
 	).normalized()
 	
 	drop_instance.launch(direction * launch_speed, launch_time)
-
-func initialize_resources() -> void:
-	var trees = tree.get_used_cells_by_id(0,Vector2i(0,0))
-	var stones = tree.get_used_cells_by_id(1,Vector2i(0,0))
-	var ores = tree.get_used_cells_by_id(2,Vector2i(0,0))
-	init_helper(trees,1)
-	init_helper(stones,2)
-	init_helper(ores,3)
-	
-	
-func init_helper(arr : Array, type : int) -> void:
-	# arr of vector2i or tiles 
-	var parent = get_tree().get_first_node_in_group("HARVESTABLES_NODE")
-	for tile in arr:
-		var pos = tree.map_to_local(tile)
-		var node : Harvestable = HARVESTABLE.instantiate()
-		node.type = type
-		node.global_position = pos
-		node.tile = tile
-		parent.add_child(node)
-		
-	

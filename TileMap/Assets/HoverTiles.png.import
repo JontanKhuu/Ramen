@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc3qtxnn5tw5f"
-path="res://.godot/imported/IronOre.png-74bab8f91bf900233d894c467559c667.ctex"
+uid="uid://cngdvtet7dip2"
+path="res://.godot/imported/HoverTiles.png-87842efccdbcf92f95f1bb6a5658d3c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/Assets/IronOre.png"
-dest_files=["res://.godot/imported/IronOre.png-74bab8f91bf900233d894c467559c667.ctex"]
+source_file="res://TileMap/Assets/HoverTiles.png"
+dest_files=["res://.godot/imported/HoverTiles.png-87842efccdbcf92f95f1bb6a5658d3c5.ctex"]
 
 [params]
 
