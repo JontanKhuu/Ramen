@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd4ujd0v4ugd3"]
+
+[ext_resource type="Script" uid="uid://djngr6o8bg17s" path="res://UI/Logs/Script/log_info.gd" id="1_uvnpe"]
+[ext_resource type="Texture2D" uid="uid://b1c5uq0ojto0q" path="res://UI/Logs/Assets/LogSprite.png" id="2_8lc7o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8lc7o"]
+
+[node name="LogInfo" type="Control"]
+layout_mode = 3
+anchor_top = 0.219
+anchor_right = 0.317
+anchor_bottom = 1.0
+offset_top = 0.0879974
+offset_right = -0.18399
+grow_vertical = 2
+script = ExtResource("1_uvnpe")
+
+[node name="LogSprite" type="Sprite2D" parent="."]
+position = Vector2(182, 255)
+scale = Vector2(4.14773, 4.63889)
+texture = ExtResource("2_8lc7o")
+
+[node name="LogCanvas" type="CanvasLayer" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LogCanvas"]
+anchors_preset = -1
+anchor_top = 0.134
+anchor_right = 0.233
+anchor_bottom = 1.0
+offset_left = 91.0
+offset_top = 152.168
+offset_right = 4.58401
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LogContainer" type="VBoxContainer" parent="LogCanvas/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_8lc7o")

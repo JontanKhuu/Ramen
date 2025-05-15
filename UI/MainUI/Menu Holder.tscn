@@ -217,5 +217,6 @@ layout_mode = 1
 
 [connection signal="pressed" from="PopOutContainer/CalendarButton" to="." method="_on_calendar_button_pressed"]
 [connection signal="pressed" from="PopOutContainer/VillagerStatsButton" to="." method="_on_villager_stats_button_pressed"]
+[connection signal="pressed" from="PopOutContainer/LogsButton" to="." method="_on_logs_button_pressed"]
 [connection signal="pressed" from="PopOutContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="PopOutContainer/VillagerEmployment" to="." method="_on_villager_employment_pressed"]
