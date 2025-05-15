@@ -659,4 +659,3 @@ func show_stats(): # Showing individual villager stats
 	else:
 		printerr("Error: UI Layer node not found!")
 		indiv_stat.queue_free()
-
