@@ -5,10 +5,9 @@ const goblin = preload("res://NPC/Assets/Merchant.png")
 const ambassador = preload("res://NPC/Assets/Ambassador.png")
 const guard1 = preload("res://NPC/Assets/Guard1.png")
 const guard2 = preload("res://NPC/Assets/Guard2.png")
-const shaman_png = preload("res://NPC/Assets/npc.png") # replace with shaman png
 
 enum EVENT_TYPE{
-	NONE = 0,MERCHANT = 1, TRIBUTE = 2, SHAMAN = 3
+	NONE = 0,MERCHANT = 1, TRIBUTE = 2
 }
 
 @export var speed := 100
@@ -20,7 +19,6 @@ enum EVENT_TYPE{
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var trade : Control = get_tree().get_first_node_in_group("TRADEUI")
 @onready var tribute : Control = get_tree().get_first_node_in_group("TRIBUTE")
-@onready var shaman : Control = get_tree().get_first_node_in_group("SHAMAN")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 var _target
@@ -96,9 +94,6 @@ func _handle_event_setup() -> void:
 			sprite_2d.texture = ambassador
 			tribute.paid = false
 			pass
-		EVENT_TYPE.SHAMAN: 
-			sprite_2d.texture = shaman_png 
-			pass
 
 func _event_action() -> void:
 	match event_type:
@@ -108,10 +103,6 @@ func _event_action() -> void:
 		EVENT_TYPE.TRIBUTE:
 			tribute.visible = true
 			pass
-		EVENT_TYPE.SHAMAN:
-			shaman.visibile = true 
-			pass
-			
 func leave() -> void:
 	_target = get_parent().global_position
 	leaving = true

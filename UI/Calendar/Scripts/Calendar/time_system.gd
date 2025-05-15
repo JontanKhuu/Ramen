@@ -5,7 +5,7 @@ const EVENT = preload("res://NPC/Scenes/event_npc.tscn")
 signal updated
 
 @export var date_time: DateTime 
-@export var ticks_per_second: int = 2000 # Change the int here to increase/decrease speed of time
+@export var ticks_per_second: int = 10000 # Change the int here to increase/decrease speed of time
 
 @onready var world : Node2D = owner
 @onready var eventSpawn = get_tree().get_first_node_in_group("EVENTSPAWN")
@@ -13,10 +13,16 @@ signal updated
 var events = {
 	"Trader Spawn": {"days": 1,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
 	"Money Checkin": {"days": 2,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
+	"Queue Sort Test": {"days": 1,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
+	"Test Event2": {"days": 1,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
 	"Trader Spawn2": {"days": 3,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
 	"Money Checkin2": {"days": 6,"hours": 8,"minutes": 0,"action": Callable(self,"money_checkin")},
+	"Queue Sort Test2": {"days": 7,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
+	"Queue Sort Tes3t": {"days": 4,"hours": 2,"minutes": 59,"action": Callable(self,"test_one")},
+	"Test Eve3nt2": {"days": 5,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
 	"Trader Sp3awn2": {"days": 18,"hours": 14,"minutes": 30,"action": Callable(self,"trader_spawn")},
-	"Shaman Spawn": {"days": 1,"hours": 12,"minutes": 4,"action": Callable(self,"shaman_spawn")},
+	"Test Event22": {"days": 12,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
+	"Test Event222": {"days": 26,"hours": 16,"minutes": 4,"action": Callable(self,"test_two")},
 }
 	
 var previous_day = -1
@@ -83,14 +89,6 @@ func money_checkin():
 	date_time.connect("day_passed",Callable(tax,"leave"))
 	eventSpawn.add_child(tax)
 	print("Its time to pay your monthly rent")
-	
-func shaman_spawn(): # There is a layering issue here
-	var shaman = EVENT.instantiate()
-	shaman.event_type = shaman.EVENT_TYPE.SHAMAN
-	date_time.connect("day_passed",Callable(shaman,"leave"))
-	eventSpawn.add_child(shaman)
-	print("The shaman is here")
-	pass
 	
 func test_one():
 	print("Event 2")
