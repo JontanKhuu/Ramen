@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ccdk43p76o4nw"]
 
 [ext_resource type="Texture2D" uid="uid://cldag4twxt8p8" path="res://UI/MainUI/Assets/Button-Placeholder.png" id="1_8x4wl"]
-[ext_resource type="Script" uid="uid://bg2cvg7j7ivha" path="res://UI/MainUI/Scripts/menu_holder.gd" id="1_w8hrd"]
+[ext_resource type="Script" uid="uid://bgxn8r1n5qlug" path="res://UI/MainUI/Scripts/menu_holder.gd" id="1_w8hrd"]
 [ext_resource type="Texture2D" uid="uid://cemmjnniwxfn6" path="res://UI/MainUI/Assets/Button-Placeholder-Pressed.png" id="2_w8hrd"]
 [ext_resource type="Texture2D" uid="uid://dbechrcilflc1" path="res://UI/MainUI/Assets/Button-Placeholder-Hovered.png" id="3_7q1fj"]
 [ext_resource type="PackedScene" uid="uid://dxw10u0i2gy2c" path="res://UI/Calendar/Calendar.tscn" id="5_7q1fj"]

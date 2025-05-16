@@ -1,8 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://bknpq5xs0m5hk"]
+[gd_scene load_steps=10 format=3 uid="uid://bknpq5xs0m5hk"]
 
 [ext_resource type="Script" uid="uid://cvfqyl5nhysws" path="res://UI/Job_Manager/scripts/job_box.gd" id="1_761ff"]
+[ext_resource type="Texture2D" uid="uid://c3agdhl1h4obr" path="res://UI/Job_Manager/assets/spinbuttons.png" id="1_hhcqm"]
+[ext_resource type="Texture2D" uid="uid://cgjy5c7pncxb0" path="res://UI/Job_Manager/assets/jobBack.png" id="2_mwf4x"]
+
+[sub_resource type="Theme" id="Theme_761ff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w1dq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mmjw"]
+atlas = ExtResource("1_hhcqm")
+region = Rect2(0, 16, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhcqm"]
+region = Rect2(0, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma0cf"]
+atlas = ExtResource("1_hhcqm")
+region = Rect2(0, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecmop"]
+atlas = ExtResource("1_hhcqm")
+region = Rect2(0, 0, 20, 16)
 
 [node name="JobBox" type="SpinBox"]
-offset_right = 86.5625
-offset_bottom = 31.0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 116.0
+offset_bottom = 36.0
+theme = SubResource("Theme_761ff")
+theme_override_icons/up_disabled = SubResource("AtlasTexture_4w1dq")
+theme_override_icons/down = SubResource("AtlasTexture_8mmjw")
+theme_override_icons/down_hover = SubResource("AtlasTexture_8mmjw")
+theme_override_icons/down_pressed = SubResource("AtlasTexture_8mmjw")
+theme_override_icons/down_disabled = SubResource("AtlasTexture_hhcqm")
+theme_override_icons/up_pressed = SubResource("AtlasTexture_ma0cf")
+theme_override_icons/up_hover = SubResource("AtlasTexture_ma0cf")
+theme_override_icons/up = SubResource("AtlasTexture_ecmop")
+max_value = 0.0
+alignment = 1
+update_on_text_changed = true
+prefix = "Laborer:"
 script = ExtResource("1_761ff")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(2, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_mwf4x")
+offset = Vector2(40, 10)

@@ -12,16 +12,16 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="JobManager" type="Control"]
 z_index = 2
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 576.0
-offset_top = -68.0
-offset_right = -389.0
-offset_bottom = -489.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -164.0
+offset_right = 200.0
+offset_bottom = 150.0
 grow_vertical = 2
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_dnr38")
 
 [node name="Job Manager Box" type="VBoxContainer" parent="."]
@@ -30,10 +30,10 @@ anchor_left = 2.075
 anchor_top = 1.089
 anchor_right = 2.075
 anchor_bottom = 1.089
-offset_left = -0.0249939
-offset_top = -0.0250244
-offset_right = 187.975
-offset_bottom = 260.975
+offset_left = -406.0
+offset_top = -334.946
+offset_right = -255.0
+offset_bottom = -40.946
 
 [node name="Job" type="VBoxContainer" parent="Job Manager Box"]
 layout_mode = 2
@@ -49,8 +49,10 @@ alignment = 1
 layout_mode = 2
 text = "Unemployed:"
 label_settings = SubResource("LabelSettings_dnr38")
+horizontal_alignment = 1
 
 [node name="Job Count" type="Label" parent="Job Manager Box/Job/Job Container"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_5x4eh")
+horizontal_alignment = 1

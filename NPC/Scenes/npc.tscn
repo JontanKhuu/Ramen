@@ -139,7 +139,7 @@ libraries = {
 
 [node name="Sprite2D" type="Sprite2D" parent="Flip"]
 unique_name_in_owner = true
-position = Vector2(0, -8)
+position = Vector2(0, -3)
 texture = ExtResource("2_jsb76")
 offset = Vector2(0, -8)
 hframes = 6
@@ -147,7 +147,7 @@ hframes = 6
 [node name="ResourceHold" type="Sprite2D" parent="Flip"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(0, -32)
+position = Vector2(0, -27)
 texture = ExtResource("3_rydlk")
 hframes = 7
 

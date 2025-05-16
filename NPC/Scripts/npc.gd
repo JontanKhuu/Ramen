@@ -612,13 +612,15 @@ func day_passed() -> void:
 func _on_birth_timer_timeout() -> void:
 	z_index = 1
 	
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+func _input(event: InputEvent) -> void:
+	var dis = get_global_mouse_position().distance_to(global_position)
+	if event.is_action_released("confirm") and dis < 16:
 		show_stats()
 
 func show_stats(): # Showing individual villager stats
 	if is_instance_valid(stat_instance):
 		stat_instance.queue_free() # Close any existing instance
+		return
 
 	var indiv_stat = individual_stats.instantiate()
 	for job_name in Global.JOB.keys():

@@ -10,13 +10,25 @@ offset_right = 20.0
 offset_bottom = 20.0
 scale = Vector2(2, 2)
 theme_override_constants/separation = 10
-alignment = 1
 script = ExtResource("1_uw0g8")
 trackedResource = 1
 
 [node name="Sprite" type="Control" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Sprite"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+offset_left = 14.5
+offset_top = 4.0
+offset_right = 60.5
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("3_lr4aq")
+text = "0"
+horizontal_alignment = 1
 
 [node name="Icon" type="Sprite2D" parent="Sprite"]
 unique_name_in_owner = true
@@ -25,11 +37,3 @@ offset = Vector2(10, 10)
 hframes = 5
 vframes = 5
 frame = 5
-
-[node name="Label" type="Label" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_lr4aq")
-text = "0"
-horizontal_alignment = 1

@@ -6,6 +6,9 @@ var price : int
 var inv : int
 
 @onready var sell: SpinBox = $Sell
+func _ready() -> void:
+	sell.get_line_edit().flat = true
+	sell.get_line_edit().focus_mode = Control.FOCUS_NONE
 
 func _process(delta: float) -> void:
 	price = Global.value_dict[resource]
