@@ -7,13 +7,16 @@
 [sub_resource type="Theme" id="Theme_761ff"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4w1dq"]
+atlas = ExtResource("1_hhcqm")
+region = Rect2(0, 0, 20, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mmjw"]
 atlas = ExtResource("1_hhcqm")
 region = Rect2(0, 16, 20, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhcqm"]
-region = Rect2(0, 0, 20, 16)
+atlas = ExtResource("1_hhcqm")
+region = Rect2(0, 16, 20, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ma0cf"]
 atlas = ExtResource("1_hhcqm")
@@ -38,6 +41,7 @@ theme_override_icons/up_pressed = SubResource("AtlasTexture_ma0cf")
 theme_override_icons/up_hover = SubResource("AtlasTexture_ma0cf")
 theme_override_icons/up = SubResource("AtlasTexture_ecmop")
 max_value = 0.0
+rounded = true
 alignment = 1
 update_on_text_changed = true
 prefix = "Laborer:"

@@ -16,7 +16,7 @@ func _ready():
 	_connect_spinbox_signals()
 	_update_spinbox_max_values() # Setting initial max values
 	Global.connect("adult_count_increased", _update_spinbox_max_values)
-	
+
 func _get_initial_job_counts() -> Dictionary:
 	var job_counts = {}
 	for job_name in jobs.keys():

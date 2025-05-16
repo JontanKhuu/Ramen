@@ -48,6 +48,8 @@ STORAGE=""
 DEERMEN=""
 WORKPLACE=""
 SHAMAN=""
+JOBMANAGER=""
+EVENTLOG=""
 
 [input]
 

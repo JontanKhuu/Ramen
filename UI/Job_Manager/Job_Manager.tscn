@@ -10,7 +10,7 @@ outline_color = Color(0, 0, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="JobManager" type="Control"]
+[node name="JobManager" type="Control" groups=["JOBMANAGER"]]
 z_index = 2
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 3

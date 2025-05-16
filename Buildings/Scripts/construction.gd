@@ -69,6 +69,7 @@ func _build_chosen_building():
 	place.global_position = global_position
 	get_parent().add_child(place)
 	Global.update_job_limits()
+	get_tree().get_first_node_in_group("JOBMANAGER")._update_spinbox_max_values()
 	
 	if builder:
 		builder._target = null

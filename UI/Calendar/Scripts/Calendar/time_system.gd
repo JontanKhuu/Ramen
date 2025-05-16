@@ -21,10 +21,12 @@ var events = {
 	
 var previous_day = -1
 var event_queue = []
+var eventlog
 
 func _ready() -> void:
 	date_time.connect("day_passed",Callable(world,"birth_chance"))
 	date_time.connect("day_passed",Callable(self,"day_passed"))
+	eventlog = get_tree().get_first_node_in_group("EVENTLOG")
 
 # Function that updates time
 func _process(delta:float) -> void:

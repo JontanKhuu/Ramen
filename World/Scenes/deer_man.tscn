@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d1e0qkqoe86ww"]
 
-[ext_resource type="Script" path="res://World/Scripts/deer_man.gd" id="1_es2yr"]
+[ext_resource type="Script" uid="uid://dua1l8hb7qe3u" path="res://World/Scripts/deer_man.gd" id="1_es2yr"]
 
 [node name="DeerMan" type="CharacterBody2D" groups=["DEERMEN"]]
 script = ExtResource("1_es2yr")

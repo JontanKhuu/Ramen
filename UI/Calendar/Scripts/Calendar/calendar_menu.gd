@@ -5,6 +5,7 @@ extends Control
 @export var event_details_panel_scene: PackedScene
 
 var current_event_details_panel 
+var eventlog
 
 func _on_gui_input(event: InputEvent) -> void:
 	get_parent().close_calendar()
@@ -12,6 +13,7 @@ func _on_gui_input(event: InputEvent) -> void:
 func _ready():
 	_populate_calendar()
 	_display_event_buttons()
+	eventlog = get_tree().get_first_node_in_group("EVENTLOG")
 
 func _populate_calendar():
 	var day_container = $NinePatchRect/GridContainer
@@ -68,24 +70,30 @@ func _on_show_day_events(day: int):
 func _display_event_list(day: int, events: Array):
 	if event_details_panel_scene:
 		var details_panel_instance = event_details_panel_scene.instantiate()
-		var event_list_container = details_panel_instance.get_node("EventPanel/EventContainer") 
-		var title_label = details_panel_instance.get_node("EventPanel/EventsLabel") 
-		var close_button = details_panel_instance.get_node("ClosePanel")
-
+		var event_list_container = eventlog.events
+		#details_panel_instance.get_node("EventPanel/EventContainer") 
+		#var title_label = details_panel_instance.get_node("EventPanel/EventsLabel") 
+		#var close_button = details_panel_instance.get_node("ClosePanel")
 		if is_instance_valid(event_list_container):
-			for child in event_list_container.get_children():
-				child.queue_free()
+			#for child in event_list_container.get_children():
+				#child.queue_free()
 			for event in events:
-				var event_label = Label.new()
+				var event_label = RichTextLabel.new()
+				event_label.scale = Vector2(0.75,0.75)
+				event_label.custom_minimum_size = Vector2(175,20)
+				event_label.fit_content = true
+				event_label.bbcode_enabled = true
+				event_label.z_index = 10
 				var formatted_time = "%02d:%02d" % [event.hour, event.minute]
 				event_label.text = "%s - %s" % [event.name, formatted_time]
+				event_label.text = "[color=yellow]" + event_label.text + "[/color]" 
 				event_list_container.add_child(event_label)
 
-		if is_instance_valid(close_button):
-			close_button.connect("pressed", _on_event_details_close_pressed.bind(details_panel_instance))
+		#if is_instance_valid(close_button):
+			#close_button.connect("pressed", _on_event_details_close_pressed.bind(details_panel_instance))
 
-		current_event_details_panel = details_panel_instance
-		add_child(current_event_details_panel)
+		#current_event_details_panel = details_panel_instance
+		#add_child(current_event_details_panel)
 
 func _on_event_details_close_pressed(panel_instance: Node):
 	if is_instance_valid(panel_instance):

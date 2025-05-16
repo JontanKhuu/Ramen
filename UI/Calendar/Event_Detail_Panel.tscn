@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://fi5fgsdv4q10"]
+[gd_scene load_steps=4 format=3 uid="uid://fi5fgsdv4q10"]
+
+[ext_resource type="Script" uid="uid://dwod64q8qh0ye" path="res://UI/Calendar/event_detail_panel.gd" id="1_ddesr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b07ng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddesr"]
 
-[node name="EventDetailPanel" type="Control"]
+[node name="EventDetailPanel" type="Control" groups=["EVENTLOG"]]
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 3
 anchors_preset = 2
@@ -13,6 +15,7 @@ anchor_bottom = 1.0
 offset_top = -200.0
 offset_right = 174.0
 grow_vertical = 0
+script = ExtResource("1_ddesr")
 
 [node name="EventPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -24,6 +27,8 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_b07ng")
 
 [node name="EventContainer" type="VBoxContainer" parent="EventPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 200)
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -60,3 +65,8 @@ grow_horizontal = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ddesr")
 text = "  Todays Events  "
 horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
